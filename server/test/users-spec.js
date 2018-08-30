@@ -7,6 +7,8 @@ import chaiHttp from 'chai-http';
 import app from '../app';
 import model from '../server/models';
 
+process.env.NODE_ENV = 'test';
+
 chai.should();
 chai.use(chaiHttp);
 const request = supertest(app);
