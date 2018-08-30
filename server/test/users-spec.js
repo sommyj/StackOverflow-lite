@@ -29,8 +29,8 @@ describe('Users', () => {
   });
 
   describe('/POST user', () => {
-    it(`it should not CREATE a user without firstname, lastname, username, password,
-     email, gender, country, phone`, (done) => {
+    it(`it should not CREATE a user without username, password,
+     email, gender`, (done) => {
       request
         .post('/auth/v1/signup')
         .field('title', 'mr')
