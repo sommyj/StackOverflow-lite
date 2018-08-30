@@ -269,7 +269,7 @@ describe('Users', () => {
       });
     });
 
-    it('it should not get a particular user if POST a wrong username && password', (done) => {
+    it('it should not get a particular user if POST a wrong username', (done) => {
       User.create({
         title: 'mr',
         firstname: 'justin',
@@ -286,45 +286,71 @@ describe('Users', () => {
           .post('/auth/v1/login')
           .send({ username: 'just', password: 'abc' })
           .end((err, res) => {
-            res.should.have.status(404);
+            res.should.have.status(400);
             res.body.should.be.a('object');
-            res.body.message.should.be.eql('User not found');
+            res.body.message.should.be.eql('Invalid username/password');
             done();
           });
       });
     });
 
+    it('it should not get a particular user if POST a wrong username', (done) => {
+      request
+        .post('/auth/v1/signup')
+        .field('title', 'mr')
+        .field('firstname', 'Justin')
+        .field('lastname', 'Ikwuoma')
+        .field('username', 'justman4')
+        .field('password', 'abc')
+        .field('email', 'justin@gmail.com')
+        .field('gender', 'male')
+        .field('country', 'Nigeria')
+        .field('phone', '669796498')
+        .attach('userImage', '')
+        .end((err, res) => {
+          request
+            .post('/auth/v1/login')
+            .send({ username: 'just', password: 'abc' })
+            .end((err, res) => {
+              res.should.have.status(400);
+              res.body.should.be.a('object');
+              res.body.message.should.be.eql('Invalid username/password');
+              done();
+            });
+      });
+    });
+
     it('it should POST username && password and get the particular user', (done) => {
-      User.create({
-        title: 'mr',
-        firstname: 'Justin',
-        lastname: 'Ikwuoma',
-        username: 'justman5',
-        password: 'abc',
-        email: 'justin5@gmail.com',
-        gender: 'male',
-        country: 'Nigeria',
-        dob: '2015-11-04',
-        phone: '566976498',
-        userImage: ''
-      }).then(() => {
-        request
-          .post('/auth/v1/login')
-          .send({ username: 'justman5', password: 'abc' })
-          .end((err, res) => {
-            res.should.have.status(200);
-            res.body.should.be.a('object');
-            res.body.user.should.have.property('id');
-            res.body.user.should.have.property('firstname').eql('Justin');
-            res.body.user.should.have.property('lastname').eql('Ikwuoma');
-            res.body.user.should.have.property('username').eql('justman5');
-            res.body.user.should.have.property('email').eql('justin5@gmail.com');
-            res.body.user.should.have.property('password').eql(res.body.user.password);
-            res.body.user.should.have.property('userimage').eql('');
-            res.body.should.have.property('auth').eql(true);
-            res.body.should.have.property('token').eql(res.body.token);
-            done();
-          });
+      request
+        .post('/auth/v1/signup')
+        .field('title', 'mr')
+        .field('firstname', 'Justin')
+        .field('lastname', 'Ikwuoma')
+        .field('username', 'justman4')
+        .field('password', 'abc')
+        .field('email', 'justin@gmail.com')
+        .field('gender', 'male')
+        .field('country', 'Nigeria')
+        .field('phone', '669796498')
+        .attach('userImage', '')
+        .end((err, res) => {
+          request
+            .post('/auth/v1/login')
+            .send({ username: 'justman4', password: 'abc' })
+            .end((err, res) => {
+              res.should.have.status(200);
+              res.body.should.be.a('object');
+              res.body.user.should.have.property('id');
+              res.body.user.should.have.property('firstname').eql('Justin');
+              res.body.user.should.have.property('lastname').eql('Ikwuoma');
+              res.body.user.should.have.property('username').eql('justman4');
+              res.body.user.should.have.property('email').eql('justin@gmail.com');
+              res.body.user.should.have.property('password').eql(res.body.user.password);
+              res.body.user.should.have.property('userimage').eql('');
+              res.body.should.have.property('auth').eql(true);
+              res.body.should.have.property('token').eql(res.body.token);
+              done();
+            });
       });
     });
   });

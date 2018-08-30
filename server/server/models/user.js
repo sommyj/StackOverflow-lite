@@ -27,8 +27,8 @@ const User = {
     const queryStatement = {
       // give the query a unique username and password
       name: 'fetch-user',
-      text: 'SELECT * FROM users WHERE username = $1 AND password = $2',
-      values: [data.where.username, data.where.password]
+      text: 'SELECT * FROM users WHERE username = $1',
+      values: [data.where.username]
     };
 
     // require our query executor into our model

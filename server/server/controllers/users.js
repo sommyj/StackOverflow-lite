@@ -102,6 +102,7 @@ const usersController = {
       if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
       return res.status(206).send({ message: 'Incomplete field' });
     }
+    //Auto-gen a salt and hash
     const hashedPassword = bcrypt.hashSync(req.body.password, 8);
     // Grab data from http request
     const data = {title: req.body.title, firstname: req.body.firstname,
@@ -137,10 +138,13 @@ const usersController = {
   },
   check(req, res) { // login with username and password
     // pass data to our model
-    User.findOne({ where: { username: req.body.username, password: req.body.password } })
+    User.findOne({ where: { username: req.body.username } })
       .then((result) => { const user = result.rows[0];
         // Returning error message for user not found
-        if (!user) return res.status(404).send({ message: 'User not found' });
+        if (!user) return res.status(400).send({ message: 'Invalid username/password' });
+        // Compare hash from your password DB.
+        const passIsEqual = bcrypt.compareSync(req.body.password, user.password)
+        if (!passIsEqual) return res.status(404).send({ message: 'Invalid username/password' });
         const token = tokenMethod(user.id); // Generate token
         // Returning user detais
         if (token) return res.status(200).send({ user, auth: true, token });
