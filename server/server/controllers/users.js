@@ -124,7 +124,6 @@ const usersController = {
           if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
           return res.status(400).send({ message: 'phone already exists' }); }
       }
-
       User.create(data) // pass data to our model
         .then((result) => { const user = result.rows[0];
           const token = tokenMethod(user.id); // Generate token

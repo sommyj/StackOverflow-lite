@@ -66,7 +66,7 @@ describe('Users', () => {
         .attach('userImage', './testFile.png')
 
         .end((err, res) => {
-          // res.should.have.status(201);
+          res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.user.should.have.property('id').eql(res.body.user.id);
           res.body.user.should.have.property('firstname').eql('Justin');
