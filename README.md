@@ -1,2 +1,2 @@
-# StackOverflow-lite
+# StackOverflow-lite [![Build Status](https://travis-ci.org/sommyj/StackOverflow-lite.svg?branch=user)](https://travis-ci.org/sommyj/StackOverflow-lite) [![Coverage Status](https://coveralls.io/repos/github/sommyj/StackOverflow-lite/badge.svg?branch=user)](https://coveralls.io/github/sommyj/StackOverflow-lite?branch=user)
 StackOverflow-lite​ is a platform where people can ask questions and provide responses.
