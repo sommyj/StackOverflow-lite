@@ -113,6 +113,7 @@ const usersController = {
     to avoid skipping of id on unique constraint */
     User.findAll().then((results) => {
       const users = results.rows;
+      let userCount = 0;
       for (const user of users) {
         if (data.username === user.username) {
           if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
@@ -123,12 +124,15 @@ const usersController = {
         if (data.phone === user.phone) {
           if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
           return res.status(400).send({ message: 'phone already exists' }); }
+          userCount += 1;
       }
+      //Create user after checking if it exist
+      if(userCount === users.length) {
       User.create(data) // pass data to our model
         .then((result) => { const user = result.rows[0];
           const token = tokenMethod(user.id); // Generate token
           if (token) return res.status(201).send({ user, auth: true, token });
-        }).catch(e => res.status(400).send(e));
+        }).catch(e => res.status(400).send(e)); }
     }).catch(e => res.status(400).send(e));
   },
   check(req, res) { // login with username and password
