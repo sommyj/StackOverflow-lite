@@ -91,82 +91,57 @@ const fileFilterMethod = (req) => {
 
 const usersController = {
   upload: upload.single('userImage'), // image upload
-  // create a user
-  create(req, res) {
+  create(req, res) { // create a user
     // implementing the file filter method
-    const fileFilterValues = fileFilterMethod(req);
-    const fileSizeError = fileFilterValues[0];
-    const fileTypeError = fileFilterValues[1];
-    const filePath = fileFilterValues[2];
+    const [fileSizeError, fileTypeError, filePath ] = fileFilterMethod(req);
 
     if (fileSizeError) return fileSizeHandleError(res);
     if (fileTypeError) return fileTypeHandleError(res);
-
     /* Required feilds */
     if (!req.body.username || !req.body.password || !req.body.email || !req.body.gender) {
       if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
       return res.status(206).send({ message: 'Incomplete field' });
     }
-
     const hashedPassword = bcrypt.hashSync(req.body.password, 8);
-
     // Grab data from http request
-    const data = {
-      title: req.body.title,
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      username: req.body.username,
-      password: hashedPassword,
-      email: req.body.email,
-      gender: req.body.gender,
-      country: req.body.country,
-      phone: req.body.phone,
-      userImage: filePath
-    };
-
-    /* Search to see if username, email and phone exist before creation to avoid
-    skipping of id on unique constraint */
+    const data = {title: req.body.title, firstname: req.body.firstname,
+      lastname: req.body.lastname, username: req.body.username,
+      password: hashedPassword, email: req.body.email,
+      gender: req.body.gender, country: req.body.country,
+      phone: req.body.phone, userImage: filePath};
+    /* Search to see if username, email and phone exist before creation
+    to avoid skipping of id on unique constraint */
     User.findAll().then((results) => {
       const users = results.rows;
-
       for (const user of users) {
         if (data.username === user.username) {
           if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
-          return res.status(400).send({ message: 'username already exists' });
-        }
+          return res.status(400).send({ message: 'username already exists' }); }
         if (data.email === user.email) {
           if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
-          return res.status(400).send({ message: 'email already exists' });
-        }
+          return res.status(400).send({ message: 'email already exists' }); }
         if (data.phone === user.phone) {
           if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
-          return res.status(400).send({ message: 'phone already exists' });
-        }
+          return res.status(400).send({ message: 'phone already exists' }); }
       }
 
-      // pass data to our model
-      User.create(data)
-        .then((result) => {
-          const user = result.rows[0];
+      User.create(data) // pass data to our model
+        .then((result) => { const user = result.rows[0];
           const token = tokenMethod(user.id); // Generate token
           if (token) return res.status(201).send({ user, auth: true, token });
-        })
-        .catch(e => res.status(400).send(e));
+        }).catch(e => res.status(400).send(e));
     }).catch(e => res.status(400).send(e));
   },
-  // login with username and password
-  check(req, res) {
+  check(req, res) { // login with username and password
     // pass data to our model
     User.findOne({ where: { username: req.body.username, password: req.body.password } })
-      .then((result) => {
-        const user = result.rows[0];
+      .then((result) => { const user = result.rows[0];
         // Returning error message for user not found
         if (!user) return res.status(404).send({ message: 'User not found' });
         const token = tokenMethod(user.id); // Generate token
         // Returning user detais
         if (token) return res.status(200).send({ user, auth: true, token });
-      })
-      .catch(e => res.status(400).send(e));
+      }).catch(e => res.status(400).send(e));
   },
 };
 
