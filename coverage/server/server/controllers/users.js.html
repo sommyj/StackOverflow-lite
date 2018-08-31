@@ -35,9 +35,9 @@
         <span class='fraction'>13/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.5% </span>
+        <span class="strong">86.49% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>70/80</span>
+        <span class='fraction'>64/74</span>
       </div>
     </div>
     <p class="quiet">
@@ -187,21 +187,7 @@
 <a name='L139'></a><a href='#L139'>139</a>
 <a name='L140'></a><a href='#L140'>140</a>
 <a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -264,8 +250,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -275,16 +259,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -297,7 +274,6 @@
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -305,11 +281,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -318,7 +292,6 @@
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -329,7 +302,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -418,9 +390,7 @@ const tokenMethod = (userId) =&gt; {
 /* File filter handle method */
 const fileFilterMethod = (req) =&gt; {
   const fileErrorArray = [];
-  let fileSizeError = false;
-  let fileTypeError = false;
-  let filePath = '';
+  let fileSizeError = false, fileTypeError = false ,filePath = '';
 &nbsp;
   if (req.file) {
     const tempPath = `./${req.file.path}`;
@@ -430,17 +400,10 @@ const fileFilterMethod = (req) =&gt; {
         renameFile(tempPath, targetPath);
         // remove the dot in targetPath
         filePath = targetPath.substring(1, targetPath.length);
-      } else {
-        deleteFile(tempPath);
-        fileSizeError = true;
-      }
-    } else {
-      deleteFile(tempPath);
-      fileTypeError = true;
-    }
+      } else { deleteFile(tempPath); fileSizeError = true; }
+    } else { deleteFile(tempPath); fileTypeError = true;}
   }
-  fileErrorArray[0] = fileSizeError;
-  fileErrorArray[1] = fileTypeError;
+  fileErrorArray[0] = fileSizeError; fileErrorArray[1] = fileTypeError;
   fileErrorArray[2] = filePath;
 &nbsp;
   return fileErrorArray;
@@ -452,27 +415,23 @@ const usersController = {
   create(req, res) { // create a user
     // implementing the file filter method
     const [fileSizeError, fileTypeError, filePath ] = fileFilterMethod(req);
-&nbsp;
     if (fileSizeError) return fileSizeHandleError(res);
     if (fileTypeError) return fileTypeHandleError(res);
     /* Required feilds */
     if (!req.body.username || !req.body.password || !req.body.email || !req.body.gender) {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
-      return res.status(206).send({ message: 'Incomplete field' });
-    }
+      return res.status(206).send({ message: 'Incomplete field' }); }
     //Auto-gen a salt and hash
     const hashedPassword = bcrypt.hashSync(req.body.password, 8);
     // Grab data from http request
     const data = {title: req.body.title, firstname: req.body.firstname,
       lastname: req.body.lastname, username: req.body.username,
-      password: hashedPassword, email: req.body.email,
-      gender: req.body.gender, country: req.body.country,
-      phone: req.body.phone, userImage: filePath};
+      password: hashedPassword, email: req.body.email, gender: req.body.gender,
+      country: req.body.country, phone: req.body.phone, userImage: filePath};
     /* Search to see if username, email and phone exist before creation
     to avoid skipping of id on unique constraint */
     User.findAll().then((results) =&gt; {
-      const users = results.rows;
-      let userCount = 0;
+      const users = results.rows; let userCount = 0;
       for (const user of users) {
         <span class="missing-if-branch" title="else path not taken" >E</span>if (data.username === user.username) {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (filePath) <span class="cstat-no" title="statement not covered" >deleteFile(`./${filePath}`); // if file uploads delete it</span>
@@ -485,8 +444,7 @@ const usersController = {
 <span class="cstat-no" title="statement not covered" >          return res.status(400).send({ message: 'phone already exists' }); }</span>
 <span class="cstat-no" title="statement not covered" >          userCount += 1;</span>
       }
-      //Create user after checking if it exist
-      <span class="missing-if-branch" title="else path not taken" >E</span>if(userCount === users.length) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if(userCount === users.length) { //Create user after checking if it exist
       User.create(data) // pass data to our model
         .then((result) =&gt; { const user = result.rows[0];
           const token = tokenMethod(user.id); // Generate token
@@ -517,7 +475,7 @@ export default usersController;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Aug 30 2018 22:42:54 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 31 2018 11:47:31 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="../../../prettify.js"></script>
