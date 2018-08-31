@@ -60,7 +60,7 @@ const tokenMethod = (userId) => {
 /* File filter handle method */
 const fileFilterMethod = (req) => {
   const fileErrorArray = [];
-  let fileSizeError = false, fileTypeError = false ,filePath = '';
+  let fileSizeError = false, fileTypeError = false, filePath = '';
 
   if (req.file) {
     const tempPath = `./${req.file.path}`;
@@ -71,7 +71,7 @@ const fileFilterMethod = (req) => {
         // remove the dot in targetPath
         filePath = targetPath.substring(1, targetPath.length);
       } else { deleteFile(tempPath); fileSizeError = true; }
-    } else { deleteFile(tempPath); fileTypeError = true;}
+    } else { deleteFile(tempPath); fileTypeError = true; }
   }
   fileErrorArray[0] = fileSizeError; fileErrorArray[1] = fileTypeError;
   fileErrorArray[2] = filePath;
@@ -84,20 +84,29 @@ const usersController = {
   upload: upload.single('userImage'), // image upload
   create(req, res) { // create a user
     // implementing the file filter method
-    const [fileSizeError, fileTypeError, filePath ] = fileFilterMethod(req);
+    const [fileSizeError, fileTypeError, filePath] = fileFilterMethod(req);
     if (fileSizeError) return fileSizeHandleError(res);
     if (fileTypeError) return fileTypeHandleError(res);
     /* Required feilds */
     if (!req.body.username || !req.body.password || !req.body.email || !req.body.gender) {
       if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
-      return res.status(206).send({ message: 'Incomplete field' }); }
-    //Auto-gen a salt and hash
+      return res.status(206).send({ message: 'Incomplete field' });
+    }
+    // Auto-gen a salt and hash
     const hashedPassword = bcrypt.hashSync(req.body.password, 8);
     // Grab data from http request
-    const data = {title: req.body.title, firstname: req.body.firstname,
-      lastname: req.body.lastname, username: req.body.username,
-      password: hashedPassword, email: req.body.email, gender: req.body.gender,
-      country: req.body.country, phone: req.body.phone, userImage: filePath};
+    const data = {
+      title: req.body.title,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      username: req.body.username,
+      password: hashedPassword,
+      email: req.body.email,
+      gender: req.body.gender,
+      country: req.body.country,
+      phone: req.body.phone,
+      userImage: filePath
+    };
     /* Search to see if username, email and phone exist before creation
     to avoid skipping of id on unique constraint */
     User.findAll().then((results) => {
@@ -105,31 +114,37 @@ const usersController = {
       for (const user of users) {
         if (data.username === user.username) {
           if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
-          return res.status(400).send({ message: 'username already exists' }); }
+          return res.status(400).send({ message: 'username already exists' });
+        }
         if (data.email === user.email) {
           if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
-          return res.status(400).send({ message: 'email already exists' }); }
+          return res.status(400).send({ message: 'email already exists' });
+        }
         if (data.phone === user.phone) {
           if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
-          return res.status(400).send({ message: 'phone already exists' }); }
-          userCount += 1;
+          return res.status(400).send({ message: 'phone already exists' });
+        }
+        userCount += 1;
       }
-      if(userCount === users.length) { //Create user after checking if it exist
-      User.create(data) // pass data to our model
-        .then((result) => { const user = result.rows[0];
-          const token = tokenMethod(user.id); // Generate token
-          if (token) return res.status(201).send({ user, auth: true, token });
-        }).catch(e => res.status(400).send(e)); }
+      if (userCount === users.length) { // Create user after checking if it exist
+        User.create(data) // pass data to our model
+          .then((result) => {
+            const user = result.rows[0];
+            const token = tokenMethod(user.id); // Generate token
+            if (token) return res.status(201).send({ user, auth: true, token });
+          }).catch(e => res.status(400).send(e));
+      }
     }).catch(e => res.status(400).send(e));
   },
   check(req, res) { // login with username and password
     // pass data to our model
     User.findOne({ where: { username: req.body.username } })
-      .then((result) => { const user = result.rows[0];
+      .then((result) => {
+        const user = result.rows[0];
         // Returning error message for user not found
         if (!user) return res.status(400).send({ message: 'Invalid username/password' });
         // Compare hash from your password DB.
-        const passIsEqual = bcrypt.compareSync(req.body.password, user.password)
+        const passIsEqual = bcrypt.compareSync(req.body.password, user.password);
         if (!passIsEqual) return res.status(404).send({ message: 'Invalid username/password' });
         const token = tokenMethod(user.id); // Generate token
         // Returning user detais
