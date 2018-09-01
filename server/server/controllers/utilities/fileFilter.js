@@ -1,7 +1,7 @@
 import fsHelper from '../../../utilities/fileSystem';
 
-const renameFile = [fsHelper.renameFile];// Rename file helper method
-const deleteFile = [fsHelper.deleteFile];// Delete file helper method
+const [renameFile] = [fsHelper.renameFile];// Rename file helper method
+const [deleteFile] = [fsHelper.deleteFile];// Delete file helper method
 
 /* File filter handle method */
 const fileFilterMethod = (req, fileSizeLimit, folderName) => {

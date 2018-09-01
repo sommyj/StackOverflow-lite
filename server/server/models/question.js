@@ -13,10 +13,21 @@ const Question = {
     return query(queryStatement);
   },
   findAll() {
-    // select all users
+    // select all questions
     const queryStatement = {
       name: 'fetch-questions',
       text: 'SELECT * FROM questions'
+    };
+
+    // require our query executor into our model
+    return query(queryStatement);
+  },
+  findById(id) {
+    // select a question
+    const queryStatement = {
+      name: 'fetch-question',
+      text: 'SELECT * FROM questions WHERE id = $1',
+      values: [id]
     };
 
     // require our query executor into our model

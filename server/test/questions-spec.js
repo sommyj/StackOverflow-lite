@@ -70,6 +70,72 @@ describe('Questions', () => {
         });
       });
     });
+    it('it should GET a question by the given id', (done) => {
+      User.create({
+        title: 'mr',
+        firstname: 'justin',
+        lastname: 'Ikwuoma',
+        username: 'justman5',
+        password: 'abc',
+        email: 'justin5@gmail.com',
+        gender: 'male',
+        country: 'Nigeria',
+        phone: '566976498',
+        userImage: ''
+      }).then((user) => {
+        Question.create({
+          title: 'I wannna know',
+          question: 'I wannna know your name',
+          userId: user.rows[0].id,
+          tags: 'java,javascript',
+          questionImage: '/something'
+        }).then(() => {
+          request
+            .get('/v1/questions/-1')
+            .end((err, res) => {
+              res.should.have.status(404);
+              res.body.should.be.a('object');
+              res.body.should.have.property('message').eql('question not found');
+              done();
+            });
+        });
+      });
+    });
+    it('it should GET a question by the given id', (done) => {
+      User.create({
+        title: 'mr',
+        firstname: 'justin',
+        lastname: 'Ikwuoma',
+        username: 'justman5',
+        password: 'abc',
+        email: 'justin5@gmail.com',
+        gender: 'male',
+        country: 'Nigeria',
+        phone: '566976498',
+        userImage: ''
+      }).then((user) => {
+        Question.create({
+          title: 'I wannna know',
+          question: 'I wannna know your name',
+          userId: user.rows[0].id,
+          tags: 'java,javascript',
+          questionImage: '/something'
+        }).then((question) => {
+          request
+            .get(`/v1/questions/${question.rows[0].id}`)
+            .end((err, res) => {
+              res.should.have.status(200);
+              res.body.should.be.a('object');
+              res.body.should.have.property('id').eql(res.body.id);
+              res.body.should.have.property('title').eql('I wannna know');
+              res.body.should.have.property('question').eql('I wannna know your name');
+              res.body.should.have.property('tags').eql('java,javascript');
+              res.body.should.have.property('questionimage').eql('/something');
+              done();
+            });
+        });
+      });
+    });
   });
 
   describe('/POST question', () => {
@@ -264,7 +330,7 @@ describe('Questions', () => {
             });
         });
     });
-    it('it should not CREATE a question when it fails to authenticate token.', (done) => {
+    it('it should not CREATE a question when it fails to authenticate token', (done) => {
       request
         .post('/auth/v1/signup')
         .field('title', 'mr')
@@ -324,6 +390,194 @@ describe('Questions', () => {
                 done();
               });
           });
+        });
+    });
+  });
+
+  /*
+  * Test the /DELETE/:id route
+  */
+  describe('/DELETE/:id question', () => {
+    it('it should not DELETE a queston given the wrong id', (done) => {
+      request
+        .post('/auth/v1/signup')
+        .field('title', 'mr')
+        .field('firstname', 'Justin')
+        .field('lastname', 'Ikwuoma')
+        .field('username', 'justman')
+        .field('password', 'abc')
+        .field('email', 'justin@gmail.com')
+        .field('gender', 'male')
+        .field('country', 'Nigeria')
+        .field('phone', '66979649')
+        .attach('userImage', '')
+        .end((err, res) => {
+          request
+            .post('/v1/questions')
+            .field('title', 'How far na')
+            .field('question', 'I just wan no how u dey')
+            .field('tags', 'java,javascript')
+            .attach('questionImage', '')
+            .end(() => {
+              request
+                .delete('/v1/questions/-1')
+                .set('x-access-token', res.body.token)
+                .end((err, res) => {
+                  res.should.have.status(404);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('message').eql('question not found');
+                  done();
+                });
+            });
+        });
+    });
+    it('it should not DELETE a queston when a token is not provided', (done) => {
+      request
+        .post('/auth/v1/signup')
+        .field('title', 'mr')
+        .field('firstname', 'Justin')
+        .field('lastname', 'Ikwuoma')
+        .field('username', 'justman')
+        .field('password', 'abc')
+        .field('email', 'justin@gmail.com')
+        .field('gender', 'male')
+        .field('country', 'Nigeria')
+        .field('phone', '66979649')
+        .attach('userImage', '')
+        .end((err1, res1) => {
+          request
+            .post('/v1/questions')
+            .set('x-access-token', res1.body.token)
+            .field('title', 'How far na')
+            .field('question', 'I just wan no how u dey')
+            .field('tags', 'java,javascript')
+            .attach('questionImage', '')
+            .end((err2, res2) => {
+              request
+                .delete(`/v1/questions/${res2.body.id}`)
+                .end((err, res) => {
+                  res.should.have.status(401);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('auth').eql(false);
+                  res.body.should.have.property('message').eql('No token provided.');
+                  done();
+                });
+            });
+        });
+    });
+    it('it should not DELETE a queston when it fails to authenticate token', (done) => {
+      request
+        .post('/auth/v1/signup')
+        .field('title', 'mr')
+        .field('firstname', 'Justin')
+        .field('lastname', 'Ikwuoma')
+        .field('username', 'justman')
+        .field('password', 'abc')
+        .field('email', 'justin@gmail.com')
+        .field('gender', 'male')
+        .field('country', 'Nigeria')
+        .field('phone', '66979649')
+        .attach('userImage', '')
+        .end((err1, res1) => {
+          request
+            .post('/v1/questions')
+            .set('x-access-token', res1.body.token)
+            .field('title', 'How far na')
+            .field('question', 'I just wan no how u dey')
+            .field('tags', 'java,javascript')
+            .attach('questionImage', '')
+            .end((err2, res2) => {
+              request
+                .delete(`/v1/questions/${res2.body.id}`)
+                .set('x-access-token', 'jdkjdfskjs43354mxxnzsdz.drfsff.srfsf35324')
+                .end((err, res) => {
+                  res.should.have.status(500);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('auth').eql(false);
+                  res.body.should.have.property('message').eql('Failed to authenticate token.');
+                  done();
+                });
+            });
+        });
+    });
+    it('it should DELETE a queston given the id', (done) => {
+      request
+        .post('/auth/v1/signup')
+        .field('title', 'mr')
+        .field('firstname', 'Justin')
+        .field('lastname', 'Ikwuoma')
+        .field('username', 'justman')
+        .field('password', 'abc')
+        .field('email', 'justin@gmail.com')
+        .field('gender', 'male')
+        .field('country', 'Nigeria')
+        .field('phone', '66979649')
+        .attach('userImage', '')
+        .end((err1, res1) => {
+          User.create({
+            title: 'mr',
+            firstname: 'Justin1',
+            lastname: 'Ikwuoma',
+            username: 'justman4',
+            password: 'abc',
+            email: 'justin4@gmail.com',
+            gender: 'male',
+            country: 'Nigeria',
+            phone: '4466976498',
+            userImage: ''
+          }).then((user) => {
+            Question.create({
+              title: 'I wannna know',
+              question: 'I wannna know your name',
+              userId: user.rows[0].id,
+              tags: 'java,javascript',
+              questionImage: 'hhhhjjh'
+            }).then((question) => {
+              request
+                .delete(`/v1/questions/${question.rows[0].id}`)
+                .set('x-access-token', res1.body.token)
+                .end((err, res) => {
+                  res.should.have.status(403);
+                  res.body.should.be.a('object');
+                  res.body.should.have.property('auth').eql(false);
+                  res.body.should.have.property('message').eql('User not allowed');
+                  done();
+                });
+            });
+          });
+        });
+    });
+    it('it should DELETE a queston given the id', (done) => {
+      request
+        .post('/auth/v1/signup')
+        .field('title', 'mr')
+        .field('firstname', 'Justin')
+        .field('lastname', 'Ikwuoma')
+        .field('username', 'justman')
+        .field('password', 'abc')
+        .field('email', 'justin@gmail.com')
+        .field('gender', 'male')
+        .field('country', 'Nigeria')
+        .field('phone', '66979649')
+        .attach('userImage', '')
+        .end((err1, res1) => {
+          request
+            .post('/v1/questions')
+            .set('x-access-token', res1.body.token)
+            .field('title', 'How far na')
+            .field('question', 'I just wan no how u dey')
+            .field('tags', 'java,javascript')
+            .attach('questionImage', './testFile.png')
+            .end((err2, res2) => {
+              request
+                .delete(`/v1/questions/${res2.body.id}`)
+                .set('x-access-token', res1.body.token)
+                .end((err, res) => {
+                  res.should.have.status(204);
+                  res.body.should.be.a('object');
+                  done();
+                });
+            });
         });
     });
   });
