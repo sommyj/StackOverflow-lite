@@ -22,6 +22,22 @@ const Question = {
     // require our query executor into our model
     return query(queryStatement);
   },
+  destroy(data) {
+    let queryStatement;
+    if (!data.where.id && data.force) {
+      queryStatement = {
+        text: 'DELETE FROM questions',
+      };
+    } else {
+      queryStatement = {
+        text: 'DELETE FROM questions WHERE id=($1)',
+        values: [data.where.id],
+      };
+    }
+
+    // require our query executor into our model
+    return query(queryStatement);
+  }
 };
 
 export default Question;

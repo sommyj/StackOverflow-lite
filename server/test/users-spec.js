@@ -1,11 +1,10 @@
 import chai from 'chai';
 import supertest from 'supertest';
-import fs from 'file-system';
 import path from 'path';
 import chaiHttp from 'chai-http';
-
 import app from '../app';
 import model from '../server/models';
+import fsHelper from '../utilities/fileSystem';
 
 process.env.NODE_ENV = 'test';
 
@@ -14,16 +13,8 @@ chai.use(chaiHttp);
 const request = supertest(app);
 const [User] = [model.User];
 
-/**
- * delete a file
- * @param {String} targetPath The part to delete from
- * @returns {void} nothing.
- */
-const deleteFile = (targetPath) => {
-  fs.unlink(targetPath, (err) => {
-    if (err) throw err;
-  });
-};
+// Delete file helper method
+const [deleteFile] = [fsHelper.deleteFile];
 
 describe('Users', () => {
   beforeEach((done) => { // Before each test we empty the database

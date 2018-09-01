@@ -13,6 +13,7 @@ const routes = (app) => {
   app.post('/auth/v1/login', usersController.check);
 
   app.post('/v1/questions', questionsController.upload, questionsController.create);
+  app.get('/v1/questions', questionsController.list);
 };
 
 export default routes;
