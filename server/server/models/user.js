@@ -24,11 +24,12 @@ const User = {
     return query(queryStatement);
   },
   findOne(data) {
+    const key = Object.keys(data.where)[0];
     const queryStatement = {
       // give the query a unique username and password
       name: 'fetch-user',
-      text: 'SELECT * FROM users WHERE username = $1',
-      values: [data.where.username]
+      text: `SELECT * FROM users WHERE ${key} = $1`,
+      values: [data.where[key]]
     };
 
     // require our query executor into our model
