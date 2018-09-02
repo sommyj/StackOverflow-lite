@@ -1,11 +1,10 @@
 import chai from 'chai';
 import supertest from 'supertest';
-import fs from 'file-system';
 import path from 'path';
 import chaiHttp from 'chai-http';
-
 import app from '../app';
 import model from '../server/models';
+import fsHelper from '../utilities/fileSystem';
 
 process.env.NODE_ENV = 'test';
 
@@ -14,16 +13,8 @@ chai.use(chaiHttp);
 const request = supertest(app);
 const [User] = [model.User];
 
-/**
- * delete a file
- * @param {String} targetPath The part to delete from
- * @returns {void} nothing.
- */
-const deleteFile = (targetPath) => {
-  fs.unlink(targetPath, (err) => {
-    if (err) throw err;
-  });
-};
+// Delete file helper method
+const [deleteFile] = [fsHelper.deleteFile];
 
 describe('Users', () => {
   beforeEach((done) => { // Before each test we empty the database
@@ -309,7 +300,7 @@ describe('Users', () => {
         .field('country', 'Nigeria')
         .field('phone', '669796498')
         .attach('userImage', '')
-        .end((err, res) => {
+        .end(() => {
           request
             .post('/auth/v1/login')
             .send({ username: 'just', password: 'abc' })
@@ -319,7 +310,7 @@ describe('Users', () => {
               res.body.message.should.be.eql('Invalid username/password');
               done();
             });
-      });
+        });
     });
 
     it('it should POST username && password and get the particular user', (done) => {
@@ -335,7 +326,7 @@ describe('Users', () => {
         .field('country', 'Nigeria')
         .field('phone', '669796498')
         .attach('userImage', '')
-        .end((err, res) => {
+        .end(() => {
           request
             .post('/auth/v1/login')
             .send({ username: 'justman4', password: 'abc' })
@@ -353,7 +344,7 @@ describe('Users', () => {
               res.body.should.have.property('token').eql(res.body.token);
               done();
             });
-      });
+        });
     });
   });
 });

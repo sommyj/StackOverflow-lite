@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">99.19% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>123/124</span>
+        <span class='fraction'>120/120</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/4</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>34/34</span>
+        <span class='fraction'>32/32</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>122/122</span>
+        <span class='fraction'>119/119</span>
       </div>
     </div>
     <p class="quiet">
@@ -396,21 +396,11 @@
 <a name='L348'></a><a href='#L348'>348</a>
 <a name='L349'></a><a href='#L349'>349</a>
 <a name='L350'></a><a href='#L350'>350</a>
-<a name='L351'></a><a href='#L351'>351</a>
-<a name='L352'></a><a href='#L352'>352</a>
-<a name='L353'></a><a href='#L353'>353</a>
-<a name='L354'></a><a href='#L354'>354</a>
-<a name='L355'></a><a href='#L355'>355</a>
-<a name='L356'></a><a href='#L356'>356</a>
-<a name='L357'></a><a href='#L357'>357</a>
-<a name='L358'></a><a href='#L358'>358</a>
-<a name='L359'></a><a href='#L359'>359</a>
-<a name='L360'></a><a href='#L360'>360</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L351'></a><a href='#L351'>351</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -421,14 +411,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -766,12 +748,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import chai from 'chai';
 import supertest from 'supertest';
-import fs from 'file-system';
 import path from 'path';
 import chaiHttp from 'chai-http';
-&nbsp;
 import app from '../app';
 import model from '../server/models';
+import fsHelper from '../utilities/fileSystem';
 &nbsp;
 process.env.NODE_ENV = 'test';
 &nbsp;
@@ -780,16 +761,8 @@ chai.use(chaiHttp);
 const request = supertest(app);
 const [User] = [model.User];
 &nbsp;
-/**
- * delete a file
- * @param {String} targetPath The part to delete from
- * @returns {void} nothing.
- */
-const deleteFile = (targetPath) =&gt; {
-  fs.unlink(targetPath, (err) =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >throw err;</span>
-  });
-};
+// Delete file helper method
+const [deleteFile] = [fsHelper.deleteFile];
 &nbsp;
 describe('Users', () =&gt; {
   beforeEach((done) =&gt; { // Before each test we empty the database
@@ -1075,7 +1048,7 @@ describe('Users', () =&gt; {
         .field('country', 'Nigeria')
         .field('phone', '669796498')
         .attach('userImage', '')
-        .end((err, res) =&gt; {
+        .end(() =&gt; {
           request
             .post('/auth/v1/login')
             .send({ username: 'just', password: 'abc' })
@@ -1085,7 +1058,7 @@ describe('Users', () =&gt; {
               res.body.message.should.be.eql('Invalid username/password');
               done();
             });
-      });
+        });
     });
 &nbsp;
     it('it should POST username &amp;&amp; password and get the particular user', (done) =&gt; {
@@ -1101,7 +1074,7 @@ describe('Users', () =&gt; {
         .field('country', 'Nigeria')
         .field('phone', '669796498')
         .attach('userImage', '')
-        .end((err, res) =&gt; {
+        .end(() =&gt; {
           request
             .post('/auth/v1/login')
             .send({ username: 'justman4', password: 'abc' })
@@ -1119,7 +1092,7 @@ describe('Users', () =&gt; {
               res.body.should.have.property('token').eql(res.body.token);
               done();
             });
-      });
+        });
     });
   });
 });
@@ -1129,7 +1102,7 @@ describe('Users', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 31 2018 11:47:31 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Sep 02 2018 13:31:46 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>
