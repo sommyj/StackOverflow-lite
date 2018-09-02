@@ -3,6 +3,7 @@ import controllers from '../controllers';
 
 const [usersController] = [controllers.usersController];
 const [questionsController] = [controllers.questionsController];
+const [answersController] = [controllers.answersController];
 
 const routes = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -16,6 +17,8 @@ const routes = (app) => {
   app.get('/v1/questions', questionsController.list);
   app.get('/v1/questions/:questionId', questionsController.retrieve);
   app.delete('/v1/questions/:questionId', questionsController.destroy);
+
+  app.post('/v1/questions/:questionId/answers', answersController.upload, answersController.create);
 };
 
 export default routes;

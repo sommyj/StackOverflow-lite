@@ -31,7 +31,7 @@ const fileSizeLimit = 1024 * 1024 * 2;
 
 const questionsController = {
   upload: upload.single('questionImage'), // image upload
-  create(req, res) { // create a user
+  create(req, res) { // create a question
     let decodedID;
     const authValues = authMethod(req);
     const noTokenProviderError = authValues[0];

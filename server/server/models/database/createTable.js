@@ -35,7 +35,7 @@ client.query(
 
         client.query(
           `CREATE TABLE answers(id SERIAL PRIMARY KEY, response TEXT NOT NULL, userId INTEGER REFERENCES users(id) ON DELETE CASCADE,
-           questionId INTEGER REFERENCES answers(id) ON DELETE CASCADE, accepted BOOLEAN DEFAULT false,
+           questionId INTEGER REFERENCES questions(id) ON DELETE CASCADE, accepted BOOLEAN DEFAULT false,
            vote INTEGER NOT NULL DEFAULT 0, answerImage VARCHAR(200), createdAt DATE NOT NULL DEFAULT CURRENT_DATE,
            updatedAt DATE NOT NULL DEFAULT CURRENT_DATE)`
         )
