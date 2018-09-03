@@ -19,6 +19,7 @@ const routes = (app) => {
   app.delete('/v1/questions/:questionId', questionsController.destroy);
 
   app.post('/v1/questions/:questionId/answers', answersController.upload, answersController.create);
+  app.put('/v1/questions/:questionId/answers/:answerId', answersController.upload, answersController.update);
 };
 
 export default routes;

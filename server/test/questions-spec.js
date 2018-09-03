@@ -70,7 +70,7 @@ describe('Questions', () => {
         });
       });
     });
-    it('it should GET a question by the given id', (done) => {
+    it('it should not GET a question by the given wrong id', (done) => {
       User.create({
         title: 'mr',
         firstname: 'justin',
@@ -131,6 +131,7 @@ describe('Questions', () => {
               res.body.should.have.property('question').eql('I wannna know your name');
               res.body.should.have.property('tags').eql('java,javascript');
               res.body.should.have.property('questionimage').eql('/something');
+              res.body.should.have.property('answers').eql(res.body.answers);
               done();
             });
         });

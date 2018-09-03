@@ -8,10 +8,12 @@ import authMethod from './utilities/authHandler';
 import fsHelper from '../../utilities/fileSystem';
 
 const [Answer] = [models.Answer];
+const [Question] = [models.Question];
 
 const [createHandlerError] = [errorHandler.createHandlerError]; // create handleError
 // incomplete field handleError
 const [incompleteFieldHandlerError] = [errorHandler.incompleteFieldHandlerError];
+const [notFoundHandlerError] = [errorHandler.notFoundHandlerError];
 const [fileTypeHandleError] = [errorHandler.fileTypeHandleError]; // file type handleError
 const [fileSizeHandleError] = [errorHandler.fileSizeHandleError]; // file size handleError
 // user deleted handleError
@@ -64,6 +66,62 @@ const answersController = {
         return createHandlerError(error, res, filePath);
       });
   },
+  update(req, res) { // update business
+    let decodedID;
+    const authValues = authMethod(req);
+    const noTokenProviderError = authValues[0];
+    const failedAuthError = authValues[1];
+    const decodedIDFromMethod = authValues[2];
+
+    if (noTokenProviderError) return noTokenHandlerError(res);
+    if (failedAuthError) return failedAuthHandlerError(res);
+    if (decodedIDFromMethod) decodedID = decodedIDFromMethod;
+    // implementing the file filter method
+    const [fileSizeError, fileTypeError, filePath] = fileFilterMethod(req, fileSizeLimit, 'answersUploads');
+    if (fileSizeError) return fileSizeHandleError(res);
+    if (fileTypeError) return fileTypeHandleError(res);
+
+    Question.findById(req.params.questionId).then((result1) => {
+      const question = result1.rows[0];
+      if (!question) return notFoundHandlerError('question', res, filePath);
+      Answer.findById(req.params.answerId).then((result2) => {
+        const answer = result2.rows[0];
+        if (!answer) return notFoundHandlerError('answer', res, filePath);
+        // For accepting an answer by the author of the question
+        if (decodedID === question.userid && req.body.accepted) {
+          return Answer.update({
+            id: answer.id,
+            response: answer.response,
+            accepted: req.body.accepted || answer.accepted,
+            vote: answer.vote,
+            answerImage: answer.answerimage,
+          }).then(result3 => res.status(200).send(result3.rows[0]))
+            .catch(error => createHandlerError(error, res, filePath));
+        }
+        // For updating an answer by the author of the answer
+        if (decodedID === answer.userid) {
+          // holds the url of the image before update in other not to loose it
+          const previousImage = answer.answerimage;
+          return Answer.update({
+            id: answer.id,
+            response: req.body.response || answer.response,
+            accepted: answer.accepted,
+            vote: answer.vote,
+            answerImage: filePath || answer.answerimage,
+
+          }).then((result4) => {
+            // if file and url is not empty delete img for updation
+            if (filePath) {
+              if (previousImage) deleteFile(`./${previousImage}`);
+            }
+            return res.status(200).send(result4.rows[0]);
+          })
+            .catch(error => createHandlerError(error, res, filePath));
+        }
+        return res.status(403).send({ auth: false, message: 'User not allowed' });
+      }).catch(error => createHandlerError(error, res, filePath));
+    }).catch(error => createHandlerError(error, res, filePath));
+  }
 };
 
 export default answersController;
