@@ -8,6 +8,7 @@ import authMethod from './utilities/authHandler';
 import fsHelper from '../../utilities/fileSystem';
 
 const [Question] = [models.Question];
+const [Answer] = [models.Answer];
 
 const [createHandlerError] = [errorHandler.createHandlerError]; // create handleError
 // incomplete field handleError
@@ -31,7 +32,7 @@ const fileSizeLimit = 1024 * 1024 * 2;
 
 const questionsController = {
   upload: upload.single('questionImage'), // image upload
-  create(req, res) { // create a user
+  create(req, res) { // create a question
     let decodedID;
     const authValues = authMethod(req);
     const noTokenProviderError = authValues[0];
@@ -89,7 +90,13 @@ const questionsController = {
     Question.findById(req.params.questionId).then((result) => {
       const question = result.rows[0];
       if (!question) return res.status(404).send({ message: 'question not found' });
-      return res.status(200).send(question);
+      // Getting answers to the question
+      Answer.findOne({ where: { questionid: question.id } }).then((answer) => {
+        question.answers = answer.rows;
+        return res.status(200).send(question);
+      })
+        .catch(error => res.status(400).send(error));
+      // return res.status(200).send(question);
     }).catch(error => res.status(400).send(error));
   },
   destroy(req, res) {

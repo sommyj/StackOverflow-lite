@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">51.85% </span>
+        <span class="strong">56.67% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>14/27</span>
+        <span class='fraction'>17/30</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">21.43% </span>
+        <span class="strong">31.25% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>3/14</span>
+        <span class='fraction'>5/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/12</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">63.64% </span>
-        <span class="quiet">Functions</span>
-        <span class='fraction'>7/11</span>
-      </div>
-      <div class='fl pad1y space-right2'>
-        <span class="strong">60% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>12/20</span>
+        <span class='fraction'>14/22</span>
       </div>
     </div>
     <p class="quiet">
@@ -94,7 +94,11 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,10 +112,14 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -130,14 +138,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,8 +159,12 @@ const errorHandler = <span class="fstat-no" title="function not covered" ><span 
 <span class="cstat-no" title="statement not covered" >    if (filePath) <span class="cstat-no" title="statement not covered" >deleteFile(`./${filePath}`); // if file uploads delete it</span></span>
 <span class="cstat-no" title="statement not covered" >    return res.status(400).send(error);</span>
   },
-  incompleteFieldHandlerError(res, filePath) {
+  notFoundHandlerError(fieldName, res, filePath) {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+    return res.status(404).send({ message: `${fieldName} not found` });
+  },
+  incompleteFieldHandlerError(res, filePath) {
+    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
     return res.status(206).send({ message: 'Incomplete field' });
   },
   fileTypeHandleError(res) { // file type handleError
@@ -196,7 +208,7 @@ export default errorHandler;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Sep 02 2018 13:31:46 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Sep 03 2018 19:03:46 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>
