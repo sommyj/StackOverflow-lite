@@ -16,7 +16,7 @@ const Answer = {
     // SQL Query > Update Data
     const queryStatement = {
       text: `UPDATE answers SET response = $2, accepted = $3, vote = $4,
-      answerImage = $5 WHERE id = $1 RETURNING *`,
+      answerImage = $5, updatedAt = CURRENT_TIMESTAMP WHERE id = $1 RETURNING *`,
       values: [data.id, data.response, data.accepted, data.vote, data.answerImage],
     };
 
