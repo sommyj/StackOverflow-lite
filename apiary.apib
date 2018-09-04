@@ -1,0 +1,385 @@
+FORMAT: 1A
+HOST: https://stackoverflow-lite.herokuapp.com/
+
+# Stackoverflow-lite
+
+StackOverflow-lite​ is a platform where people can ask questions and provide responses.
+
+# Stackoverflow-lite API Root [/]
+
+This resource does not have any attributes. Instead it shows the message 'Welcome to the beginning of nothingness.'
+
+# Stackoverflow-lite API Root [/api]
+
+This resource does not have any attributes. Instead it shows the message 'Welcome to the User API!'.
+
+
+## Group User
+
+Resource related to user in the API.
+
+## Signup [/auth/v1/signup]
+
+### Create a New User [POST]
+
+You may create your own user account using this action. It takes a JSON object
+containing user details.
+
++ title (string) - The title
++ firstname (string) - The firstname
++ lastname (string) - The lastname
++ username (string) - The username
++ password (string) - The password
++ email (string) - The email address
++ gender (string) - The gender
++ country (string) - The country
++ phone (string) - The phone number
++ userImage (file) - The user image url location
+
+This action takes a multipart/form-data enctype of the request as follows:
+
++ Request (multipart/form-data)
+
+                {
+                  title: 'mr',
+                  firstname: 'Somto',
+                  lastname: 'Ikwuoma',
+                  username: 'sommyjezzy',
+                  password: '12345',
+                  email: 'sommy@gmail.com',
+                  gender: 'male',
+                  country: req.body.country,
+                  phone: '66976498',
+                  userImage: '',
+                }
+
+This example returns a 201 status code, along with HTTP headers and a body.
+
++ Response 201 (application/json)
+
+    + Body
+
+    {
+        "user": {
+          "id": 2,
+          "title": "mr        ",
+          "firstname": "justin1",
+          "lastname": "mnde2",
+          "username": "badguy1",
+          "password": "$2a$08$7hffus5g4Lk2QdQlXE/V8eardP1b6bB981jazxMBh7/VOmsexAcvS",
+          "email": "badguy1@som",
+          "gender": "male",
+          "country": "England",
+          "phone": "08022166201",
+          "userimage": "",
+          "createdat": "2018-09-02T23:00:00.000Z",
+          "updatedat": "2018-09-02T23:00:00.000Z"
+        },
+        "auth": true,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTM2MDA1NzQ2LCJleHAiOjE1MzYwOTIxNDZ9.D496Ykjb6bkeL0JWAv7CKkOzB0KNuGuZHX9RmoeFvmc"
+ }
+
+## Login [/auth/v1/login]
+
+### Login a User [POST]
+
+    You may Login a user using this action. It takes a JSON object
+    containing user details.
+
+    + username (string) - The username
+    + password (string) - The password
+
+This action takes a x-www-form-urlencoded payload as part of the request as follows:
+
++ Request (application/x-www-form-urlencoded)
+
+        {
+          "username": "duboy",
+          "password": "123",
+        }
+
+This example returns a 200 status code, along with HTTP headers and a body.
+
++ Response 200 (application/json)
+
+    + Body
+
+    {
+        "user": {
+          "id": 2,
+          "title": "mr        ",
+          "firstname": "justin1",
+          "lastname": "mnde2",
+          "username": "badguy1",
+          "password": "$2a$08$7hffus5g4Lk2QdQlXE/V8eardP1b6bB981jazxMBh7/VOmsexAcvS",
+          "email": "badguy1@som",
+          "gender": "male",
+          "country": "England",
+          "phone": "08022166201",
+          "userimage": "",
+          "createdat": "2018-09-02T23:00:00.000Z",
+          "updatedat": "2018-09-02T23:00:00.000Z"
+        },
+        "auth": true,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTM2MDA1NzQ2LCJleHAiOjE1MzYwOTIxNDZ9.D496Ykjb6bkeL0JWAv7CKkOzB0KNuGuZHX9RmoeFvmc"
+  }
+
+
+## Group Question
+
+Resource related to question in the API.
+
+## Question Collection [/v1/questions]
+
+### List All Questions [GET]
+
++ Response 200 (application/json)
+
+  + Body
+         [
+            {
+              "id": 2,
+              "title": "How ok 1234",
+              "question": "how u dey i wan knowe",
+              "userid": 1,
+              "tags": "java, javascript",
+              "questionimage": "",
+              "createdat": "2018-09-01T23:00:00.000Z",
+              "updatedat": "2018-09-01T23:00:00.000Z"
+            },
+            {
+              "id": 3,
+              "title": "How ok ",
+              "question": "how u dey i wan knowe",
+              "userid": 1,
+              "tags": "java, javascript",
+              "questionimage": "",
+              "createdat": "2018-09-01T23:00:00.000Z",
+              "updatedat": "2018-09-01T23:00:00.000Z"
+            },
+            {
+              "id": 4,
+              "title": "How ok fine",
+              "question": "how u dey i wan knowe",
+              "userid": 1,
+              "tags": "java, javascript",
+              "questionimage": "",
+              "createdat": "2018-09-02T23:00:00.000Z",
+              "updatedat": "2018-09-02T23:00:00.000Z"
+            }
+          ]
+
+### Create a New Question [POST]
+
+You may create your own Question using this action. It takes a multipart/form-data enctype object
+containing Question details.
+
+        + title (string) - The title
+        + question (string) - The question
+        + tags (string) - The questions tags
+        + questionImage (file) - The question image or logo
+
+This action takes a multipart/form-data enctype of the request as follows:
+
++ Request (multipart/form-data)
+
+  + Headers
+
+              x-access-token: eyJhaGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTM2MDA1NzQ2LCJleHAiOjE1MzYwOTIxNDZ9.D496Ykjb6bkeL0JWAv7CKkOzB0KNuGuZHX9RmoeFvmc
+
+  + Body
+              {
+                "title": "How do this",
+                "question": "I want to do this but i can not. please can someone help",
+                "tags": 'java',
+                "questionImage": "/uploads/image.png"
+              }
+
+This example returns a 201 status code, along with HTTP headers and a body.
+
++ Response 201 (application/json)
+
+    + Body
+
+              {
+                "id": 2,
+                "title": "How ok is",
+                "question": "how can you use",
+                "userid": 1,
+                "tags": "java, javascript",
+                "questionimage": "",
+                "createdat": "2018-09-01T23:00:00.000Z",
+                "updatedat": "2018-09-01T23:00:00.000Z",
+                "answers": []
+            }
+
+## Question [/v1/questions/{questionId}]
+
++ Parameters
+    + questionId: 2 (required, number) - ID of the Question in the form of an integer
+
+This resource has an action to retrieve a question detail.
+
+### View a Question Detail [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+          {
+            "id": 2,
+            "title": "How ok 1234",
+            "question": "how u dey i wan knowe",
+            "userid": 1,
+            "tags": "java, javascript",
+            "questionimage": "",
+            "createdat": "2018-09-01T23:00:00.000Z",
+            "updatedat": "2018-09-01T23:00:00.000Z",
+            "answers": [
+                {
+                  "id": 1,
+                  "response": "very finemfeff",
+                  "userid": 1,
+                  "questionid": 2,
+                  "accepted": false,
+                  "vote": 0,
+                  "answerimage": "",
+                  "createdat": "2018-09-01T23:00:00.000Z",
+                  "updatedat": "2018-09-01T23:00:00.000Z"
+                },
+                {
+                  "id": 2,
+                  "response": "feeling gucci",
+                  "userid": 1,
+                  "questionid": 2,
+                  "accepted": false,
+                  "vote": 0,
+                  "answerimage": "hjhjhj",
+                  "createdat": "2018-09-01T23:00:00.000Z",
+                  "updatedat": "2018-09-01T23:00:00.000Z"
+                }
+            ]
+        }
+
+This resource has a delete action. The server will return a 204 response without a body.
+
+### Delete a Question [DELETE]
+
++ Response 204
+`
+## Answers [/v1/questions/{questionId}/answers]
+
++ Parameters
+    + questionId: 2 (required, number) - ID of the question in form of an integer
+
+### Create a New Answer [POST]
+
+You may create your own Answer using this action. It takes a multipart/form-data enctype object
+containing Answer details.
+
+        + response (string) - The response to a question
+        + userId (int) - The identity of the user
+        + questionId (int) - The identity of the question
+        + answerImage (file) - The answer image
+
+This action takes a multipart/form-data enctype of the request as follows:
+
++ Request (multipart/form-data)
+
+            {
+              "response": "Try and do it like this",
+              "answerImage": "upload/image.jpg"
+            }
+
+This example returns a 201 status code, along with HTTP headers and a body
+
++ Response 201 (application/json)
+
+        + Body
+
+        {
+          "id": 11,
+          "response": "Try and do it like this",
+          "userid": 1,
+          "questionid": 2,
+          "accepted": false,
+          "vote": 0,
+          "answerimage": "",
+          "createdat": "2018-09-03T23:00:00.000Z",
+          "updatedat": "2018-09-03T23:00:00.000Z"
+        }
+
+This resource has a update action to edit a answer.
+
+## Answers [/v1/questions/{questionId}/answers/{answerId}]
+
++ Parameters
+    + questionId: 2 (required, number) - ID of the question in form of an integer
+
++ Parameters
+    + answerId: 11 (required, number) - ID of the answer in form of an integer
+
+### Update an Answer Detail [PUT]
+
+You may update your own Answer using this action. It takes a multipart/form-data enctype object
+containing Answer details.
+
+        + response (string) - The response to a question
+        + accepted (boolean) - The response to an accepted answer
+        + userId (int) - The identity of the user
+        + questionId (int) - The identity of the question
+        + answerImage (file) - The answer image
+
+This action takes a multipart/form-data enctype of the request(for answer author) as follows:
+
++ Request (multipart/form-data)
+
+            {
+              response: 'Try and do it like this',
+              answerimage: 'upload/image.jpg'
+            }
+
+This example returns a 200 status code, along with HTTP headers and a body
+
++ Response 200 (application/json)
+
+    + Body
+
+          {
+            "id": 11,
+            "response": "Try and do it like this",
+            "userid": 1,
+            "questionid": 2,
+            "accepted": false,
+            "vote": 0,
+            "answerimage": "upload/image.jpg",
+            "createdat": "2018-09-03T23:00:00.000Z",
+            "updatedat": "2018-09-03T23:00:00.000Z"
+          }
+
+
+This action takes a multipart/form-data enctype of the request(for question author) as follows:
+
++ Request (multipart/form-data)
+
+            {
+              accepted: false
+            }
+
+This example returns a 200 status code, along with HTTP headers and a body
+
++ Response 200 (application/json)
+
+    + Body
+
+          {
+            "id": 11,
+            "response": "Try and do it like this",
+            "userid": 1,
+            "questionid": 2,
+            "accepted": true,
+            "vote": 0,
+            "answerimage": "upload/image.jpg",
+            "createdat": "2018-09-03T23:00:00.000Z",
+            "updatedat": "2018-09-03T23:00:00.000Z"
+          }
