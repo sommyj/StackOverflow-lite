@@ -14,6 +14,8 @@ app.set('superSecret', process.env.SUPER_SECRET); // secret variable
 
 app.use('/usersUploads', express.static('usersUploads'));
 
+app.use('/docs', express.static('apiary.apib')); //access to documents
+
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

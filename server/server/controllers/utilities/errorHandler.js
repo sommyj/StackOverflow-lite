@@ -7,6 +7,10 @@ const errorHandler = {
     if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
     return res.status(400).send(error);
   },
+  notFoundHandlerError(fieldName, res, filePath) {
+    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+    return res.status(404).send({ message: `${fieldName} not found` });
+  },
   incompleteFieldHandlerError(res, filePath) {
     if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
     return res.status(206).send({ message: 'Incomplete field' });
