@@ -12,9 +12,12 @@ app.use(logger('dev'));
 
 app.set('superSecret', process.env.SUPER_SECRET); // secret variable
 
+// To display images stored
 app.use('/usersUploads', express.static('usersUploads'));
+app.use('/questionsUploads', express.static('questionsUploads'));
+app.use('/answersUploads', express.static('answersUploads'));
 
-app.use('/docs', express.static('apiary.apib')); //access to documents
+app.use('/docs', express.static('apiary.apib')); // access to documents
 
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
