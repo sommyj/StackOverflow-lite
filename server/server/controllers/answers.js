@@ -108,15 +108,13 @@ const answersController = {
             accepted: answer.accepted,
             vote: answer.vote,
             answerImage: filePath || answer.answerimage,
-
           }).then((result4) => {
             // if file and url is not empty delete img for updation
             if (filePath) {
               if (previousImage) deleteFile(`./${previousImage}`);
             }
             return res.status(200).send(result4.rows[0]);
-          })
-            .catch(error => createHandlerError(error, res, filePath));
+          }).catch(error => createHandlerError(error, res, filePath));
         }
         return res.status(403).send({ auth: false, message: 'User not allowed' });
       }).catch(error => createHandlerError(error, res, filePath));
