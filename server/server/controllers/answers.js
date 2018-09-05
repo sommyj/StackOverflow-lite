@@ -38,7 +38,6 @@ const answersController = {
     const noTokenProviderError = authValues[0];
     const failedAuthError = authValues[1];
     const decodedIDFromMethod = authValues[2];
-
     if (noTokenProviderError) return noTokenHandlerError(res);
     if (failedAuthError) return failedAuthHandlerError(res);
     if (decodedIDFromMethod) decodedID = decodedIDFromMethod;
@@ -48,7 +47,6 @@ const answersController = {
     if (fileTypeError) return fileTypeHandleError(res);
     /* Required feilds */
     if (!req.body.response) return incompleteFieldHandlerError(res, filePath);
-
     const data = { // Grab data from http request
       response: req.body.response,
       userId: decodedID,
