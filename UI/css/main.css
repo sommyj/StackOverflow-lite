@@ -1,0 +1,334 @@
+/** {
+    border: 1px solid red !important;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}*/
+
+/*@media only screen and (max-width: 500px) and (orientation:landscape) {
+    .col-10
+        {
+        display: none;
+    }
+}
+*/
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #8B0000;
+}
+
+.grid {
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap
+}
+
+.col-1 {
+    width: 8.33%;
+}
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+h2 {
+  padding: 0;
+  margin: 0;
+}
+
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
+h4 {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  padding-top: 24px;
+}
+
+#titleName {
+  text-align: left;
+}
+
+.center {
+  padding-left: 12px;
+  padding-right: 12px;
+  border-left: 1px solid #DADADA;
+  border-right: 1px solid #DADADA;
+}
+
+.title {
+  background: #FFE4C4;
+  padding-left: 6px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #DADADA;
+}
+
+.response {
+  word-wrap: break-word;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.createDate {
+  text-align: center;
+  padding-bottom: 1%;
+}
+
+.userImage {
+  text-align: right;
+  padding-right: 1%;
+}
+
+.username {
+  text-align: left;
+  padding-left: 1%;
+}
+
+.accept {
+  padding: 12px
+}
+
+.userDetails {
+  width: 100%;
+  /*background: #FFE4C4;*/
+  border-radius: 5px;
+}
+
+table {
+  background: #FFE4C4;
+}
+
+.responseDetails {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #DADADA;
+}
+
+.postForm {
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+}
+
+.postFormImage {
+  border-bottom: 2px solid #DADADA;
+}
+
+.postBtn {
+  height: 40px;
+  border-radius: 5px;
+  width: 130px;
+  background: #32CD32;
+  color: fff;
+}
+
+textarea {
+  width: inherit;
+}
+
+@media only screen and (max-width: 700px) {
+  textarea {
+    width: 210px;
+  }
+}
+
+.form {
+  padding-top: 12px;
+  width: inherit;
+}
+
+.formControl {
+  width: inherit;
+  height: 50px;
+  margin-bottom: 12px;
+}
+
+#signUp {
+  margin-right: 12px;
+}
+
+#signIn {
+  margin-left: 12px;
+}
+
+.signUpBtn {
+  padding-top: 24px;
+}
+
+.dropDown {
+  background: #32CD32;
+  color: fff;
+}
+
+.reduce {
+  max-width: 900px;
+}
+
+.questionList {
+  border-bottom: 2px solid #DADADA;
+}
+
+.questionLink {
+  padding: 12px
+}
+
+.questionTags {
+  padding: 12px
+}
+
+.tagsInput {
+  border-radius: 3px;
+  width: inherit;
+}
+
+/*=========nav=============*/
+
+.topnav {
+  overflow: hidden;
+  background-color: #8B0000;
+  border-radius: 5px;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #FFE4C4;
+  color: #8B0000;
+}
+
+.topnav a.active {
+  background-color: #32CD32;
+  color: #f2f2f2;
+}
+
+/*==========footer=========*/
+.footer {
+   /*position:relative;*/
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #8B0000;
+   color: white;
+   text-align: center;
+   height: 50px;
+   padding-top: 10px;
+   border-radius: 5px;
+   margin-top: 24px;
+}
+
+/*
+.col-12 img {
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  height: 345px;
+}
+
+.col-4 img {
+  max-width: 100%;
+  max-height: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.row .col-3 {
+  padding-bottom: 5px;
+}
+
+.foo {
+  float: right;
+  width: 65px;
+  height: 65px;
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.orange {
+  background: #f89b1c;
+}
+
+.green {
+  background: #bcbbbb;
+}
+
+.olive {
+  background: #74770A;
+}
+
+.colorNames {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.col-4 h3 {
+  text-align: center;
+}
+
+.col-3 h4 {
+  padding-left: 10px;
+}*/
