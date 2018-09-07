@@ -268,7 +268,7 @@ textarea {
 
 /*==========footer=========*/
 .footer {
-   /*position:relative;*/
+   position:fixed;
    left: 0;
    bottom: 0;
    width: 100%;
@@ -276,9 +276,9 @@ textarea {
    color: white;
    text-align: center;
    height: 50px;
-   padding-top: 10px;
+   /*padding-top: 10px;
    border-radius: 5px;
-   margin-top: 24px;
+   margin-top: 24px;*/
 }
 
 /*
