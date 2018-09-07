@@ -1,9 +1,9 @@
 window.onload= () => {
-  function createNode(element) {
+  createNode = (element) => {
       return document.createElement(element);
   }
 
-  function append(parent, el) {
+  append = (parent, el) => {
     return parent.appendChild(el);
   }
 

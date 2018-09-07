@@ -81,7 +81,14 @@ const questionsController = {
     }).catch(error => createHandlerError(error, res, filePath));
   },
   list(req, res) {
-    Question.findAll({order: ['createdat', 'DESC']}).then((results) => {
+    let selectionType;
+    if (req.query.userId) {
+      selectionType = Question
+        .findAll({ where: { userId: req.query.userId }, order: ['createdat', 'DESC'] });
+    }else {
+      selectionType = Question.findAll({order: ['createdat', 'DESC']});
+    }
+    selectionType.then((results) => {
       const questions = results.rows;
       return res.status(200).send(questions);
     }).catch(error => res.status(400).send(error));
@@ -96,7 +103,6 @@ const questionsController = {
         return res.status(200).send(question);
       })
         .catch(error => res.status(400).send(error));
-      // return res.status(200).send(question);
     }).catch(error => res.status(400).send(error));
   },
   destroy(req, res) {
