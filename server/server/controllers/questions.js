@@ -81,7 +81,7 @@ const questionsController = {
     }).catch(error => createHandlerError(error, res, filePath));
   },
   list(req, res) {
-    Question.findAll().then((results) => {
+    Question.findAll({order: ['createdat', 'DESC']}).then((results) => {
       const questions = results.rows;
       return res.status(200).send(questions);
     }).catch(error => res.status(400).send(error));

@@ -12,13 +12,19 @@ const Question = {
     // require our query executor into our model
     return query(queryStatement);
   },
-  findAll() {
-    // select all questions
-    const queryStatement = {
-      name: 'fetch-questions',
-      text: 'SELECT * FROM questions'
-    };
-
+  findAll(data) {
+    let queryStatement;
+    if(!data) {
+      queryStatement = { // select all questions
+        name: 'fetch-questions',
+        text: 'SELECT * FROM questions'
+      };
+    } else if(data.order){
+      queryStatement = { // select all questions
+        name: 'fetch-questions',
+        text: `SELECT * FROM questions ORDER BY ${data.order[0]} ${data.order[1]}`
+      };
+    }
     // require our query executor into our model
     return query(queryStatement);
   },
