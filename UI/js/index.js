@@ -36,14 +36,14 @@ window.onload= () => {
 
 
 
-  // const headers = new Headers(/*{ 'x-access-token': ''}*/);
-  //
-  // const init = { method: 'GET', headers };
-  //
-  // const request = new Request(url, init);
+  const headers = new Headers({/* 'x-access-token': ''*/'Access-Control-Allow-Origin': '*'});
+
+  const init = { method: 'GET', headers };
+
+  const request = new Request(url, init);
 
 
-  fetch(url, {mode: 'no-cors'})
+  fetch(request, {mode: 'cors'})
   .then((resp) => resp.json())
   .then((data) => {
     let questions = data;
