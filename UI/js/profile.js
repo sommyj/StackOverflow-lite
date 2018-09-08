@@ -16,20 +16,23 @@ window.onload= () => {
   .then((resp) => resp.json())
   .then((data) => {
     let questions = data;
+    asked.innerHTML = `${questions.length}`;
     return questions.map((question) => {
       let a = createNode('a');
       let spanTitle = createNode('span');
       spanTitle.innerHTML = `${question.title}`;
       a.setAttribute("href", "#");
-      const titleNode = document.createElement('div');
-      titleNode.setAttribute(`class`, `col-12`);
-      titleNode.setAttribute(`class`, `questionLink`);
+      const colNode = document.createElement('div');
+      const rowNode = document.createElement('div');
+      rowNode.setAttribute(`class`, `row`);
+      rowNode.setAttribute(`class`, `questionList`);
+      colNode.setAttribute(`class`, `col-12`);
+      colNode.setAttribute(`class`, `questionLink`);
       append(a, spanTitle);
-      append(titleNode, a);
-      append(questionContainer, titleNode);
+      append(colNode, a);
+      append(rowNode, colNode);
+      append(questionContainer, rowNode);
     })
-    
-    asked.innerHTML = `${questions.length}`;
   }).catch((error) => {
     console.log(error);
   });

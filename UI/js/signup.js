@@ -1,5 +1,5 @@
 window.onload= () => {
-  
+
   const postSignUpData = () => {
 
     const url = 'https://stackoverflow-lite-1.herokuapp.com/auth/v1/signup';
@@ -15,16 +15,22 @@ window.onload= () => {
     data.password = formData.get(`password`);
     data.gender = formData.get(`gender`);
 
-    console.log(data);
+    // const formData1 = new FormData();
+    // formData1.append('username', data.username);
+    // formData1.append('email', data.email);
+    // formData1.append('password', data.password);
+    // formData1.append('gender', data.gender);
 
-    const httpHeaders = { 'Content-Type': 'multipart/form-data'};
+    // console.log(data);
+
+    const httpHeaders = { 'Content-Type': 'multipart/form-data' };
     const myHeaders = new Headers(httpHeaders);
 
     // The parameters we are gonna pass to the fetch function
     let fetchData = {
         method: 'POST',
-        body: data,
-        headers: new Headers(myHeaders)
+        body: formData,
+        headers: new Headers()
     }
 
     fetch(url, fetchData)
@@ -47,9 +53,10 @@ window.onload= () => {
     data.username = formData.get(`username`);
     data.password = formData.get(`password`);
 
-    console.log(data);
+    // console.log(data);
 
-    const httpHeaders = { 'Content-Type': 'application/x-www-form-urlencoded'};
+    const httpHeaders = { 'Content-Type': 'application/x-www-form-urlencoded'/*,
+    'Accept': 'application/json, application/xml, text/plain, text/html, *.*'*/};
     const myHeaders = new Headers(httpHeaders);
 
     // The parameters we are gonna pass to the fetch function
