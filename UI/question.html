@@ -8,11 +8,11 @@
 	</head>
 	<body>
 
-		<div class="topnav">
+		<div class="topnav" id="topnav">
 		  <a class="active" href="index.html">Home</a>
 		  <a href="profile.html">profile</a>
 		  <a href="question.html">Ask Question</a>
-		  <a href="signup.html"style="float:right">SignUp/SignIn</a>
+		  <span class="floatLeft"><a href="signup.html" id="signInLink">SignIn</a></span>
 		</div>
 
 		<div class="grid container">
@@ -21,7 +21,7 @@
 					<div class="grid">
 					<div class="row title">
 							<h1 id="questionTitle">
-								How can i do this
+								<!-- How can i do this -->
 							</h1>
 					</div>
 					<div class="row response">
@@ -97,7 +97,7 @@
 							<h2>Answer this question</h2>
 						</div>
 						<div class="row">
-							<form class="" action="index.html" method="post">
+							<form id="anwserForm" method="post">
 							<div class="col-12 postForm">
 								<textarea name="response" rows="8" cols="80"></textarea>
 							</div>
@@ -109,6 +109,7 @@
 							</div>
 							</form>
 						</div>
+						<div id="answerError"></div>
 					</div>
 
 			</div>

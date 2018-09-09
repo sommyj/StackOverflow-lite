@@ -8,11 +8,11 @@
 		<title>Signin/Signup</title>
 	</head>
 	<body>
-		<div class="topnav">
+		<div class="topnav" id="topnav">
 		  <a class="active" href="index.html">Home</a>
 		  <a href="profile.html">Profile</a>
 		  <a href="question.html">Ask Question</a>
-		  <a href="signup.html"style="float:right">SignUp/SignIn</a>
+		  <span class="floatLeft"><a href="signup.html" id="signInLink">SignIn</a></span>
 		</div>
 
     <div class="grid container">
@@ -23,21 +23,25 @@
             <h1 id="titleName">Sign Up</h1>
           </div>
 					<div class="row">
-						<form class="form" action="#" method="post" id="signUpForm">
+						<form class="form" method="post" id="signUpForm">
 							<div class="col-12">
-								<input type="text" name="username" placeholder="Username" class="formControl">
+								<input type="text" name="username" placeholder="Username" class="formControl" required="true">
 							</div>
 							<div class="col-12">
-								<input type="text" name="email" placeholder="E-mail" class="formControl">
+								<input type="text" name="email" placeholder="E-mail" class="formControl" required="true">
 							</div>
 							<div class="col-12">
-								<input type="secret" name="password" placeholder="Password" class="formControl">
+								<input type="password" name="password" placeholder="Password" class="formControl" required="true">
 							</div>
 							<div class="col-12">
-								<input type="secret" name="password2" placeholder="Retype password" class="formControl">
+								<input type="password" name="password2" placeholder="Retype password" class="formControl" required="true">
 							</div>
 							<div class="col-12">
-								<select name="gender" class="formControl dropDown">
+								<input type="text" name="country" placeholder="Country" class="formControl" required="true">
+							</div>
+							<div class="col-12">
+								<select name="gender" class="formControl dropDown" required="true">
+									<option class="dropDown" value="">Gender</option>
 							    <option class="dropDown" value="male">Male</option>
 							    <option class="dropDown" value="female">Female</option>
 							  </select>
@@ -47,6 +51,7 @@
 							</div>
 						</form>
 					</div>
+					<div id="signupError"></div>
 					</div>
         </div>
         <div class="col-6" align="right">
@@ -55,18 +60,19 @@
             <h1 id="titleName">Log In</h1>
           </div>
 					<div class="row">
-						<form id="signInForm" class="form" action="" method="post">
+						<form id="signInForm" class="form" method="post">
 							<div class="col-12">
-								<input type="text" name="username" placeholder="Username" class="formControl">
+								<input type="text" name="username" placeholder="Username" class="formControl" required="true">
 							</div>
 							<div class="col-12">
-								<input type="secret" name="password" placeholder="Password" class="formControl">
+								<input type="password" name="password" placeholder="Password" class="formControl" required="true">
 							</div>
 							<div class="col-12 btn signUpBtn">
 								<input type="submit" value="Submit" class="postBtn">
 							</div>
 						</form>
 					</div>
+					<div id="loginError"></div>
 				</div>
         </div>
       </div>

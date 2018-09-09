@@ -1,85 +1,99 @@
-window.onload= () => {
-
-  const postSignUpData = () => {
+window.onload = () => {
+  const postSignUpData = (event) => {
+    event.preventDefault();
 
     const url = 'https://stackoverflow-lite-1.herokuapp.com/auth/v1/signup';
 
 
     // The data we are going to send in our request
-    let data = {};
+    const data = {};
 
     const formData = new FormData(signUpForm);
 
-    data.username = formData.get(`username`);
-    data.email = formData.get(`email`);
-    data.password = formData.get(`password`);
-    data.gender = formData.get(`gender`);
+    data.username = formData.get('username');
+    data.email = formData.get('email');
+    data.password = formData.get('password');
+    data.password2 = formData.get('password2');
+    data.gender = formData.get('gender');
+    data.country = formData.get('country');
 
-    // const formData1 = new FormData();
-    // formData1.append('username', data.username);
-    // formData1.append('email', data.email);
-    // formData1.append('password', data.password);
-    // formData1.append('gender', data.gender);
-
-    // console.log(data);
-
-    const httpHeaders = { 'Content-Type': 'multipart/form-data' };
-    const myHeaders = new Headers(httpHeaders);
-
-    // The parameters we are gonna pass to the fetch function
-    let fetchData = {
-        method: 'POST',
-        body: formData,
-        headers: new Headers()
+    // password confirmation
+    if (data.password !== data.password2) {
+      document.getElementById('signupError').innerHTML = 'password mismatch';
+      return;
     }
 
+    // The parameters we are gonna pass to the fetch function
+    const fetchData = {
+      method: 'POST',
+      body: formData,
+      headers: new Headers()
+    };
+
     fetch(url, fetchData)
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err)=>console.log(err))
-  }
+      .then(res => res.json())
+      .then((data2) => {
+        if (data2.auth) {
+        // Save data to sessionStorage
+          sessionStorage.setItem('jwt', data2.token);
+          window.location = 'index.html'; // refer to index page if sucessful
+        } else {
+          document.getElementById('signupError').innerHTML = data2.message;
+        }
+      })
+      .catch(err => err.json());
+  };
 
 
-  const postSignInData = () =>{
+  const postSignInData = (event) => {
+    event.preventDefault();
 
     const url = 'https://stackoverflow-lite-1.herokuapp.com/auth/v1/login';
 
 
     // The data we are going to send in our request
-    let data = {};
+    const data = {};
 
     const formData = new FormData(signInForm);
 
-    data.username = formData.get(`username`);
-    data.password = formData.get(`password`);
+    data.username = formData.get('username');
+    data.password = formData.get('password');
 
-    // console.log(data);
-
-    const httpHeaders = { 'Content-Type': 'application/x-www-form-urlencoded'/*,
-    'Accept': 'application/json, application/xml, text/plain, text/html, *.*'*/};
+    const httpHeaders = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const myHeaders = new Headers(httpHeaders);
 
+
+    const searchParams = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
+
+
     // The parameters we are gonna pass to the fetch function
-    let fetchData = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers(myHeaders)
-    }
+    const fetchData = {
+      method: 'POST',
+      body: searchParams,
+      headers: myHeaders
+    };
 
     fetch(url, fetchData)
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err)=>console.log(err))
-  }
+      .then(res => res.json())
+      .then((data2) => {
+        if (data2.auth) {
+        // Save data to sessionStorage
+          sessionStorage.setItem('jwt', data2.token);
+          window.location = 'index.html';
+        } else {
+          document.getElementById('loginError').innerHTML = data2.message;
+        }
+      })
+      .catch(err => err.json());
+  };
 
-  const signUpForm = document.getElementById('signUpForm')
-  if(signUpForm) {
+  const signUpForm = document.getElementById('signUpForm');
+  if (signUpForm) {
     signUpForm.addEventListener('submit', postSignUpData);
   }
 
-  const signInForm = document.getElementById('signInForm')
-  if(signInForm) {
+  const signInForm = document.getElementById('signInForm');
+  if (signInForm) {
     signInForm.addEventListener('submit', postSignInData);
   }
-
-}
+};

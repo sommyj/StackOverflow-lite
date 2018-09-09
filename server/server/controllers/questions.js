@@ -85,8 +85,8 @@ const questionsController = {
     if (req.query.userId) {
       selectionType = Question
         .findAll({ where: { userId: req.query.userId }, order: ['createdat', 'DESC'] });
-    }else {
-      selectionType = Question.findAll({order: ['createdat', 'DESC']});
+    } else {
+      selectionType = Question.findAll({ order: ['createdat', 'DESC'] });
     }
     selectionType.then((results) => {
       const questions = results.rows;

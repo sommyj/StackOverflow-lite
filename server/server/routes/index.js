@@ -6,11 +6,12 @@ const [questionsController] = [controllers.questionsController];
 const [answersController] = [controllers.answersController];
 
 const routes = (app) => {
-  app.all('/*', function(req, res, next) {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-      next()
-    });
+  app.all('/*', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers',
+      'X-Requested-With, Content-Type, X-Access-Token, Authorization');
+    next();
+  });
 
   app.get('/api', (req, res) => res.status(200).send({
     message: 'Welcome to the User API!'
