@@ -106,10 +106,10 @@ h4 {
   padding-bottom: 12px;
 }
 
-.createDate {
+/*.createDate {
   text-align: center;
   padding-bottom: 1%;
-}
+}*/
 
 .userImage {
   text-align: right;
@@ -144,6 +144,16 @@ table tr{
   padding-top: 12px;
   padding-bottom: 12px;
 
+}
+
+.questionTitleField {
+  width: 70%;
+  height: 7%;
+  border-radius: 5px;
+}
+
+.questionField {
+  border-radius: 5px;
 }
 
 .postFormImage {
@@ -227,6 +237,10 @@ textarea {
   padding-bottom: 48px;
 }
 
+.pt-8 {
+  padding-top: 12px;
+}
+
 .pt-6 {
   padding-top: 24px;
 }
@@ -255,6 +269,7 @@ textarea {
 
 .floatLeft {
   float: right;
+  padding-right: 24px;
 }
 
 /*=========nav=============*/

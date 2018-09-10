@@ -19,6 +19,8 @@ app.use('/answersUploads', express.static('answersUploads'));
 
 app.use('/docs', express.static('apiary.apib')); // access to documents
 
+app.use('/index', express.static('./UI/')); // html pages
+
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

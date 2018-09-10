@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 window.onload = () => {
   const postSignUpData = (event) => {
     event.preventDefault();
@@ -41,7 +42,7 @@ window.onload = () => {
           document.getElementById('signupError').innerHTML = data2.message;
         }
       })
-      .catch(err => err.json());
+      .catch(err => console.log(err));
   };
 
 
@@ -84,7 +85,7 @@ window.onload = () => {
           document.getElementById('loginError').innerHTML = data2.message;
         }
       })
-      .catch(err => err.json());
+      .catch(err => console.log(err));
   };
 
   const signUpForm = document.getElementById('signUpForm');

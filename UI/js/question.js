@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 window.onload = () => {
   const createNode = element => document.createElement(element);
 
@@ -23,8 +24,6 @@ window.onload = () => {
   signOutLinkSpan.setAttribute('class', 'floatLeft');
 
   signOutLink.addEventListener('click', signOutMethod);
-
-  // console.log(jwt);
 
   if (jwt) {
     signInLink.style.display = 'none';
@@ -64,39 +63,43 @@ window.onload = () => {
         const responseCol = createNode('div');
 
         const dateRow = createNode('div');
+        const dateCol = createNode('div');
+        const dateSpan = createNode('span');
         const acceptRow = createNode('div');
         const responseRow = createNode('div');
         const acceptImg = createNode('img');
 
+        dateSpan.setAttribute('class', 'floatLeft');
+        dateCol.setAttribute('class', 'col-12');
         dateRow.setAttribute('class', 'row responseDetails');
         answerRow.setAttribute('class', 'row');
         answerRow.setAttribute('class', 'response');
         answerRow.setAttribute('class', 'ptb-6');
         acceptCol.setAttribute('class', 'col-2');
         responseCol.setAttribute('class', 'col-10');
-        responseRow.setAttribute('class', 'row');
+        responseRow.setAttribute('class', 'row pt-8');
         acceptRow.setAttribute('class', 'row');
         acceptRow.setAttribute('align', 'center');
 
-        acceptImg.src = '../unticked.png';
+        acceptImg.src = 'img/unticked.png';
         acceptImg.alt = 'accept';
         acceptImg.width = '52';
         acceptImg.height = '42';
 
+        dateSpan.innerHTML = answer.createdat;
         responseRow.innerHTML = answer.response;
-        dateRow.innerHTML = answer.createdat;
 
         append(responseCol, responseRow);
         append(acceptRow, acceptImg);
         append(acceptCol, acceptRow);
         append(answerRow, acceptCol);
         append(answerRow, responseCol);
+        append(dateCol, dateSpan);
+        append(dateRow, dateCol);
         append(answerRow, dateRow);
         append(answerContainer, answerRow);
       });
-    }).catch((error) => {
-      error.json();
-    });
+    }).catch(error => console.log(error));
 
 
   const postAnwserData = (event) => {
@@ -131,7 +134,7 @@ window.onload = () => {
         } else {
           document.getElementById('answerError').innerHTML = data2.message;
         }
-      }).catch(err => err.json());
+      }).catch(err => console.log(err));
   };
 
   const anwserForm = document.getElementById('anwserForm');

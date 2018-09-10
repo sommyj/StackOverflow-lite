@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 window.onload = () => {
   const createNode = element => document.createElement(element);
 
@@ -14,22 +15,32 @@ window.onload = () => {
       const questions = data;
       asked.innerHTML = `${questions.length}`;
       return questions.forEach((question) => {
-        const a = createNode('a');
+        const questionLink = createNode('a');
         const spanTitle = createNode('span');
-        spanTitle.innerHTML = `${question.title}`;
-        a.setAttribute('href', '#');
         const colNode = document.createElement('div');
         const rowNode = document.createElement('div');
+        // Onclick method for question link
+        const questionLinkMethod = () => {
+        // Save data to sessionStorage
+          sessionStorage.setItem('questionId', question.id);
+          window.location = 'question.html';
+        };
+
+        spanTitle.innerHTML = `${question.title}`;
         rowNode.setAttribute('class', 'row');
         rowNode.setAttribute('class', 'questionList');
         colNode.setAttribute('class', 'col-12');
         colNode.setAttribute('class', 'questionLink');
-        append(a, spanTitle);
-        append(colNode, a);
+        questionLink.setAttribute('href', '#');
+
+        questionLink.addEventListener('click', questionLinkMethod);
+
+        append(questionLink, spanTitle);
+        append(colNode, questionLink);
         append(rowNode, colNode);
         append(questionContainer, rowNode);
       });
     }).catch((error) => {
-      error.json();
+      console.log(error);
     });
 };

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 window.onload = () => {
   const createNode = element => document.createElement(element);
 
@@ -84,7 +85,5 @@ window.onload = () => {
         append(questionRow, tagsNode);
         append(questionContainer, questionRow);
       });
-    }).catch((error) => {
-      error.json();
-    });
+    }).catch(error => console.log(error));
 };
