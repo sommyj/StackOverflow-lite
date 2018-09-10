@@ -12,13 +12,35 @@ const Question = {
     // require our query executor into our model
     return query(queryStatement);
   },
-  findAll() {
-    // select all questions
-    const queryStatement = {
-      name: 'fetch-questions',
-      text: 'SELECT * FROM questions'
-    };
-
+  findAll(data) {
+    let queryStatement;
+    if (!data) {
+      queryStatement = { // select all questions
+        name: 'fetch-questions',
+        text: 'SELECT * FROM questions'
+      };
+    } else if (data.where && data.order) {
+      const key = Object.keys(data.where)[0];
+      // select all questions filter by the value of a key and  ordered by a field
+      queryStatement = {
+        name: 'fetch-questions',
+        text: `SELECT * FROM questions WHERE ${key} = $1
+        ORDER BY ${data.order[0]} ${data.order[1]}`,
+        values: [data.where[key]]
+      };
+    } else if (data.order) {
+      queryStatement = { // select all questions ordered by a field
+        name: 'fetch-questions',
+        text: `SELECT * FROM questions ORDER BY ${data.order[0]} ${data.order[1]}`
+      };
+    } else if (data.where) {
+      const key = Object.keys(data.where)[0];
+      queryStatement = { // select all questions filter by the value of a key
+        name: 'fetch-questions',
+        text: `SELECT * FROM questions WHERE ${key} = $1`,
+        values: [data.where[key]]
+      };
+    }
     // require our query executor into our model
     return query(queryStatement);
   },

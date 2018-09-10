@@ -1,0 +1,60 @@
+<html>
+	<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+		<script type="text/javascript" src="js/profile.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+		<title>Profile</title>
+	</head>
+	<body>
+
+		<div class="topnav" id="topnav">
+		  <a class="active" href="index.html">Home</a>
+		  <a href="profile.html" id="profileLink">profile</a>
+		  <a href="ask.html">Ask Question</a>
+		  <span class="floatLeft"><a href="signup.html" id="signInLink">SignIn</a></span>
+		</div>
+
+		<div class="grid container" align="center">
+			<div class="row center">
+          <div class="row title">
+            <h2>profile</h2>
+          </div>
+          <div class="row pt-6">
+            <div class="col-6">
+              <h3>Questions Asked</h3>
+              <br>
+              <h4 id="questionAsked"></h4>
+            </div>
+            <div class="col-6">
+              <h3>Answers Given</h3>
+              <br>
+              <h4>0</h4>
+            </div>
+          </div>
+
+            <div class="row pt-4">
+              <div class="col-6">
+                <h3><span class="b">Questions with the most Answer</span></h3>
+                <div class="row questionList" id="mostAnswerQuestion">
+                  <div class="col-12 questionLink">
+                      <a href="#">Question</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <h3><span class="b">Recently asked Questions</span></h3>
+                <div class="grid" id="recentQuestion">
+                </div>
+              </div>
+            </div>
+
+			</div>
+		</div>
+
+		<div class="footer">
+		  <p>site design © 2018 StackOverflow-lite</p>
+		</div>
+
+	</body>
+</html>

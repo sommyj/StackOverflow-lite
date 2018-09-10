@@ -1,0 +1,77 @@
+<html>
+	<head>
+		<title>Question</title>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+		<script type="text/javascript" src="js/question.js"></script>
+	</head>
+	<body>
+
+		<div class="topnav" id="topnav">
+		  <a class="active" href="index.html">Home</a>
+		  <a href="profile.html" id="profileLink">profile</a>
+		  <a href="ask.html">Ask Question</a>
+		  <span class="floatLeft"><a href="signup.html" id="signInLink">SignIn</a></span>
+		</div>
+
+		<div class="grid container">
+			<div class="row center">
+					<!-- QUESTION:  -->
+					<div class="grid">
+					<div class="row title">
+							<h1 id="questionTitle">
+								<!-- How can i do this -->
+							</h1>
+					</div>
+					<div class="row response">
+						<div class="col-12" id="questionText">
+							</div>
+					</div>
+					<div class="row responseDetails">
+						<div class="col-6" id="questionTags">
+						</div>
+						<div class="col-6" align="right">
+							<span id="questionCreatedDate" class="floatLeft"></span>
+						</div>
+
+					</div>
+					</div>
+					<!-- ANSWER -->
+					<div class="grid">
+						<div class="row title">
+							<h2>Answers</h2>
+						</div>
+						<div class="grid" id="answerContainer">
+						</div>
+					</div>
+					<!-- CREATE ANSWER -->
+					<div class="grid">
+						<div class="row title">
+							<h2>Answer this question</h2>
+						</div>
+						<div class="row">
+							<form id="anwserForm" method="post">
+							<div class="col-12 postForm">
+								<textarea name="response" rows="8" cols="80"></textarea>
+							</div>
+							<div class="col-12 postForm postFormImage">
+								<input type="file" name="answerImage" accept="image/x-png,image/gif,image/jpeg">
+							</div>
+							<div class="col-12 postForm">
+								<input type="submit" value="Submit Answer" class="postBtn">
+							</div>
+							</form>
+						</div>
+						<div id="answerError"></div>
+					</div>
+
+			</div>
+		</div>
+
+		<div class="footer">
+		  <p>site design © 2018 StackOverflow-lite</p>
+		</div>
+
+	</body>
+</html>
