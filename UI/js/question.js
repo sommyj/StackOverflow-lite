@@ -45,11 +45,18 @@ window.onload = () => {
 
   const url = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}`;
 
-  fetch(url)
+  const headers = new Headers({'x-access-token': jwt});
+
+  const init = { method: 'GET', headers };
+
+  const request = new Request(url, init);
+
+  fetch(request)
     .then(resp => resp.json())
     .then((data) => {
       const question = data;
       const [answers] = [question.answers];
+      console.log(question.user+"-------------------");
 
       questionTitle.innerHTML = question.title;
       questionText.innerHTML = question.question;
@@ -81,10 +88,13 @@ window.onload = () => {
         acceptRow.setAttribute('class', 'row');
         acceptRow.setAttribute('align', 'center');
 
-        acceptImg.src = 'img/unticked.png';
-        acceptImg.alt = 'accept';
-        acceptImg.width = '52';
-        acceptImg.height = '42';
+        if(question.user) {
+          acceptImg.src = 'img/unticked.png';
+          acceptImg.alt = 'accept';
+          acceptImg.width = '52';
+          acceptImg.height = '42';
+        }
+
 
         dateSpan.innerHTML = answer.createdat;
         responseRow.innerHTML = answer.response;

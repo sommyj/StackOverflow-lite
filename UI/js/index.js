@@ -40,12 +40,6 @@ window.onload = () => {
 
   const url = 'https://stackoverflow-lite-1.herokuapp.com/v1/questions/';
 
-  // const headers = new Headers({/* 'x-access-token': ''});
-  //
-  // const init = { method: 'GET', headers };
-  //
-  // const request = new Request(url, init);
-
   fetch(url)
     .then(resp => resp.json())
     .then((data) => {
