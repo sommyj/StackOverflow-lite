@@ -11,6 +11,7 @@ window.onload = () => {
   const signInLink = document.getElementById('signInLink');
   const signOutLink = createNode('a');
   const signOutLinkSpan = createNode('span');
+  const profileLink = document.getElementById('profileLink');
 
   // Onclick method for signing out
   const signOutMethod = () => {
@@ -32,6 +33,7 @@ window.onload = () => {
   } else {
     signInLink.style.display = 'block';
     signInLink.setAttribute('id', '#signupLink');
+    profileLink.style.display = 'none';
   }
 
   const postQuestionData = (event) => {

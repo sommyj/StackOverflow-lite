@@ -11,6 +11,7 @@ window.onload = () => {
   const signInLink = document.getElementById('signInLink');
   const signOutLink = createNode('a');
   const signOutLinkSpan = createNode('span');
+  const profileLink = document.getElementById('profileLink');
 
   // Onclick method for signing out
   const signOutMethod = () => {
@@ -33,6 +34,7 @@ window.onload = () => {
   } else {
     signInLink.style.display = 'block';
     signInLink.setAttribute('id', '#signupLink');
+    profileLink.style.display = 'none';
   }
 
 
@@ -41,11 +43,40 @@ window.onload = () => {
   const questionCreatedDate = document.getElementById('questionCreatedDate');
   const questionTags = document.getElementById('questionTags');
 
+  // Answer Section
+
+  // This method is used to update the accepted answer
+  // const updateAcceptedAns = (answerId) => {
+  //   const urlAns = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}/answers/${answerId}`;
+  //
+  //   const ansHeader = new Headers({'x-access-token': jwt});
+  //
+  //   const formDataAns = new FormData();
+  //   formDataAns.append({'accepted':true});
+  //
+  //   const initAns = { method: 'PUT', headers: ansHeader, body: formDataAns,};
+  //
+  //   const requestAns = new Request(urlAns, initAns);
+  //
+  //
+  //   fetch(requestAns)
+  //   then(resp => resp.json())
+  //   .then((data) => {
+  //     if(data3.accepted){
+  //       window.location = 'question.html'; // refresh the question page
+  //     }else {
+  //       document.getElementById('answerError').innerHTML = data3.message;
+  //     }
+  //   })
+  //   .catch(error => console.log(error));
+  // }
+
+
   const answerContainer = document.getElementById('answerContainer');
 
   const url = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}`;
 
-  const headers = new Headers({'x-access-token': jwt});
+  const headers = new Headers({ 'x-access-token': jwt });
 
   const init = { method: 'GET', headers };
 
@@ -56,7 +87,6 @@ window.onload = () => {
     .then((data) => {
       const question = data;
       const [answers] = [question.answers];
-      console.log(question.user+"-------------------");
 
       questionTitle.innerHTML = question.title;
       questionText.innerHTML = question.question;
@@ -88,13 +118,21 @@ window.onload = () => {
         acceptRow.setAttribute('class', 'row');
         acceptRow.setAttribute('align', 'center');
 
-        if(question.user) {
+        if (question.user) {
           acceptImg.src = 'img/unticked.png';
-          acceptImg.alt = 'accept';
+          acceptImg.alt = 'not accepted';
+          acceptImg.width = '52';
+          acceptImg.height = '42';
+
+          // acceptImg.addEventListener('check', updateAcceptedAns(question.answers.id));
+        }
+
+        if (question.answers.accepted) {
+          acceptImg.src = 'img/ticked.png';
+          acceptImg.alt = 'accepted';
           acceptImg.width = '52';
           acceptImg.height = '42';
         }
-
 
         dateSpan.innerHTML = answer.createdat;
         responseRow.innerHTML = answer.response;

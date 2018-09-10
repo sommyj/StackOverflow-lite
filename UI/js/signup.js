@@ -1,5 +1,9 @@
 /* eslint-disable no-console */
 window.onload = () => {
+  const profileLink = document.getElementById('profileLink');
+  profileLink.style.display = 'none';
+
+
   const postSignUpData = (event) => {
     event.preventDefault();
 

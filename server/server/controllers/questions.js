@@ -105,8 +105,8 @@ const questionsController = {
       if (!question) return res.status(404).send({ message: 'question not found' });
       // Getting answers to the question
       Answer.findOne({ where: { questionid: question.id } }).then((answer) => {
-      if(decodedID === question.userid) question.user = true;
-      else question.user = false;
+        if (decodedID === question.userid) question.user = true;
+        else question.user = false;
         question.answers = answer.rows;
         return res.status(200).send(question);
       })

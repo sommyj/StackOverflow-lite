@@ -4,6 +4,36 @@ window.onload = () => {
 
   const append = (parent, el) => parent.appendChild(el);
 
+  const jwt = sessionStorage.getItem('jwt');
+
+  const topnav = document.getElementById('topnav');
+  const signInLink = document.getElementById('signInLink');
+  const signOutLink = createNode('a');
+  const signOutLinkSpan = createNode('span');
+
+  // Onclick method for signing out
+  const signOutMethod = () => {
+    // Remove all saved data from sessionStorage
+    sessionStorage.clear();
+    window.location = 'signup.html';
+  };
+
+  signOutLink.innerHTML = 'signout';
+  // signOutLink.setAttribute('href', 'signup.html');
+  signOutLinkSpan.setAttribute('class', 'floatLeft');
+
+  signOutLink.addEventListener('click', signOutMethod);
+
+  if (jwt) {
+    signInLink.style.display = 'none';
+
+    append(signOutLinkSpan, signOutLink);
+    append(topnav, signOutLinkSpan);
+  } else {
+    signInLink.style.display = 'block';
+    signInLink.setAttribute('id', '#signupLink');
+  }
+
   const questionContainer = document.getElementById('recentQuestion');
   const asked = document.getElementById('questionAsked');
 
@@ -43,6 +73,4 @@ window.onload = () => {
     }).catch((error) => {
       console.log(error);
     });
-
-
 };
