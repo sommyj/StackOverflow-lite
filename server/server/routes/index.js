@@ -9,7 +9,7 @@ const routes = (app) => {
   app.all('/*', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, X-Access-Token, Authorization, Accept');
+      'X-Requested-With, Content-Type, X-Access-Token, Authorization');
     next();
   });
 
