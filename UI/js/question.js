@@ -45,33 +45,6 @@ window.onload = () => {
 
   // Answer Section
 
-  // This method is used to update the accepted answer
-  // const updateAcceptedAns = (answerId) => {
-  //   const urlAns = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}/answers/${answerId}`;
-  //
-  //   const ansHeader = new Headers({'x-access-token': jwt});
-  //
-  //   const formDataAns = new FormData();
-  //   formDataAns.append({'accepted':true});
-  //
-  //   const initAns = { method: 'PUT', headers: ansHeader, body: formDataAns,};
-  //
-  //   const requestAns = new Request(urlAns, initAns);
-  //
-  //
-  //   fetch(requestAns)
-  //   then(resp => resp.json())
-  //   .then((data) => {
-  //     if(data3.accepted){
-  //       window.location = 'question.html'; // refresh the question page
-  //     }else {
-  //       document.getElementById('answerError').innerHTML = data3.message;
-  //     }
-  //   })
-  //   .catch(error => console.log(error));
-  // }
-
-
   const answerContainer = document.getElementById('answerContainer');
 
   const url = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}`;
@@ -87,6 +60,7 @@ window.onload = () => {
     .then((data) => {
       const question = data;
       const [answers] = [question.answers];
+      console.log(question);
 
       questionTitle.innerHTML = question.title;
       questionText.innerHTML = question.question;
@@ -106,6 +80,40 @@ window.onload = () => {
         const responseRow = createNode('div');
         const acceptImg = createNode('img');
 
+        console.log(answer.id);
+
+        // This method is used to update the accepted answer
+        const updateAcceptedAns = () => {
+          const urlAns = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}/answers/${answer.id}`;
+
+          const formDataAns = new FormData();
+          const myHeaders = new Headers({ 'x-access-token': jwt });
+
+          formDataAns.append('accepted', true);
+
+          // The parameters we are gonna pass to the fetch function
+          const fetchData = {
+            method: 'PUT',
+            body: formDataAns,
+            headers: myHeaders
+          };
+
+
+          // fetch(requestAns)
+          fetch(urlAns, fetchData)
+          then(resp => resp.json())
+          .then((data) => {
+            if(data3.accepted){
+              window.location = 'question.html'; // refresh the question page
+            }else {
+              document.getElementById('answerError').innerHTML = data3.message;
+            }
+          })
+          .catch(error => console.log(error));
+        }
+
+
+
         dateSpan.setAttribute('class', 'floatLeft');
         dateCol.setAttribute('class', 'col-12');
         dateRow.setAttribute('class', 'row responseDetails');
@@ -117,14 +125,13 @@ window.onload = () => {
         responseRow.setAttribute('class', 'row pt-8');
         acceptRow.setAttribute('class', 'row');
         acceptRow.setAttribute('align', 'center');
+        acceptImg.addEventListener('click', updateAcceptedAns);
 
         if (question.user) {
           acceptImg.src = 'img/unticked.png';
           acceptImg.alt = 'not accepted';
           acceptImg.width = '52';
           acceptImg.height = '42';
-
-          // acceptImg.addEventListener('check', updateAcceptedAns(question.answers.id));
         }
 
         if (question.answers.accepted) {

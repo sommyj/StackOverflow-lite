@@ -81,10 +81,16 @@ const questionsController = {
     }).catch(error => createHandlerError(error, res, filePath));
   },
   list(req, res) {
+    let decodedID; //Identity gotten from jwt
+    const authValues = authMethod(req);
+    const decodedIDFromMethod = authValues[2];
+
+    if (decodedIDFromMethod) decodedID = decodedIDFromMethod;
+
     let selectionType;
     if (req.query.userId) {
       selectionType = Question
-        .findAll({ where: { userId: req.query.userId }, order: ['createdat', 'DESC'] });
+        .findAll({ where: { userId: decodedID }, order: ['createdat', 'DESC'] });
     } else {
       selectionType = Question.findAll({ order: ['createdat', 'DESC'] });
     }
@@ -94,7 +100,7 @@ const questionsController = {
     }).catch(error => res.status(400).send(error));
   },
   retrieve(req, res) {
-    let decodedID;
+    let decodedID; //Identity gotten from jwt
     const authValues = authMethod(req);
     const decodedIDFromMethod = authValues[2];
 

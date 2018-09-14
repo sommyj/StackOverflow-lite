@@ -10,6 +10,8 @@ const routes = (app) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers',
       'X-Requested-With, Content-Type, X-Access-Token, Authorization');
+    res.header('Access-Control-Allow-Methods',
+      'POST, GET, PUT, DELETE');
     next();
   });
 
