@@ -1,8 +1,5 @@
 /*  eslint import/no-cycle: [2, { maxDepth: 1 }]  */
 import controllers from '../controllers';
-import cors from 'cors';
-
-app.use(cors());
 
 const [usersController] = [controllers.usersController];
 const [questionsController] = [controllers.questionsController];
