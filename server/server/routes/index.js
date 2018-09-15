@@ -8,8 +8,11 @@ const [answersController] = [controllers.answersController];
 const routes = (app) => {
   app.all('/*', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers',
-      'X-Requested-With, Content-Type, X-Access-Token, Authorization');
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Access-Token');
+      
+      //Auth Each API Request created by user.
     next();
   });
 
