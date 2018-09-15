@@ -1,5 +1,8 @@
 /*  eslint import/no-cycle: [2, { maxDepth: 1 }]  */
 import controllers from '../controllers';
+import cors from 'cors';
+
+app.use(cors());
 
 const [usersController] = [controllers.usersController];
 const [questionsController] = [controllers.questionsController];
@@ -7,7 +10,7 @@ const [answersController] = [controllers.answersController];
 
 const routes = (app) => {
   app.all('/*', (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://stackoverflow-lite-1.herokuapp.com');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Access-Token');
