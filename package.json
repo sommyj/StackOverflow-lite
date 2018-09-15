@@ -7,7 +7,7 @@
     "create:table": "node -r babel-core/register -r dotenv/config server/server/models/database/createTable.js",
     "drop:table": "node -r babel-core/register -r dotenv/config server/server/models/database/dropTable.js",
     "start:dev": "nodemon -r babel-core/register -r dotenv/config ./server/bin/www",
-    "start": "node -r dotenv/config -r babel-core/register ./server/bin/www",
+    "start": "babel-node ./server/bin/www",
     "build": "babel server -d lib",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r babel-core/register -r dotenv/config server/test --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
