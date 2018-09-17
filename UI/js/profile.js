@@ -37,7 +37,7 @@ window.onload = () => {
   const questionContainer = document.getElementById('recentQuestion');
   const asked = document.getElementById('questionAsked');
 
-  const url = 'https://stackoverflow-lite-1.herokuapp.com/v1/questions?userId';
+  const url = 'https://stackoverflow-lite-1.herokuapp.com/v1/questions?userId=1';
   const headers = new Headers({ 'x-access-token': jwt });
   const init = { method: 'GET', headers };
   const request = new Request(url, init);

@@ -60,7 +60,6 @@ window.onload = () => {
     .then((data) => {
       const question = data;
       const [answers] = [question.answers];
-      console.log(question);
 
       questionTitle.innerHTML = question.title;
       questionText.innerHTML = question.question;
@@ -80,37 +79,35 @@ window.onload = () => {
         const responseRow = createNode('div');
         const acceptImg = createNode('img');
 
-        console.log(answer.id);
-
-        // This method is used to update the accepted answer
-        const updateAcceptedAns = () => {
-          const urlAns = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}/answers/${answer.id}`;
-
-          const formDataAns = new FormData();
-          const myHeaders = new Headers({ 'x-access-token': jwt });
-
-          formDataAns.append('accepted', true);
-
-          // The parameters we are gonna pass to the fetch function
-          const fetchData = {
-            method: 'PUT',
-            body: formDataAns,
-            headers: myHeaders
-          };
-
-
-          // fetch(requestAns)
-          fetch(urlAns, fetchData)
-          then(resp => resp.json())
-          .then((data) => {
-            if(data3.accepted){
-              window.location = 'question.html'; // refresh the question page
-            }else {
-              document.getElementById('answerError').innerHTML = data3.message;
-            }
-          })
-          .catch(error => console.log(error));
-        }
+        // // This method is used to update the accepted answer
+        // const updateAcceptedAns = () => {
+        //   const urlAns = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}/answers/${answer.id}`;
+        //
+        //   const formDataAns = new FormData();
+        //   const myHeaders = new Headers({ 'x-access-token': jwt });
+        //
+        //   formDataAns.append('accepted', true);
+        //
+        //   // The parameters we are gonna pass to the fetch function
+        //   const fetchData = {
+        //     method: 'PUT',
+        //     body: formDataAns,
+        //     headers: myHeaders
+        //   };
+        //
+        //
+        //   // fetch(requestAns)
+        //   fetch(urlAns, fetchData)
+        //   then(resp => resp.json())
+        //   .then((data) => {
+        //     if(data3.accepted){
+        //       window.location = 'question.html'; // refresh the question page
+        //     }else {
+        //       document.getElementById('answerError').innerHTML = data3.message;
+        //     }
+        //   })
+        //   .catch(error => console.log(error));
+        // }
 
 
 
@@ -156,7 +153,7 @@ window.onload = () => {
       });
     }).catch(error => console.log(error));
 
-
+//Answer section
   const postAnwserData = (event) => {
     event.preventDefault();
 
