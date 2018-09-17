@@ -110,7 +110,6 @@ window.onload = () => {
         // }
 
 
-
         dateSpan.setAttribute('class', 'floatLeft');
         dateCol.setAttribute('class', 'col-12');
         dateRow.setAttribute('class', 'row responseDetails');
@@ -122,7 +121,7 @@ window.onload = () => {
         responseRow.setAttribute('class', 'row pt-8');
         acceptRow.setAttribute('class', 'row');
         acceptRow.setAttribute('align', 'center');
-        acceptImg.addEventListener('click', updateAcceptedAns);
+        // acceptImg.addEventListener('click', updateAcceptedAns);
 
         if (question.user) {
           acceptImg.src = 'img/unticked.png';
@@ -153,7 +152,7 @@ window.onload = () => {
       });
     }).catch(error => console.log(error));
 
-//Answer section
+  // Answer section
   const postAnwserData = (event) => {
     event.preventDefault();
 

@@ -81,7 +81,7 @@ const questionsController = {
     }).catch(error => createHandlerError(error, res, filePath));
   },
   list(req, res) {
-    let decodedID; //Identity gotten from jwt
+    let decodedID; // Identity gotten from jwt
     const authValues = authMethod(req);
     const decodedIDFromMethod = authValues[2];
 
@@ -100,7 +100,7 @@ const questionsController = {
     }).catch(error => res.status(400).send(error));
   },
   retrieve(req, res) {
-    let decodedID; //Identity gotten from jwt
+    let decodedID; // Identity gotten from jwt
     const authValues = authMethod(req);
     const decodedIDFromMethod = authValues[2];
 

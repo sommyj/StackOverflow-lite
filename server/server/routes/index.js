@@ -12,7 +12,7 @@ const routes = (app) => {
     res.header('Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Access-Token');
 
-      //Auth Each API Request created by user.
+    // Auth Each API Request created by user.
     next();
   });
 
