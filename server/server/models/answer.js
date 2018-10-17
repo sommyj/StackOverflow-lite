@@ -39,7 +39,8 @@ const Answer = {
     const queryStatement = {
       // give the query a unique username and password
       name: 'fetch-answer',
-      text: `SELECT * FROM answers WHERE ${key} = $1`,
+      text: `SELECT * FROM answers WHERE ${key} = $1
+      ORDER BY ${data.order[0]} ${data.order[1]}`,
       values: [data.where[key]]
     };
 

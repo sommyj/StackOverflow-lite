@@ -30,6 +30,9 @@ const upload = multer({
 
 const fileSizeLimit = 1024 * 1024 * 2;
 
+// number validation
+const isNumber = n => !Number.isNaN(parseFloat(n)) && Number.isFinite(n);
+
 const questionsController = {
   upload: upload.single('questionImage'), // image upload
   create(req, res) { // create a question
@@ -106,11 +109,18 @@ const questionsController = {
 
     if (decodedIDFromMethod) decodedID = decodedIDFromMethod;
 
+    if (!isNumber(req.params.questionId)) {
+      return res.status(400).send({ message: 'question not found' });
+    }
+    if (req.params.questionId > 1000000000) {
+      return res.status(400).send({ message: 'question not found' });
+    }
+
     Question.findById(req.params.questionId).then((result) => {
       const question = result.rows[0];
       if (!question) return res.status(404).send({ message: 'question not found' });
       // Getting answers to the question
-      Answer.findOne({ where: { questionid: question.id } }).then((answer) => {
+      Answer.findOne({ where: { questionid: question.id }, order: ['createdat', 'ASC'] }).then((answer) => {
         if (decodedID === question.userid) question.user = true;
         else question.user = false;
         question.answers = answer.rows;
@@ -129,6 +139,13 @@ const questionsController = {
     if (noTokenProviderError) return noTokenHandlerError(res);
     if (failedAuthError) return failedAuthHandlerError(res);
     if (decodedIDFromMethod) decodedID = decodedIDFromMethod;
+
+    if (!isNumber(req.params.questionId)) {
+      res.status(400).send({ message: 'question not found' });
+    }
+    if (req.params.questionId > 1000000000) {
+      res.status(400).send({ message: 'question not found' });
+    }
 
     Question.findById(req.params.questionId).then((result) => {
       const question = result.rows[0];

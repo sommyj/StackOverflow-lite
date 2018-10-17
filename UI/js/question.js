@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 window.onload = () => {
+  let accepted = false; // answer selected indicator value
+
   const createNode = element => document.createElement(element);
 
   const append = (parent, el) => parent.appendChild(el);
@@ -37,13 +39,73 @@ window.onload = () => {
     profileLink.style.display = 'none';
   }
 
+  // This method is used to update the accepted answer
+  const updateAcceptedAns = (answerId, value) => {
+    const [protocol, hostname, port] = [window.location.protocol,
+      window.location.hostname, window.location.port];
 
+    const urlAns = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}/answers/${answerId}`;
+
+    const formDataAns = new FormData();
+    const myHeaders = new Headers({ 'x-access-token': jwt });
+
+    if (value.src === `${protocol}//${hostname}:${port}/index/img/unticked.png`) {
+      if (accepted) {
+        // Get the snackbar DIV
+        const snackbarDiv = document.getElementById('snackbar');
+
+        // Add the "show" class to DIV
+        snackbarDiv.className = 'show';
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(() => { snackbarDiv.className = snackbarDiv.className.replace('show', ''); }, 3000);
+
+        return;
+      }
+
+      value.src = 'img/ticked.jpeg';
+      formDataAns.append('accepted', true);
+      accepted = true;
+    } else if (value.src === `${protocol}//${hostname}:${port}/index/img/ticked.jpeg`) {
+      value.src = 'img/unticked.png';
+      formDataAns.append('accepted', false);
+      accepted = false;
+    }
+
+    const fetchData = { // The parameters we are gonna pass to the fetch function
+      method: 'PUT',
+      body: formDataAns,
+      headers: myHeaders
+    };
+
+    fetch(urlAns, fetchData) // fetch(requestAns)
+      .then(resp => resp.json())
+      .then((data) => {
+        if (!data.message) {
+          console.log(data);
+        } else {
+          document.getElementById('answerError').innerHTML = data.message;
+          window.location = 'question.html'; // refresh the question page
+        }
+      })
+      .catch(error => console.log(error));
+  };
+
+  // Date format structure
+  const time = (dateCreated) => {
+    const date = new Date(dateCreated);
+    const months = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'];
+    return `${months[date.getMonth()]} ${date.getDate()}
+    ${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
+  };
+
+
+  // Question & Answer Section
   const questionTitle = document.getElementById('questionTitle');
   const questionText = document.getElementById('questionText');
   const questionCreatedDate = document.getElementById('questionCreatedDate');
   const questionTags = document.getElementById('questionTags');
-
-  // Answer Section
 
   const answerContainer = document.getElementById('answerContainer');
 
@@ -64,7 +126,9 @@ window.onload = () => {
       questionTitle.innerHTML = question.title;
       questionText.innerHTML = question.question;
       questionTags.innerHTML = question.tags;
-      questionCreatedDate.innerHTML = question.createdat;
+
+      // Question time format
+      questionCreatedDate.innerHTML = time(question.createdat);
 
       return answers.forEach((answer) => {
         const answerRow = createNode('div');
@@ -79,36 +143,6 @@ window.onload = () => {
         const responseRow = createNode('div');
         const acceptImg = createNode('img');
 
-        // // This method is used to update the accepted answer
-        // const updateAcceptedAns = () => {
-        //   const urlAns = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}/answers/${answer.id}`;
-        //
-        //   const formDataAns = new FormData();
-        //   const myHeaders = new Headers({ 'x-access-token': jwt });
-        //
-        //   formDataAns.append('accepted', true);
-        //
-        //   // The parameters we are gonna pass to the fetch function
-        //   const fetchData = {
-        //     method: 'PUT',
-        //     body: formDataAns,
-        //     headers: myHeaders
-        //   };
-        //
-        //
-        //   // fetch(requestAns)
-        //   fetch(urlAns, fetchData)
-        //   then(resp => resp.json())
-        //   .then((data) => {
-        //     if(data3.accepted){
-        //       window.location = 'question.html'; // refresh the question page
-        //     }else {
-        //       document.getElementById('answerError').innerHTML = data3.message;
-        //     }
-        //   })
-        //   .catch(error => console.log(error));
-        // }
-
 
         dateSpan.setAttribute('class', 'floatLeft');
         dateCol.setAttribute('class', 'col-12');
@@ -121,23 +155,33 @@ window.onload = () => {
         responseRow.setAttribute('class', 'row pt-8');
         acceptRow.setAttribute('class', 'row');
         acceptRow.setAttribute('align', 'center');
-        // acceptImg.addEventListener('click', updateAcceptedAns);
+
+        // if (question.user) {
+        //   acceptImg.src = 'img/unticked.png';
+        //   acceptImg.alt = 'not accepted';
+        //   acceptImg.width = '52';
+        //   acceptImg.height = '42';
+        // }
+
 
         if (question.user) {
-          acceptImg.src = 'img/unticked.png';
-          acceptImg.alt = 'not accepted';
+          if (answer.accepted) {
+            accepted = true;
+            acceptImg.src = 'img/ticked.jpeg';
+            acceptImg.alt = 'accepted';
+          } else {
+            acceptImg.src = 'img/unticked.png';
+            acceptImg.alt = 'not accepted';
+          //   acceptImg.addEventListener('click', function() {updateAcceptedAns(answer.id, true)});
+          }
+
+          acceptImg.addEventListener('click', () => { updateAcceptedAns(answer.id, acceptImg); });
           acceptImg.width = '52';
           acceptImg.height = '42';
         }
 
-        if (question.answers.accepted) {
-          acceptImg.src = 'img/ticked.png';
-          acceptImg.alt = 'accepted';
-          acceptImg.width = '52';
-          acceptImg.height = '42';
-        }
-
-        dateSpan.innerHTML = answer.createdat;
+        // Answer time format
+        dateSpan.innerHTML = time(answer.createdat);
         responseRow.innerHTML = answer.response;
 
         append(responseCol, responseRow);
@@ -152,7 +196,7 @@ window.onload = () => {
       });
     }).catch(error => console.log(error));
 
-  // Answer section
+  // Post answer section
   const postAnwserData = (event) => {
     event.preventDefault();
 
