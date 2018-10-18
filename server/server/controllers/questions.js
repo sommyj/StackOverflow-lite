@@ -21,6 +21,8 @@ const [userNotPrestentHandlerError] = [errorHandler.userNotPrestentHandlerError]
 const [noTokenHandlerError] = [errorHandler.noTokenHandlerError]; // no token provided handleError
 // failed Authentication handlerError
 const [failedAuthHandlerError] = [errorHandler.failedAuthHandlerError];
+// parameters handlerError
+const [parametersHandlerError] = [errorHandler.parametersHandlerError];
 
 const [deleteFile] = [fsHelper.deleteFile];// Delete file helper method
 
@@ -29,9 +31,6 @@ const upload = multer({
 });
 
 const fileSizeLimit = 1024 * 1024 * 2;
-
-// number validation
-const isNumber = n => !Number.isNaN(parseFloat(n)) && Number.isFinite(n);
 
 const questionsController = {
   upload: upload.single('questionImage'), // image upload
@@ -109,10 +108,7 @@ const questionsController = {
 
     if (decodedIDFromMethod) decodedID = decodedIDFromMethod;
 
-    if (!isNumber(req.params.questionId)) {
-      return res.status(400).send({ message: 'question not found' });
-    }
-    if (req.params.questionId > 1000000000) {
+    if (parametersHandlerError(req, res)) {
       return res.status(400).send({ message: 'question not found' });
     }
 
@@ -140,11 +136,8 @@ const questionsController = {
     if (failedAuthError) return failedAuthHandlerError(res);
     if (decodedIDFromMethod) decodedID = decodedIDFromMethod;
 
-    if (!isNumber(req.params.questionId)) {
-      res.status(400).send({ message: 'question not found' });
-    }
-    if (req.params.questionId > 1000000000) {
-      res.status(400).send({ message: 'question not found' });
+    if (parametersHandlerError(req, res)) {
+      return res.status(400).send({ message: 'question not found' });
     }
 
     Question.findById(req.params.questionId).then((result) => {

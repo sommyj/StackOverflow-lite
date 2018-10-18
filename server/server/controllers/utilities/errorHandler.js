@@ -2,6 +2,11 @@ import fsHelper from '../../../utilities/fileSystem';
 
 const [deleteFile] = [fsHelper.deleteFile];// Delete file helper method
 
+// number validation
+const isNumber = n => !Number.isNaN(parseFloat(n));
+
+const isFloat = n => Number(n) === n && n % 1 !== 0;
+
 const errorHandler = {
   createHandlerError(error, res, filePath) {
     if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
@@ -46,6 +51,12 @@ const errorHandler = {
   },
   failedAuthHandlerError(res) {
     return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+  },
+  parametersHandlerError(req) {
+    if (!isNumber(req.params.questionId) || !Number.isInteger(parseInt(req.params.questionId, 10))
+        || req.params.questionId > 1000000000 || isFloat(parseFloat(req.params.questionId))) {
+      return true;
+    } return false;
   }
 };
 
