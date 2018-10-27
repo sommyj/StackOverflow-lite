@@ -28,15 +28,22 @@ window.onload = () => {
 
   signOutLink.addEventListener('click', signOutMethod);
 
-  if (jwt) {
+  const userOn = () => {
     signInLink.style.display = 'none';
-
     append(signOutLinkSpan, signOutLink);
     append(topnav, signOutLinkSpan);
-  } else {
+  };
+
+  const userOff = () => {
     signInLink.style.display = 'block';
     signInLink.setAttribute('id', '#signupLink');
     profileLink.style.display = 'none';
+  };
+
+  if (jwt) {
+    userOn();
+  } else {
+    userOff();
   }
 
   // This method is used to update the accepted answer
@@ -122,6 +129,12 @@ window.onload = () => {
     .then((data) => {
       const question = data;
       const [answers] = [question.answers];
+
+      if (question.auth === false) {
+        userOff();
+      } else {
+        userOn();
+      }
 
       questionTitle.innerHTML = question.title;
       questionText.innerHTML = question.question;

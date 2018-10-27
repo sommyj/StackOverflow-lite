@@ -84,8 +84,18 @@ const questionsController = {
   },
   list(req, res) {
     let decodedID; // Identity gotten from jwt
+    let auth = false; // Session authentication
     const authValues = authMethod(req);
+
+    const noTokenProviderError = authValues[0];
+    const failedAuthError = authValues[1];
     const decodedIDFromMethod = authValues[2];
+
+    // Check if token is still valid
+    if (noTokenProviderError) {
+      auth = false;
+    } else if (failedAuthError) auth = false;
+    else auth = true;
 
     if (decodedIDFromMethod) decodedID = decodedIDFromMethod;
 
@@ -98,17 +108,27 @@ const questionsController = {
     }
     selectionType.then((results) => {
       const questions = results.rows;
-      return res.status(200).send(questions);
+      return res.status(200).send({ questions, auth });
     }).catch(error => res.status(400).send(error));
   },
   retrieve(req, res) {
     let decodedID; // Identity gotten from jwt
+    let auth = false; // Session authentication
     const authValues = authMethod(req);
+
+    const noTokenProviderError = authValues[0];
+    const failedAuthError = authValues[1];
     const decodedIDFromMethod = authValues[2];
+
+    // Check if token is still valid
+    if (noTokenProviderError) {
+      auth = false;
+    } else if (failedAuthError) auth = false;
+    else auth = true;
 
     if (decodedIDFromMethod) decodedID = decodedIDFromMethod;
 
-    if (parametersHandlerError(req, res)) {
+    if (parametersHandlerError(req)) {
       return res.status(400).send({ message: 'question not found' });
     }
 
@@ -119,6 +139,7 @@ const questionsController = {
       Answer.findOne({ where: { questionid: question.id }, order: ['createdat', 'ASC'] }).then((answer) => {
         if (decodedID === question.userid) question.user = true;
         else question.user = false;
+        question.auth = auth;
         question.answers = answer.rows;
         return res.status(200).send(question);
       })

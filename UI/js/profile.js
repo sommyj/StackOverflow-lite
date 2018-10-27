@@ -10,6 +10,7 @@ window.onload = () => {
   const signInLink = document.getElementById('signInLink');
   const signOutLink = createNode('a');
   const signOutLinkSpan = createNode('span');
+  const profileLink = document.getElementById('profileLink');
 
   // Onclick method for signing out
   const signOutMethod = () => {
@@ -24,14 +25,22 @@ window.onload = () => {
 
   signOutLink.addEventListener('click', signOutMethod);
 
-  if (jwt) {
+  const userOn = () => {
     signInLink.style.display = 'none';
-
     append(signOutLinkSpan, signOutLink);
     append(topnav, signOutLinkSpan);
-  } else {
+  };
+
+  const userOff = () => {
     signInLink.style.display = 'block';
     signInLink.setAttribute('id', '#signupLink');
+    profileLink.style.display = 'none';
+  };
+
+  if (jwt) {
+    userOn();
+  } else {
+    userOff();
   }
 
   const questionContainer = document.getElementById('recentQuestion');
@@ -45,7 +54,14 @@ window.onload = () => {
   fetch(request)
     .then(resp => resp.json())
     .then((data) => {
-      const questions = data;
+      if (data.auth === false) {
+        userOff();
+      } else {
+        userOn();
+      }
+
+      const [questions] = [data.questions];
+
       asked.innerHTML = `${questions.length}`;
       return questions.forEach((question) => {
         const questionLink = createNode('a');

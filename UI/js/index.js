@@ -25,17 +25,22 @@ window.onload = () => {
 
   signOutLink.addEventListener('click', signOutMethod);
 
-  // console.log(jwt);
-
-  if (jwt) {
+  const userOn = () => {
     signInLink.style.display = 'none';
-
     append(signOutLinkSpan, signOutLink);
     append(topnav, signOutLinkSpan);
-  } else {
+  };
+
+  const userOff = () => {
     signInLink.style.display = 'block';
     signInLink.setAttribute('id', '#signupLink');
     profileLink.style.display = 'none';
+  };
+
+  if (jwt) {
+    userOn();
+  } else {
+    userOff();
   }
 
   const questionContainer = document.getElementById('questions');
@@ -45,7 +50,13 @@ window.onload = () => {
   fetch(url)
     .then(resp => resp.json())
     .then((data) => {
-      const questions = data;
+      if (data.auth === false) {
+        userOff();
+      } else {
+        userOn();
+      }
+
+      const [questions] = [data.questions];
       return questions.forEach((question) => {
         const questionLink = createNode('a');
         const spanTitle = createNode('span');
