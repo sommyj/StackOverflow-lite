@@ -32,8 +32,9 @@ window.onload = () => {
     append(topnav, signOutLinkSpan);
   } else {
     signInLink.style.display = 'block';
-    signInLink.setAttribute('id', '#signupLink');
+    // signInLink.setAttribute('id', '#signupLink');
     profileLink.style.display = 'none';
+    signOutLink.style.display = 'none';
   }
 
   const postQuestionData = (event) => {

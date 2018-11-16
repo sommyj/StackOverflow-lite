@@ -36,8 +36,9 @@ window.onload = () => {
 
   const userOff = () => {
     signInLink.style.display = 'block';
-    signInLink.setAttribute('id', '#signupLink');
+    // signInLink.setAttribute('id', '#signupLink');
     profileLink.style.display = 'none';
+    signOutLink.style.display = 'none';
   };
 
   if (jwt) {
@@ -48,15 +49,14 @@ window.onload = () => {
 
   // This method is used to update the accepted answer
   const updateAcceptedAns = (answerId, value) => {
-    const [protocol, hostname, port] = [window.location.protocol,
-      window.location.hostname, window.location.port];
-
     const urlAns = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}/answers/${answerId}`;
 
     const formDataAns = new FormData();
     const myHeaders = new Headers({ 'x-access-token': jwt });
 
-    if (value.src === `${protocol}//${hostname}:${port}/index/img/unticked.png`) {
+    const img = value.src;
+
+    if (img.indexOf('unticked.png') !== -1) {
       if (accepted) {
         // Get the snackbar DIV
         const snackbarDiv = document.getElementById('snackbar');
@@ -73,7 +73,7 @@ window.onload = () => {
       value.src = 'img/ticked.jpeg';
       formDataAns.append('accepted', true);
       accepted = true;
-    } else if (value.src === `${protocol}//${hostname}:${port}/index/img/ticked.jpeg`) {
+    } else {
       value.src = 'img/unticked.png';
       formDataAns.append('accepted', false);
       accepted = false;

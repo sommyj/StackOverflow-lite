@@ -30,8 +30,10 @@ describe('Questions', () => {
         .get('/v1/questions')
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.be.a('array');
-          res.body.length.should.be.eql(0);
+          res.body.should.be.a('object');
+          res.body.questions.should.be.a('array');
+          res.body.should.have.property('auth').eql(false);
+          res.body.questions.length.should.be.eql(0);
           done();
         });
     });
@@ -59,17 +61,59 @@ describe('Questions', () => {
             .get('/v1/questions')
             .end((err, res) => {
               res.should.have.status(200);
-              res.body.should.be.a('array');
-              res.body.should.have.property(0);
-              res.body.should.have.deep.property('0').property('title').eql('I wannna know');
-              res.body.should.have.deep.property('0').property('question').eql('I wannna know your name');
-              res.body.should.have.deep.property('0').property('tags').eql('java');
-              res.body.should.have.deep.property('0').property('questionimage').eql('/something');
+              res.body.questions.should.be.a('array');
+              res.body.should.have.property('auth').eql(false);
+              res.body.questions.should.have.property(0);
+              res.body.questions.should.have.deep.property('0').property('title').eql('I wannna know');
+              res.body.questions.should.have.deep.property('0').property('question').eql('I wannna know your name');
+              res.body.questions.should.have.deep.property('0').property('tags').eql('java');
+              res.body.questions.should.have.deep.property('0').property('questionimage').eql('/something');
               done();
             });
         });
       });
     });
+
+    it('it should GET all the questions with data and authenticate the user', (done) => {
+      request
+        .post('/auth/v1/signup')
+        .field('title', 'mr')
+        .field('firstname', 'Justin')
+        .field('lastname', 'Ikwuoma')
+        .field('username', 'justman')
+        .field('password', 'abc')
+        .field('email', 'justin@gmail.com')
+        .field('gender', 'male')
+        .field('country', 'Nigeria')
+        .field('phone', '66979649')
+        .attach('userImage', '')
+        .end((err, res) => {
+          request
+            .post('/v1/questions')
+            .set('x-access-token', res.body.token)
+            .field('title', 'How far na')
+            .field('question', 'I just wan no how u dey')
+            .field('tags', 'java,javascript')
+            .attach('questionImage', '')
+            .end(() => {
+              request
+                .get('/v1/questions')
+                .set('x-access-token', res.body.token)
+                .end((err, res2) => {
+                  res2.should.have.status(200);
+                  res2.body.questions.should.be.a('array');
+                  res2.body.should.have.property('auth').eql(true);
+                  res2.body.should.have.property('questions');
+                  res2.body.questions.should.have.property(0);
+                  res2.body.questions.should.have.deep.property('0').property('title').eql('How far na');
+                  res2.body.questions.should.have.deep.property('0').property('question').eql('I just wan no how u dey');
+                  res2.body.questions.should.have.deep.property('0').property('tags').eql('java,javascript');
+                  done();
+                });
+            });
+        });
+    });
+
     it('it should not GET a question by the given wrong id', (done) => {
       User.create({
         title: 'mr',

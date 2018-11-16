@@ -33,8 +33,9 @@ window.onload = () => {
 
   const userOff = () => {
     signInLink.style.display = 'block';
-    signInLink.setAttribute('id', '#signupLink');
+    // signInLink.setAttribute('id', '#signupLink');
     profileLink.style.display = 'none';
+    signOutLink.style.display = 'none';
   };
 
   if (jwt) {
@@ -54,6 +55,7 @@ window.onload = () => {
   fetch(request)
     .then(resp => resp.json())
     .then((data) => {
+      console.log(data);
       if (data.auth === false) {
         userOff();
       } else {

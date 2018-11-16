@@ -33,8 +33,9 @@ window.onload = () => {
 
   const userOff = () => {
     signInLink.style.display = 'block';
-    signInLink.setAttribute('id', '#signupLink');
+    // signInLink.setAttribute('id', '#signupLink');
     profileLink.style.display = 'none';
+    signOutLink.style.display = 'none';
   };
 
   if (jwt) {
@@ -46,10 +47,13 @@ window.onload = () => {
   const questionContainer = document.getElementById('questions');
 
   const url = 'https://stackoverflow-lite-1.herokuapp.com/v1/questions/';
+  const headers = new Headers({ 'x-access-token': jwt });
+  const init = { method: 'GET', headers };
 
-  fetch(url)
+  fetch(url, init)
     .then(resp => resp.json())
     .then((data) => {
+      console.log(data);
       if (data.auth === false) {
         userOff();
       } else {
