@@ -69,6 +69,7 @@ window.onload = () => {
           window.location = 'index.html'; // refers user to the index page
         } else {
           document.getElementById('questionError').innerHTML = data2.message;
+          window.location = 'signup.html';
         }
       }).catch(err => console.log(err));
   };
