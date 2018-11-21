@@ -324,7 +324,7 @@ textarea {
     position: fixed; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
     left: 30%; /* Center the snackbar */
-    bottom: 70px; /* 30px from the bottom */
+    bottom: 70px; /* 70px from the bottom */
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
@@ -366,10 +366,10 @@ textarea {
     text-align: center; /* Centered text */
     border-radius: 6px; /* Rounded borders */
     padding: 8px; /* Padding */
-    position: fixed; /* Sit on top of the screen */
+    position: absolute;
     z-index: 1; /* Add a z-index if needed */
     left: 60%; /* Center the snackbar */
-    bottom: 100px; /* 30px from the bottom */
+    bottom: 100px; /* 100px from the bottom */
 }
 
 #mismatch_message {
@@ -381,10 +381,10 @@ textarea {
     text-align: center; /* Centered text */
     border-radius: 6px; /* Rounded borders */
     padding: 8px; /* Padding */
-    position: fixed; /* Sit on top of the screen */
+    position: absolute;
     z-index: 1; /* Add a z-index if needed */
     left: 60%; /* Center the snackbar */
-    bottom: 100px; /* 30px from the bottom */
+    bottom: 100px; /* 100px from the bottom */
 }
 
 /* Add a green text color and a checkmark when the requirements are right */
