@@ -58,10 +58,7 @@ const imageStorage = {
         const fileName = fileUpload.name;
 
         // Make file public
-        bucket.file(fileName).makePublic((err, apiResponse) => {
-          if (err) console.log(err);
-          else console.log(apiResponse);
-        });
+        bucket.file(fileName).makePublic((/* err, apiResponse */) => {});
 
         resolve(fileName);
       });
