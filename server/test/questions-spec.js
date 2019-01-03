@@ -1,11 +1,11 @@
+/* eslint-disable no-console */
 import chai from 'chai';
 import supertest from 'supertest';
-import path from 'path';
 import chaiHttp from 'chai-http';
 
 import app from '../app';
 import model from '../server/models';
-import fsHelper from '../utilities/fileSystem';
+import imageStorage from '../server/controllers/utilities/filebaseStorage';
 
 process.env.NODE_ENV = 'test';
 
@@ -14,9 +14,7 @@ chai.use(chaiHttp);
 const request = supertest(app);
 const [User] = [model.User];
 const [Question] = [model.Question];
-
-// Delete file helper method
-const [deleteFile] = [fsHelper.deleteFile];
+const [deleteImageFromStorage] = [imageStorage.deleteImageFromStorage];
 
 describe('Questions', () => {
   beforeEach((done) => { // Before each test we empty the database
@@ -163,7 +161,7 @@ describe('Questions', () => {
           question: 'I wannna know your name',
           userId: user.rows[0].id,
           tags: 'java,javascript',
-          questionImage: '/something'
+          questionImage: ''
         }).then((question) => {
           request
             .get(`/v1/questions/${question.rows[0].id}`)
@@ -174,7 +172,7 @@ describe('Questions', () => {
               res.body.should.have.property('title').eql('I wannna know');
               res.body.should.have.property('question').eql('I wannna know your name');
               res.body.should.have.property('tags').eql('java,javascript');
-              res.body.should.have.property('questionimage').eql('/something');
+              res.body.should.have.property('questionimage').eql('');
               res.body.should.have.property('answers').eql(res.body.answers);
               done();
             });
@@ -234,7 +232,7 @@ describe('Questions', () => {
             .field('question', 'I just wan no how u dey')
             .field('tags', 'java,javascript')
             .attach('questionImage', './testFile.png')
-            .end((err, res) => {
+            .end(async (err, res) => {
               res.should.have.status(201);
               res.body.should.be.a('object');
               res.body.should.have.property('id').eql(res.body.id);
@@ -243,9 +241,12 @@ describe('Questions', () => {
               res.body.should.have.property('tags').eql('java,javascript');
               res.body.should.have.property('questionimage').eql(res.body.questionimage);
 
-              // delete test image file
-              if (path.resolve('./testFile.png')) {
-                deleteFile(`./${res.body.questionimage}`);
+              if (res.body.questionimage) {
+                try {
+                  await deleteImageFromStorage(res.body.questionimage);
+                } catch (error) {
+                  console.error(error);
+                }
               }
               done();
             });
@@ -405,7 +406,7 @@ describe('Questions', () => {
             });
         });
     });
-    it('it should not CREATE a question when user is delete but token exist', (done) => {
+    it('it should not CREATE a question when user is deleted but token exist', (done) => {
       request
         .post('/auth/v1/signup')
         .field('title', 'mr')
@@ -592,7 +593,7 @@ describe('Questions', () => {
           });
         });
     });
-    it('it should DELETE a queston given the id', (done) => {
+    it('it should DELETE a queston and its file given the id', (done) => {
       request
         .post('/auth/v1/signup')
         .field('title', 'mr')
@@ -627,3 +628,4 @@ describe('Questions', () => {
     });
   });
 });
+/* eslint-enable no-console */

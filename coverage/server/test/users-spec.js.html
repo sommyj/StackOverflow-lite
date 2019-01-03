@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">99.17% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>120/120</span>
+        <span class='fraction'>119/120</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">75% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>1/2</span>
+        <span class='fraction'>6/8</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>32/32</span>
+        <span class='fraction'>34/34</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">99.16% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>119/119</span>
+        <span class='fraction'>118/119</span>
       </div>
     </div>
     <p class="quiet">
@@ -396,7 +396,10 @@
 <a name='L348'></a><a href='#L348'>348</a>
 <a name='L349'></a><a href='#L349'>349</a>
 <a name='L350'></a><a href='#L350'>350</a>
-<a name='L351'></a><a href='#L351'>351</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L351'></a><a href='#L351'>351</a>
+<a name='L352'></a><a href='#L352'>352</a>
+<a name='L353'></a><a href='#L353'>353</a>
+<a name='L354'></a><a href='#L354'>354</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -409,7 +412,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -443,7 +445,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -456,7 +458,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -472,8 +474,12 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -752,7 +758,7 @@ import path from 'path';
 import chaiHttp from 'chai-http';
 import app from '../app';
 import model from '../server/models';
-import fsHelper from '../utilities/fileSystem';
+import imageStorage from '../server/controllers/utilities/filebaseStorage';
 &nbsp;
 process.env.NODE_ENV = 'test';
 &nbsp;
@@ -760,9 +766,8 @@ chai.should();
 chai.use(chaiHttp);
 const request = supertest(app);
 const [User] = [model.User];
-&nbsp;
 // Delete file helper method
-const [deleteFile] = [fsHelper.deleteFile];
+const [deleteImageFromStorage] = [imageStorage.deleteImageFromStorage];
 &nbsp;
 describe('Users', () =&gt; {
   beforeEach((done) =&gt; { // Before each test we empty the database
@@ -806,7 +811,7 @@ describe('Users', () =&gt; {
         .field('phone', '66976498')
         .attach('userImage', './testFile.png')
 &nbsp;
-        .end((err, res) =&gt; {
+        .end(<span class="missing-if-branch" title="if path not taken" >I</span><span class="branch-2 cbranch-no" title="branch not covered" >async (err, res) =&gt; {</span>
           res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.user.should.have.property('id').eql(res.body.user.id);
@@ -822,8 +827,12 @@ describe('Users', () =&gt; {
           res.body.should.have.property('token').eql(res.body.token);
 &nbsp;
           // delete test image file
-          <span class="missing-if-branch" title="else path not taken" >E</span>if (path.resolve('./testFile.png')) {
-            deleteFile(`./${res.body.user.userimage}`);
+          if (res.body.user.userimage) {
+            try {
+              await deleteImageFromStorage(res.body.user.userimage);
+            } catch (error) {
+<span class="cstat-no" title="statement not covered" >              console.error(error);</span>
+            }
           }
           done();
         });
@@ -1102,7 +1111,7 @@ describe('Users', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 19 2018 13:36:11 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 03 2019 16:51:38 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

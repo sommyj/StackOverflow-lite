@@ -1,10 +1,10 @@
+/* eslint-disable no-console */
 import chai from 'chai';
 import supertest from 'supertest';
-import path from 'path';
 import chaiHttp from 'chai-http';
 import app from '../app';
 import model from '../server/models';
-import fsHelper from '../utilities/fileSystem';
+import imageStorage from '../server/controllers/utilities/filebaseStorage';
 
 process.env.NODE_ENV = 'test';
 
@@ -12,9 +12,8 @@ chai.should();
 chai.use(chaiHttp);
 const request = supertest(app);
 const [User] = [model.User];
-
 // Delete file helper method
-const [deleteFile] = [fsHelper.deleteFile];
+const [deleteImageFromStorage] = [imageStorage.deleteImageFromStorage];
 
 describe('Users', () => {
   beforeEach((done) => { // Before each test we empty the database
@@ -58,7 +57,7 @@ describe('Users', () => {
         .field('phone', '66976498')
         .attach('userImage', './testFile.png')
 
-        .end((err, res) => {
+        .end(async (err, res) => {
           res.should.have.status(201);
           res.body.should.be.a('object');
           res.body.user.should.have.property('id').eql(res.body.user.id);
@@ -74,8 +73,12 @@ describe('Users', () => {
           res.body.should.have.property('token').eql(res.body.token);
 
           // delete test image file
-          if (path.resolve('./testFile.png')) {
-            deleteFile(`./${res.body.user.userimage}`);
+          if (res.body.user.userimage) {
+            try {
+              await deleteImageFromStorage(res.body.user.userimage);
+            } catch (error) {
+              console.error(error);
+            }
           }
           done();
         });
@@ -348,3 +351,4 @@ describe('Users', () => {
     });
   });
 });
+/* eslint-enable no-console */

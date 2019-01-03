@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">62.16% </span>
+        <span class="strong">70.83% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>23/37</span>
-      </div>
-      <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
-        <span class="quiet">Branches</span>
-        <span class='fraction'>12/24</span>
-      </div>
-      <div class='fl pad1y space-right2'>
-        <span class="strong">73.33% </span>
-        <span class="quiet">Functions</span>
-        <span class='fraction'>11/15</span>
+        <span class='fraction'>17/24</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">66.67% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.43% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>18/27</span>
+        <span class='fraction'>14/20</span>
       </div>
     </div>
     <p class="quiet">
@@ -100,16 +100,7 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,32 +116,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,9 +154,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import fsHelper from '../../../utilities/fileSystem';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import imageStorage from './filebaseStorage';
 &nbsp;
-const [deleteFile] = [fsHelper.deleteFile];// Delete file helper method
+const [deleteImageFromStorage] = [imageStorage.deleteImageFromStorage];
 &nbsp;
 // number validation
 const isNumber = n =&gt; !Number.isNaN(parseFloat(n));
@@ -182,42 +164,33 @@ const isNumber = n =&gt; !Number.isNaN(parseFloat(n));
 const isFloat = n =&gt; Number(n) === n &amp;&amp; n % 1 !== 0;
 &nbsp;
 const errorHandler = <span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" >{</span></span></span></span>
-  createHandlerError(error, res, filePath) {
-<span class="cstat-no" title="statement not covered" >    if (filePath) <span class="cstat-no" title="statement not covered" >deleteFile(`./${filePath}`); // if file uploads delete it</span></span>
+  createHandlerError(error, res, fileName) {
+<span class="cstat-no" title="statement not covered" >    if (fileName) <span class="cstat-no" title="statement not covered" >deleteImageFromStorage(fileName); // if file uploads delete it</span></span>
 <span class="cstat-no" title="statement not covered" >    return res.status(400).send(error);</span>
   },
-  notFoundHandlerError(fieldName, res, filePath) {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  notFoundHandlerError(fieldName, res) {
     return res.status(404).send({ message: `${fieldName} not found` });
   },
-  incompleteFieldHandlerError(res, filePath) {
-    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  incompleteFieldHandlerError(res) {
     return res.status(206).send({ message: 'Incomplete field' });
   },
-  fileTypeHandleError(res) { // file type handleError
-    res.status(403).json({ message: 'Only .png and .jpg files are allowed!', error: true });
+  fileHandleError(res, message) { // file type handleError
+    return res.status(403).json({ message, error: true });
   },
-  fileSizeHandleError(res) { // file size handleError
-    res.status(403).json({ message: 'file should not be more than 2mb!', error: true });
-  },
-  usernameHandlerError(res, filePath) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (filePath) <span class="cstat-no" title="statement not covered" >deleteFile(`./${filePath}`); // if file uploads delete it</span>
+  usernameHandlerError(res) {
     return res.status(400).send({ message: 'username already exists' });
   },
-  emailHandlerError(res, filePath) {
-<span class="cstat-no" title="statement not covered" >    if (filePath) <span class="cstat-no" title="statement not covered" >deleteFile(`./${filePath}`); // if file uploads delete it</span></span>
+  emailHandlerError(res) {
 <span class="cstat-no" title="statement not covered" >    return res.status(400).send({ message: 'email already exists' });</span>
   },
-  phoneHandlerError(res, filePath) {
-<span class="cstat-no" title="statement not covered" >    if (filePath) <span class="cstat-no" title="statement not covered" >deleteFile(`./${filePath}`); // if file uploads delete it</span></span>
+  phoneHandlerError(res) {
 <span class="cstat-no" title="statement not covered" >    return res.status(400).send({ message: 'phone already exists' });</span>
   },
-  questionHandlerError(res, filePath) {
-<span class="cstat-no" title="statement not covered" >    if (filePath) <span class="cstat-no" title="statement not covered" >deleteFile(`./${filePath}`); // if file uploads delete it</span></span>
+  questionHandlerError(res) {
 <span class="cstat-no" title="statement not covered" >    return res.status(400).send({ message: 'question already exists' });</span>
   },
-  userNotPrestentHandlerError(res, filePath) {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  userNotPrestentHandlerError(res, fileName) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (fileName) deleteImageFromStorage(fileName); // if file uploads delete it
     return res.status(400).send({ message: 'user has been removed from the database' });
   },
   noTokenHandlerError(res) {
@@ -241,7 +214,7 @@ export default errorHandler;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 19 2018 13:36:11 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 03 2019 16:51:38 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

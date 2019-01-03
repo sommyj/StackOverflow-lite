@@ -7,20 +7,20 @@ import models from '../models';
 import app from '../../app';
 import errorHandler from './utilities/errorHandler';
 import fileFilterMethod from './utilities/fileFilter';
+import imageStorage from './utilities/filebaseStorage';
 
 const [User] = [models.User];
-
+const [uploadImageToStorage] = [imageStorage.uploadImageToStorage];
 const [createHandlerError] = [errorHandler.createHandlerError]; // create handleError
 // incomplete field handleError
 const [incompleteFieldHandlerError] = [errorHandler.incompleteFieldHandlerError];
-const [fileTypeHandleError] = [errorHandler.fileTypeHandleError]; // file type handleError
-const [fileSizeHandleError] = [errorHandler.fileSizeHandleError]; // file size handleError
+const [fileHandleError] = [errorHandler.fileHandleError]; // file handleError
 const [usernameHandlerError] = [errorHandler.usernameHandlerError]; // username handleError
 const [emailHandlerError] = [errorHandler.emailHandlerError]; // email handleError
 const [phoneHandlerError] = [errorHandler.phoneHandlerError]; // phone handleError
 
 const upload = multer({
-  dest: './usersUploads/'
+  storage: multer.memoryStorage()
 });
 
 const fileSizeLimit = 1024 * 1024 * 2;
@@ -37,49 +37,61 @@ const tokenMethod = (userId) => {
 const usersController = {
   upload: upload.single('userImage'), // image upload
   create(req, res) { // create a user
-    // implementing the file filter method
-    const [fileSizeError, fileTypeError, filePath] = fileFilterMethod(req, fileSizeLimit, 'usersUploads');
-    if (fileSizeError) return fileSizeHandleError(res);
-    if (fileTypeError) return fileTypeHandleError(res);
     /* Required feilds */
     if (!req.body.username || !req.body.password || !req.body.email || !req.body.gender) {
-      return incompleteFieldHandlerError(res, filePath);
+      return incompleteFieldHandlerError(res);
     }
     // Auto-gen a salt and hash
     const hashedPassword = bcrypt.hashSync(req.body.password, 8);
-    // Grab data from http request
-    const data = {
-      title: req.body.title,
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      username: req.body.username,
-      password: hashedPassword,
-      email: req.body.email,
-      gender: req.body.gender,
-      country: req.body.country,
-      phone: req.body.phone,
-      userImage: filePath
-    };
+
+    const [file] = [req.file];
+    let fileName = '';
+
     /* Search to see if username, email and phone exist before creation
     to avoid skipping of id on unique constraint */
-    User.findAll().then((results) => {
+    User.findAll().then(async (results) => {
       const users = results.rows;
       let userCount = 0;
       for (const user of users) {
-        if (data.username === user.username) return usernameHandlerError(res, filePath);
-        if (data.email === user.email) return emailHandlerError(res, filePath);
-        if (data.phone === user.phone) return phoneHandlerError(res, filePath);
+        if (req.body.username === user.username) return usernameHandlerError(res);
+        if (req.body.email === user.email) return emailHandlerError(res);
+        if (req.body.phone === user.phone) return phoneHandlerError(res);
         userCount += 1;
       }
       if (userCount === users.length) { // Create user after checking if it exist
+        if (file) {
+          // implementing the file filter method
+          const fileError = fileFilterMethod(req, fileSizeLimit);
+          if (fileError) return fileHandleError(res, fileError);
+          try {
+            fileName = await uploadImageToStorage(file, 'userImages');
+          } catch (error) {
+            return res.status(400).send(error);
+          }
+        }
+
+        // Grab data from http request
+        const data = {
+          title: req.body.title,
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          username: req.body.username,
+          password: hashedPassword,
+          email: req.body.email,
+          gender: req.body.gender,
+          country: req.body.country,
+          phone: req.body.phone,
+          userImage: fileName
+        };
+
         User.create(data) // pass data to our model
           .then((result) => {
             const user = result.rows[0];
             const token = tokenMethod(user.id); // Generate token
             if (token) return res.status(201).send({ user, auth: true, token });
-          }).catch(error => createHandlerError(error, res, filePath));
+          }).catch(error => createHandlerError(error, res, fileName));
       }
-    }).catch(error => createHandlerError(error, res, filePath));
+    }).catch(error => createHandlerError(error, res));
   },
   check(req, res) { // login with username and password
     // pass data to our model

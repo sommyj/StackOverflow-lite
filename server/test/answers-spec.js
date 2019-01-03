@@ -1,11 +1,11 @@
+/* eslint-disable no-console */
 import chai from 'chai';
 import supertest from 'supertest';
-import path from 'path';
 import chaiHttp from 'chai-http';
 
 import app from '../app';
 import model from '../server/models';
-import fsHelper from '../utilities/fileSystem';
+import imageStorage from '../server/controllers/utilities/filebaseStorage';
 
 process.env.NODE_ENV = 'test';
 
@@ -15,9 +15,8 @@ const request = supertest(app);
 const [User] = [model.User];
 const [Question] = [model.Question];
 const [Answer] = [model.Answer];
-
 // Delete file helper method
-const [deleteFile] = [fsHelper.deleteFile];
+const [deleteImageFromStorage] = [imageStorage.deleteImageFromStorage];
 
 describe('Answers', () => {
   beforeEach((done) => { // Before each test we empty the database
@@ -91,7 +90,7 @@ describe('Answers', () => {
                 .set('x-access-token', res1.body.token)
                 .field('response', 'very fine')
                 .attach('answerImage', './testFile.png')
-                .end((err, res) => {
+                .end(async (err, res) => {
                   res.should.have.status(201);
                   res.body.should.be.a('object');
                   res.body.should.have.property('response').eql('very fine');
@@ -101,8 +100,12 @@ describe('Answers', () => {
                   res.body.should.have.property('answerimage').eql(res.body.answerimage);
 
                   // delete test image file
-                  if (path.resolve('./testFile.png')) {
-                    deleteFile(`./${res.body.answerimage}`);
+                  if (res.body.answerimage) {
+                    try {
+                      await deleteImageFromStorage(res.body.answerimage);
+                    } catch (error) {
+                      console.error(error);
+                    }
                   }
                   done();
                 });
@@ -427,7 +430,7 @@ describe('Answers', () => {
                     .set('x-access-token', res1.body.token)
                     .field('response', 'i am ok')
                     .attach('answerImage', './testFile.png')
-                    .end((err, res) => {
+                    .end(async (err, res) => {
                       res.should.have.status(200);
                       res.body.should.be.a('object');
                       res.body.should.have.property('response').eql('i am ok');
@@ -437,9 +440,14 @@ describe('Answers', () => {
                       res.body.should.have.property('answerimage').eql(res.body.answerimage);
 
                       // delete test image file
-                      if (path.resolve('./testFile.png')) {
-                        deleteFile(`./${res.body.answerimage}`);
+                      if (res.body.answerimage) {
+                        try {
+                          await deleteImageFromStorage(res.body.answerimage);
+                        } catch (error) {
+                          console.error(error);
+                        }
                       }
+
                       done();
                     });
                 });
@@ -568,7 +576,7 @@ describe('Answers', () => {
                     .set('x-access-token', res1.body.token)
                     .field('response', '')
                     .attach('answerImage', '')
-                    .end((err, res) => {
+                    .end(async (err, res) => {
                       res.should.have.status(200);
                       res.body.should.be.a('object');
                       res.body.should.have.property('response').eql('very fine');
@@ -578,8 +586,12 @@ describe('Answers', () => {
                       res.body.should.have.property('answerimage').eql(res.body.answerimage);
 
                       // delete test image file
-                      if (path.resolve('./testFile.png')) {
-                        deleteFile(`./${res.body.answerimage}`);
+                      if (res.body.answerimage) {
+                        try {
+                          await deleteImageFromStorage(res.body.answerimage);
+                        } catch (error) {
+                          console.error(error);
+                        }
                       }
                       done();
                     });
@@ -620,7 +632,7 @@ describe('Answers', () => {
                     .set('x-access-token', res1.body.token)
                     .field('response', '')
                     .attach('answerImage', './testFile.png')
-                    .end((err, res) => {
+                    .end(async (err, res) => {
                       res.should.have.status(200);
                       res.body.should.be.a('object');
                       res.body.should.have.property('response').eql('very fine');
@@ -630,8 +642,12 @@ describe('Answers', () => {
                       res.body.should.have.property('answerimage').eql(res.body.answerimage);
 
                       // delete test image file
-                      if (path.resolve('./testFile.png')) {
-                        deleteFile(`./${res.body.answerimage}`);
+                      if (res.body.answerimage) {
+                        try {
+                          await deleteImageFromStorage(res.body.answerimage);
+                        } catch (error) {
+                          console.error(error);
+                        }
                       }
                       done();
                     });
@@ -861,3 +877,4 @@ describe('Answers', () => {
     });
   });
 });
+/* eslint-enable no-console */

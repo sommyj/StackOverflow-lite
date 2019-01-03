@@ -25,6 +25,7 @@ window.onload = () => {
     // password confirmation
     if (data.password !== data.password2) {
       document.getElementById('signupError').innerHTML = 'password mismatch';
+      document.getElementById('mismatch_message').style.visibility = 'visible';
       return;
     }
 

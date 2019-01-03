@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">99.47% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>188/188</span>
+        <span class='fraction'>187/188</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">75% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>1/2</span>
+        <span class='fraction'>6/8</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>70/70</span>
+        <span class='fraction'>72/72</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">99.47% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>187/187</span>
+        <span class='fraction'>186/187</span>
       </div>
     </div>
     <p class="quiet">
@@ -675,7 +675,8 @@
 <a name='L627'></a><a href='#L627'>627</a>
 <a name='L628'></a><a href='#L628'>628</a>
 <a name='L629'></a><a href='#L629'>629</a>
-<a name='L630'></a><a href='#L630'>630</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L630'></a><a href='#L630'>630</a>
+<a name='L631'></a><a href='#L631'>631</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -689,8 +690,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -904,14 +903,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -921,8 +920,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1311,7 +1313,7 @@ import chaiHttp from 'chai-http';
 &nbsp;
 import app from '../app';
 import model from '../server/models';
-import fsHelper from '../utilities/fileSystem';
+import imageStorage from '../server/controllers/utilities/filebaseStorage';
 &nbsp;
 process.env.NODE_ENV = 'test';
 &nbsp;
@@ -1320,9 +1322,7 @@ chai.use(chaiHttp);
 const request = supertest(app);
 const [User] = [model.User];
 const [Question] = [model.Question];
-&nbsp;
-// Delete file helper method
-const [deleteFile] = [fsHelper.deleteFile];
+const [deleteImageFromStorage] = [imageStorage.deleteImageFromStorage];
 &nbsp;
 describe('Questions', () =&gt; {
   beforeEach((done) =&gt; { // Before each test we empty the database
@@ -1469,7 +1469,7 @@ describe('Questions', () =&gt; {
           question: 'I wannna know your name',
           userId: user.rows[0].id,
           tags: 'java,javascript',
-          questionImage: '/something'
+          questionImage: ''
         }).then((question) =&gt; {
           request
             .get(`/v1/questions/${question.rows[0].id}`)
@@ -1480,7 +1480,7 @@ describe('Questions', () =&gt; {
               res.body.should.have.property('title').eql('I wannna know');
               res.body.should.have.property('question').eql('I wannna know your name');
               res.body.should.have.property('tags').eql('java,javascript');
-              res.body.should.have.property('questionimage').eql('/something');
+              res.body.should.have.property('questionimage').eql('');
               res.body.should.have.property('answers').eql(res.body.answers);
               done();
             });
@@ -1540,7 +1540,7 @@ describe('Questions', () =&gt; {
             .field('question', 'I just wan no how u dey')
             .field('tags', 'java,javascript')
             .attach('questionImage', './testFile.png')
-            .end((err, res) =&gt; {
+            .end(<span class="missing-if-branch" title="if path not taken" >I</span><span class="branch-2 cbranch-no" title="branch not covered" >async (err, res) =&gt; {</span>
               res.should.have.status(201);
               res.body.should.be.a('object');
               res.body.should.have.property('id').eql(res.body.id);
@@ -1549,9 +1549,12 @@ describe('Questions', () =&gt; {
               res.body.should.have.property('tags').eql('java,javascript');
               res.body.should.have.property('questionimage').eql(res.body.questionimage);
 &nbsp;
-              // delete test image file
-              <span class="missing-if-branch" title="else path not taken" >E</span>if (path.resolve('./testFile.png')) {
-                deleteFile(`./${res.body.questionimage}`);
+              if (res.body.questionimage) {
+                try {
+                  await deleteImageFromStorage(res.body.questionimage);
+                } catch (error) {
+<span class="cstat-no" title="statement not covered" >                  console.error(error);</span>
+                }
               }
               done();
             });
@@ -1711,7 +1714,7 @@ describe('Questions', () =&gt; {
             });
         });
     });
-    it('it should not CREATE a question when user is delete but token exist', (done) =&gt; {
+    it('it should not CREATE a question when user is deleted but token exist', (done) =&gt; {
       request
         .post('/auth/v1/signup')
         .field('title', 'mr')
@@ -1898,7 +1901,7 @@ describe('Questions', () =&gt; {
           });
         });
     });
-    it('it should DELETE a queston given the id', (done) =&gt; {
+    it('it should DELETE a queston and its file given the id', (done) =&gt; {
       request
         .post('/auth/v1/signup')
         .field('title', 'mr')
@@ -1939,7 +1942,7 @@ describe('Questions', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 19 2018 13:36:11 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 03 2019 16:51:38 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

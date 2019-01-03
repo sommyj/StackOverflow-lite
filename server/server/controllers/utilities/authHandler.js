@@ -1,9 +1,6 @@
 /*  eslint import/no-cycle: [2, { maxDepth: 1 }]  */
 import jwt from 'jsonwebtoken';
 import app from '../../../app';
-import fsHelper from '../../../utilities/fileSystem';
-
-const [deleteFile] = [fsHelper.deleteFile];// Delete file helper method
 
 /* Authentication handle method */
 const authMethod = (req) => {
@@ -15,7 +12,6 @@ const authMethod = (req) => {
   // check header or url parameters or post parameters for token
   const token = req.body.token || req.query.token || req.headers['x-access-token'];
   if (!token) {
-    if (req.file) deleteFile(`./${req.file.path}`);
     noTokenProviderError = true;
   }
 
@@ -23,7 +19,6 @@ const authMethod = (req) => {
   jwt.verify(token, app.get('superSecret'), (err, decoded) => {
     if (err) {
       if (!noTokenProviderError) {
-        if (req.file) deleteFile(`./${req.file.path}`);
         failedAuth = true;
       }
     } else decodedID = decoded.id;

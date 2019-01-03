@@ -1,6 +1,6 @@
-import fsHelper from '../../../utilities/fileSystem';
+import imageStorage from './filebaseStorage';
 
-const [deleteFile] = [fsHelper.deleteFile];// Delete file helper method
+const [deleteImageFromStorage] = [imageStorage.deleteImageFromStorage];
 
 // number validation
 const isNumber = n => !Number.isNaN(parseFloat(n));
@@ -8,42 +8,33 @@ const isNumber = n => !Number.isNaN(parseFloat(n));
 const isFloat = n => Number(n) === n && n % 1 !== 0;
 
 const errorHandler = {
-  createHandlerError(error, res, filePath) {
-    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  createHandlerError(error, res, fileName) {
+    if (fileName) deleteImageFromStorage(fileName); // if file uploads delete it
     return res.status(400).send(error);
   },
-  notFoundHandlerError(fieldName, res, filePath) {
-    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  notFoundHandlerError(fieldName, res) {
     return res.status(404).send({ message: `${fieldName} not found` });
   },
-  incompleteFieldHandlerError(res, filePath) {
-    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  incompleteFieldHandlerError(res) {
     return res.status(206).send({ message: 'Incomplete field' });
   },
-  fileTypeHandleError(res) { // file type handleError
-    res.status(403).json({ message: 'Only .png and .jpg files are allowed!', error: true });
+  fileHandleError(res, message) { // file type handleError
+    return res.status(403).json({ message, error: true });
   },
-  fileSizeHandleError(res) { // file size handleError
-    res.status(403).json({ message: 'file should not be more than 2mb!', error: true });
-  },
-  usernameHandlerError(res, filePath) {
-    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  usernameHandlerError(res) {
     return res.status(400).send({ message: 'username already exists' });
   },
-  emailHandlerError(res, filePath) {
-    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  emailHandlerError(res) {
     return res.status(400).send({ message: 'email already exists' });
   },
-  phoneHandlerError(res, filePath) {
-    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  phoneHandlerError(res) {
     return res.status(400).send({ message: 'phone already exists' });
   },
-  questionHandlerError(res, filePath) {
-    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  questionHandlerError(res) {
     return res.status(400).send({ message: 'question already exists' });
   },
-  userNotPrestentHandlerError(res, filePath) {
-    if (filePath) deleteFile(`./${filePath}`); // if file uploads delete it
+  userNotPrestentHandlerError(res, fileName) {
+    if (fileName) deleteImageFromStorage(fileName); // if file uploads delete it
     return res.status(400).send({ message: 'user has been removed from the database' });
   },
   noTokenHandlerError(res) {
