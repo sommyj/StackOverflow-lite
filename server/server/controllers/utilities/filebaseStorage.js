@@ -5,7 +5,7 @@ const env = process.env.NODE_ENV;
 
 const projectId = process.env.PROJECT_ID;
 let key = process.env.KEY;
-key = key.replace(/\\n/g, '\\\n');
+key = key.replace(/\\n/g, '\n');
 let bucketName;
 
 if (env === 'production') {
