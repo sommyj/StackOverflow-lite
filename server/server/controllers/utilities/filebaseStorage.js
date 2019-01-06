@@ -4,8 +4,8 @@ import * as admin from 'firebase-admin';
 const env = process.env.NODE_ENV;
 
 const projectId = process.env.PROJECT_ID;
-const key = process.env.KEY;
-// key = key.replace(/\\n/g, '\n');
+let key = process.env.KEY;
+key = key.replace(/\\n/g, '\\\n');
 let bucketName;
 
 if (env === 'production') {
