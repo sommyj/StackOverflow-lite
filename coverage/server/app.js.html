@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">28.57% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>4/14</span>
+        <span class='fraction'>14/14</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/1</span>
+        <span class='fraction'>1/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">30.77% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>4/13</span>
+        <span class='fraction'>13/13</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -90,32 +90,32 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -127,32 +127,32 @@ import bodyParser from 'body-parser';
 import routes from './server/routes';
 &nbsp;
 // Set up the express app
-const app = <span class="cstat-no" title="statement not covered" >express();</span>
+const app = express();
 &nbsp;
 &nbsp;
 // Log requests to the console.
-<span class="cstat-no" title="statement not covered" >app.use(logger('dev'));</span>
+app.use(logger('dev'));
 &nbsp;
 app.set('superSecret', process.env.SUPER_SECRET); // secret variable
 &nbsp;
 // To display images stored
-<span class="cstat-no" title="statement not covered" >app.use('/usersUploads', express.static('usersUploads'));</span>
-<span class="cstat-no" title="statement not covered" >app.use('/questionsUploads', express.static('questionsUploads'));</span>
-<span class="cstat-no" title="statement not covered" >app.use('/answersUploads', express.static('answersUploads'));</span>
+app.use('/usersUploads', express.static('usersUploads'));
+app.use('/questionsUploads', express.static('questionsUploads'));
+app.use('/answersUploads', express.static('answersUploads'));
 &nbsp;
 app.use('/docs', express.static('apiary.apib')); // access to documents
 &nbsp;
 app.use('/index', express.static('./UI/')); // html pages
 &nbsp;
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
-<span class="cstat-no" title="statement not covered" >app.use(bodyParser.json());</span>
-<span class="cstat-no" title="statement not covered" >app.use(bodyParser.urlencoded({ extended: false }));</span>
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 &nbsp;
 // Require our routes into the application.
-<span class="cstat-no" title="statement not covered" >routes(app);</span>
+routes(app);
 &nbsp;
 // Setup a default catch-all route that sends back a welcome message in JSON format.
-<span class="cstat-no" title="statement not covered" >app.get('*', <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>req, res) =&gt; res.status(200).send({</span></span>
+app.get('*', (req, res) =&gt; res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',
 }));
 &nbsp;
@@ -163,7 +163,7 @@ export default app;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jan 07 2019 00:06:01 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jan 07 2019 00:08:55 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../prettify.js"></script>

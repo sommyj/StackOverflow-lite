@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">5.88% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>1/17</span>
+        <span class='fraction'>17/17</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/3</span>
+        <span class='fraction'>3/3</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">6.25% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>1/16</span>
+        <span class='fraction'>16/16</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -88,31 +88,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">119x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,31 +123,31 @@ const [usersController] = [controllers.usersController];
 const [questionsController] = [controllers.questionsController];
 const [answersController] = [controllers.answersController];
 &nbsp;
-const <span class="fstat-no" title="function not covered" >routes = <span class="cstat-no" title="statement not covered" >(</span>app) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  app.all('/*', <span class="fstat-no" title="function not covered" >(</span>req, res, next) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    res.header('Access-Control-Allow-Origin', '*');</span>
-<span class="cstat-no" title="statement not covered" >    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');</span>
-<span class="cstat-no" title="statement not covered" >    res.header('Access-Control-Allow-Headers',</span>
+const routes = (app) =&gt; {
+  app.all('/*', (req, res, next) =&gt; {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Access-Token');
 &nbsp;
     // Auth Each API Request created by user.
-<span class="cstat-no" title="statement not covered" >    next();</span>
+    next();
   });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  app.get('/api', <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>req, res) =&gt; res.status(200).send({</span></span>
+  app.get('/api', (req, res) =&gt; res.status(200).send({
     message: 'Welcome to the User API!'
   }));
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  app.post('/auth/v1/signup', usersController.upload, usersController.create);</span>
-<span class="cstat-no" title="statement not covered" >  app.post('/auth/v1/login', usersController.check);</span>
+  app.post('/auth/v1/signup', usersController.upload, usersController.create);
+  app.post('/auth/v1/login', usersController.check);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  app.post('/v1/questions', questionsController.upload, questionsController.create);</span>
-<span class="cstat-no" title="statement not covered" >  app.get('/v1/questions', questionsController.list);</span>
-<span class="cstat-no" title="statement not covered" >  app.get('/v1/questions/:questionId', questionsController.retrieve);</span>
-<span class="cstat-no" title="statement not covered" >  app.delete('/v1/questions/:questionId', questionsController.destroy);</span>
+  app.post('/v1/questions', questionsController.upload, questionsController.create);
+  app.get('/v1/questions', questionsController.list);
+  app.get('/v1/questions/:questionId', questionsController.retrieve);
+  app.delete('/v1/questions/:questionId', questionsController.destroy);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  app.post('/v1/questions/:questionId/answers', answersController.upload, answersController.create);</span>
-<span class="cstat-no" title="statement not covered" >  app.put('/v1/questions/:questionId/answers/:answerId', answersController.upload, answersController.update);</span>
+  app.post('/v1/questions/:questionId/answers', answersController.upload, answersController.create);
+  app.put('/v1/questions/:questionId/answers/:answerId', answersController.upload, answersController.update);
 };
 &nbsp;
 export default routes;
@@ -157,7 +157,7 @@ export default routes;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jan 07 2019 00:06:01 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jan 07 2019 00:08:55 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

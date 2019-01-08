@@ -158,7 +158,7 @@ const questionsController = {
           } catch (error) {
             return res.status(400).send(error);
           }
-          question.answers.map(async (answerQues) => {
+          const promises = question.answers.map(async (answerQues) => {
             if (answerQues.answerimage) {
               try {
                 const ansImageResponse = await getImageFromStorage(answerQues.answerimage);
@@ -168,6 +168,7 @@ const questionsController = {
               }
             }
           });
+          await Promise.all(promises);
         }
         return res.status(200).send(question);
       })

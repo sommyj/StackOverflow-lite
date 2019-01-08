@@ -140,6 +140,13 @@ table tr{
   border-bottom: 2px solid #DADADA;
 }
 
+.responseImg {
+  min-width: 320;
+  min-height: 200;
+  max-width: 720;
+  max-height: 348;
+}
+
 .postForm {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -175,6 +182,13 @@ textarea {
 @media only screen and (max-width: 700px) {
   textarea {
     width: 210px;
+  }
+
+  .responseImg {
+    max-width: 270;
+    max-height: 320;
+    min-width: 160;
+    min-height: 160;
   }
 }
 
@@ -225,6 +239,11 @@ textarea {
 .tagsInput {
   border-radius: 3px;
   width: inherit;
+}
+
+.ptb-8 {
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .ptb-6 {

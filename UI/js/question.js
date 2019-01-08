@@ -139,6 +139,7 @@ window.onload = () => {
       questionTitle.innerHTML = question.title;
       questionText.innerHTML = question.question;
       questionTags.innerHTML = question.tags;
+      console.log(question.questionimage);
 
       // Question time format
       questionCreatedDate.innerHTML = time(question.createdat);
@@ -155,6 +156,7 @@ window.onload = () => {
         const acceptRow = createNode('div');
         const responseRow = createNode('div');
         const acceptImg = createNode('img');
+        const responseImg = createNode('img');
 
 
         dateSpan.setAttribute('class', 'floatLeft');
@@ -166,15 +168,9 @@ window.onload = () => {
         acceptCol.setAttribute('class', 'col-2');
         responseCol.setAttribute('class', 'col-10');
         responseRow.setAttribute('class', 'row pt-8');
+        responseImg.setAttribute('class', 'responseImg pt-8');
         acceptRow.setAttribute('class', 'row');
         acceptRow.setAttribute('align', 'center');
-
-        // if (question.user) {
-        //   acceptImg.src = 'img/unticked.png';
-        //   acceptImg.alt = 'not accepted';
-        //   acceptImg.width = '52';
-        //   acceptImg.height = '42';
-        // }
 
 
         if (question.user) {
@@ -193,11 +189,17 @@ window.onload = () => {
           acceptImg.height = '42';
         }
 
+        if (answer.answerimage) {
+          responseImg.src = answer.answerimage;
+          console.log(answer.answerimage);
+        }
+
         // Answer time format
         dateSpan.innerHTML = time(answer.createdat);
         responseRow.innerHTML = answer.response;
 
         append(responseCol, responseRow);
+        append(responseCol, responseImg);
         append(acceptRow, acceptImg);
         append(acceptCol, acceptRow);
         append(answerRow, acceptCol);
