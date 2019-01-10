@@ -139,7 +139,9 @@ window.onload = () => {
       questionTitle.innerHTML = question.title;
       questionText.innerHTML = question.question;
       questionTags.innerHTML = question.tags;
-      console.log(question.questionimage);
+      if(question.questionimage) {
+        document.getElementById('questionImg').src = question.questionimage;
+      }
 
       // Question time format
       questionCreatedDate.innerHTML = time(question.createdat);
@@ -158,7 +160,6 @@ window.onload = () => {
         const acceptImg = createNode('img');
         const responseImg = createNode('img');
 
-
         dateSpan.setAttribute('class', 'floatLeft');
         dateCol.setAttribute('class', 'col-12');
         dateRow.setAttribute('class', 'row responseDetails');
@@ -172,7 +173,6 @@ window.onload = () => {
         acceptRow.setAttribute('class', 'row');
         acceptRow.setAttribute('align', 'center');
 
-
         if (question.user) {
           if (answer.accepted) {
             accepted = true;
@@ -181,7 +181,6 @@ window.onload = () => {
           } else {
             acceptImg.src = 'img/unticked.png';
             acceptImg.alt = 'not accepted';
-          //   acceptImg.addEventListener('click', function() {updateAcceptedAns(answer.id, true)});
           }
 
           acceptImg.addEventListener('click', () => { updateAcceptedAns(answer.id, acceptImg); });
@@ -191,7 +190,6 @@ window.onload = () => {
 
         if (answer.answerimage) {
           responseImg.src = answer.answerimage;
-          console.log(answer.answerimage);
         }
 
         // Answer time format
