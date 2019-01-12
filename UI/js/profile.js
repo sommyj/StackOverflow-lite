@@ -45,7 +45,9 @@ window.onload = () => {
   }
 
   const questionContainer = document.getElementById('recentQuestion');
-  const asked = document.getElementById('questionAsked');
+  const questionsAsked = document.getElementById('questionsAsked');
+  const answersGiven = document.getElementById('answersGiven');
+  const answerCount = 0;
 
   const url = 'https://stackoverflow-lite-1.herokuapp.com/v1/questions?userId=1';
   const headers = new Headers({ 'x-access-token': jwt });
@@ -64,7 +66,7 @@ window.onload = () => {
 
       const [questions] = [data.questions];
 
-      asked.innerHTML = `${questions.length}`;
+      questionsAsked.innerHTML = `${questions.length}`;
       return questions.forEach((question) => {
         const questionLink = createNode('a');
         const spanTitle = createNode('span');
@@ -76,6 +78,9 @@ window.onload = () => {
           sessionStorage.setItem('questionId', question.id);
           window.location = 'question.html';
         };
+
+        answerCount += question.answers.length;
+        console.log(answerCount);
 
         spanTitle.innerHTML = `${question.title}`;
         rowNode.setAttribute('class', 'row');

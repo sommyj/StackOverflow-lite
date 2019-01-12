@@ -116,8 +116,19 @@ const questionsController = {
     } else {
       selectionType = Question.findAll({ order: ['createdat', 'DESC'] });
     }
-    selectionType.then((results) => {
+    selectionType.then(async (results) => {
       const questions = results.rows;
+
+      const promises = questions.map(async (question) => {
+        try {
+          const answer = await Answer.findOne({ where: { questionid: question.id }, order: ['createdat', 'ASC'] });
+          question.answers = answer.rows;
+        } catch (error) {
+          return res.status(400).send(error);
+        }
+      });
+      await Promise.all(promises);
+
       return res.status(200).send({ questions, auth });
     }).catch(error => res.status(400).send(error));
   },

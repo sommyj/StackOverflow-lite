@@ -139,7 +139,7 @@ window.onload = () => {
       questionTitle.innerHTML = question.title;
       questionText.innerHTML = question.question;
       questionTags.innerHTML = question.tags;
-      if(question.questionimage) {
+      if (question.questionimage) {
         document.getElementById('questionImg').src = question.questionimage;
       }
 
