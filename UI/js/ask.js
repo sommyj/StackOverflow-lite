@@ -5,7 +5,6 @@ window.onload = () => {
   const append = (parent, el) => parent.appendChild(el);
 
   const jwt = sessionStorage.getItem('jwt');
-  // const questionId = sessionStorage.getItem('questionId');
 
   const topnav = document.getElementById('topnav');
   const signInLink = document.getElementById('signInLink');
@@ -32,7 +31,6 @@ window.onload = () => {
     append(topnav, signOutLinkSpan);
   } else {
     signInLink.style.display = 'block';
-    // signInLink.setAttribute('id', '#signupLink');
     profileLink.style.display = 'none';
     signOutLink.style.display = 'none';
   }
@@ -69,7 +67,6 @@ window.onload = () => {
           window.location = 'index.html'; // refers user to the index page
         } else {
           document.getElementById('questionError').innerHTML = data2.message;
-          // window.location = 'signup.html';
         }
       }).catch(err => console.log(err));
   };

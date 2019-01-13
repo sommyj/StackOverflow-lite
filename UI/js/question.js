@@ -23,9 +23,7 @@ window.onload = () => {
   };
 
   signOutLink.innerHTML = 'signout';
-  // signOutLink.setAttribute('href', 'signup.html');
   signOutLinkSpan.setAttribute('class', 'floatLeft');
-
   signOutLink.addEventListener('click', signOutMethod);
 
   const userOn = () => {

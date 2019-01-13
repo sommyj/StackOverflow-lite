@@ -33,7 +33,6 @@ window.onload = () => {
 
   const userOff = () => {
     signInLink.style.display = 'block';
-    // signInLink.setAttribute('id', '#signupLink');
     profileLink.style.display = 'none';
     signOutLink.style.display = 'none';
   };
@@ -45,10 +44,10 @@ window.onload = () => {
   }
 
   const questionContainer = document.getElementById('recentQuestion');
+  const ansQuestionContainer = document.getElementById('mostAnswerQuestion');
   const questionsAsked = document.getElementById('questionsAsked');
   const answersGiven = document.getElementById('answersGiven');
   let answerCount = 0;
-  let mostAnsweredQuestions = [];
 
   const url = 'https://stackoverflow-lite-1.herokuapp.com/v1/questions?userId=1';
   const headers = new Headers({ 'x-access-token': jwt });
@@ -68,7 +67,7 @@ window.onload = () => {
       const [questions] = [data.questions];
 
       questionsAsked.innerHTML = questions.length;
-      return questions.forEach((question) => {
+      questions.forEach((question) => {
         const questionLink = createNode('a');
         const spanTitle = createNode('span');
         const colNode = document.createElement('div');
@@ -96,8 +95,36 @@ window.onload = () => {
         append(colNode, questionLink);
         append(rowNode, colNode);
         append(questionContainer, rowNode);
+      });
 
-        mostAnswerQuestion = question
+      // Sort questions according to the most answered
+      questions.sort((a, b) => parseFloat(b.answers.length) - parseFloat(a.answers.length));
+
+      return questions.forEach((question) => {
+        const questionLink = createNode('a');
+        const spanTitle = createNode('span');
+        const colNode = document.createElement('div');
+        const rowNode = document.createElement('div');
+        // Onclick method for question link
+        const questionLinkMethod = () => {
+        // Save data to sessionStorage
+          sessionStorage.setItem('questionId', question.id);
+          window.location = 'question.html';
+        };
+
+        spanTitle.innerHTML = `${question.title}`;
+        rowNode.setAttribute('class', 'row');
+        rowNode.setAttribute('class', 'questionList');
+        colNode.setAttribute('class', 'col-12');
+        colNode.setAttribute('class', 'questionLink');
+        questionLink.setAttribute('href', '#');
+
+        questionLink.addEventListener('click', questionLinkMethod);
+
+        append(questionLink, spanTitle);
+        append(colNode, questionLink);
+        append(rowNode, colNode);
+        append(ansQuestionContainer, rowNode);
       });
     }).catch((error) => {
       console.log(error);

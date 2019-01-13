@@ -33,7 +33,6 @@ window.onload = () => {
 
   const userOff = () => {
     signInLink.style.display = 'block';
-    // signInLink.setAttribute('id', '#signupLink');
     profileLink.style.display = 'none';
     signOutLink.style.display = 'none';
   };
