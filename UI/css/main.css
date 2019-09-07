@@ -97,6 +97,7 @@ h4 {
   padding-left: 6px;
   padding-top: 12px;
   padding-bottom: 12px;
+  margin-top: 12px;
   border-bottom: 2px solid #DADADA;
 }
 
@@ -179,21 +180,8 @@ textarea {
   width: inherit;
 }
 
-@media only screen and (max-width: 700px) {
-  textarea {
-    width: 210px;
-  }
-
-  .responseImg {
-    max-width: 270;
-    max-height: 320;
-    min-width: 160;
-    min-height: 160;
-  }
-}
-
 .form {
-  padding-top: 12px;
+  padding: 12px;
   width: inherit;
 }
 
@@ -238,7 +226,7 @@ textarea {
 
 .tagsInput {
   border-radius: 3px;
-  width: inherit;
+  width: 70%;
 }
 
 .ptb-8 {
@@ -426,4 +414,29 @@ textarea {
     position: relative;
     left: -35px;
     content: "✖";
+  }
+
+  @media only screen and (max-width: 700px) {
+    .col-6 {
+        width: 100%;
+    }
+
+    textarea {
+      width: 210px;
+    }
+
+    .responseImg {
+      max-width: 270;
+      max-height: 320;
+      min-width: 160;
+      min-height: 160;
+    }
+
+    #signUp {
+      margin-right: 0px;
+    }
+
+    #signIn {
+      margin-left: 0px;
+    }
   }

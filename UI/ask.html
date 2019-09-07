@@ -23,17 +23,22 @@
           </div>
           <div class="row">
             <form id="questionForm" method="post">
-							<div class="col-12 postForm">
-	              <input type="text" name="title" placeholder="question title" class="questionTitleField"></textarea>
-	            </div>
+							<div class="row postForm">
+								<div class="col-2">
+									Title:
+								</div>
+								<div class="col-10">
+		              <input type="text" name="title" placeholder="Question title" class="questionTitleField"/>
+		            </div>
+							</div>
 	            <div class="col-12 postForm">
-	              <textarea name="question" rows="8" cols="80" class="questionField"></textarea>
+	              <textarea name="question" placeholder="Type your question" rows="8" cols="80" class="questionField"></textarea>
 	            </div>
-	            <div class="row">
-	              <div class="col-2 postForm">
-	                tags:
+	            <div class="row postForm">
+	              <div class="col-2">
+	                Tags:
 	              </div>
-	              <div class="col-10 postForm">
+	              <div class="col-10">
 	                <input type="text" name="tags" placeholder="java,javascript" class="tagsInput">
 	              </div>
 	            </div>

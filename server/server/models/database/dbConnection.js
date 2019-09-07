@@ -21,7 +21,7 @@ const pool = new Pool({ connectionString });
 
 /*
  *A client connection for postgresql
- *connect method haas to be called in file to be used
+ *connect method has to be called in file to be used
  */
 const client = new Client({ connectionString });
 
