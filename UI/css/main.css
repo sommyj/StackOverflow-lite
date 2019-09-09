@@ -155,13 +155,14 @@ table tr{
 }
 
 .questionTitleField {
-  width: 70%;
+  width: inherit;
   height: 7%;
   border-radius: 5px;
 }
 
 .questionField {
   border-radius: 5px;
+  width: inherit;
 }
 
 .postFormImage {
@@ -226,7 +227,7 @@ textarea {
 
 .tagsInput {
   border-radius: 3px;
-  width: 70%;
+  width: inherit;
 }
 
 .ptb-8 {
