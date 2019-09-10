@@ -6,7 +6,9 @@
 		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 		<meta content="utf-8" http-equiv="encoding">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script type="text/javascript" src="js/ask.js"></script>
+
 	</head>
 	<body>
 
@@ -15,6 +17,9 @@
 		  <a href="profile.html" id="profileLink">profile</a>
 		  <a href="ask.html">Ask Question</a>
 		  <span class="floatLeft"><a href="signup.html" id="signInLink">SignIn</a></span>
+			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+		    <i class="fa fa-bars"></i>
+		  </a>
 		</div>
 
 		<div class="grid container" align="center">
@@ -25,7 +30,7 @@
           </div>
           <div class="col-12">
             <form id="questionForm" method="post">
-							<div class="row postForm">
+							<div class="row ptb-8">
 								<div class="col-2">
 									Title:
 								</div>
@@ -33,10 +38,10 @@
 		              <input type="text" name="title" placeholder="Question title" class="questionTitleField"/>
 		            </div>
 							</div>
-	            <div class="col-12 postForm">
+	            <div class="col-12 ptb-8">
 	              <textarea name="question" placeholder="Type your question" rows="8" cols="80" class="questionField"></textarea>
 	            </div>
-	            <div class="row postForm">
+	            <div class="row ptb-8">
 	              <div class="col-2">
 	                Tags:
 	              </div>
@@ -44,10 +49,10 @@
 	                <input type="text" name="tags" placeholder="java,javascript" class="tagsInput">
 	              </div>
 	            </div>
-	            <div class="col-12 postForm postFormImage">
+	            <div class="col-12 ptb-8 postFormImage">
 	              <input type="file" name="questionImage" accept="image/x-png,image/gif,image/jpeg">
 	            </div>
-	            <div class="col-12 postForm">
+	            <div class="col-12 ptb-8">
 	              <input type="submit" value="Submit Question" class="postBtn">
 	            </div>
 	            </form>

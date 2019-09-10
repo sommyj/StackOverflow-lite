@@ -4,8 +4,9 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 		<meta content="utf-8" http-equiv="encoding">
-		<script type="text/javascript" src="js/profile.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script type="text/javascript" src="js/profile.js"></script>
 		<title>Profile</title>
 	</head>
 	<body>
@@ -15,6 +16,9 @@
 		  <a href="profile.html" id="profileLink">profile</a>
 		  <a href="ask.html">Ask Question</a>
 		  <span class="floatLeft"><a href="signup.html" id="signInLink">SignIn</a></span>
+			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+		    <i class="fa fa-bars"></i>
+		  </a>
 		</div>
 
 		<div class="grid container" align="center">
@@ -22,13 +26,13 @@
           <div class="row title">
             <h2>profile</h2>
           </div>
-          <div class="row pt-6">
-            <div class="col-6">
+          <div class="row">
+            <div class="col-6 pt-6">
               <h3>Questions Asked</h3>
               <br>
               <h4 id="questionsAsked"></h4>
             </div>
-            <div class="col-6">
+            <div class="col-6 pt-6">
               <h3>Answers Given</h3>
               <br>
               <h4 id="answersGiven"></h4>

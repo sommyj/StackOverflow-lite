@@ -177,3 +177,12 @@ window.onload = () => {
     document.getElementById('mismatch_message').style.visibility = 'hidden';
   };
 };
+
+function myFunction() {
+  var x = document.getElementById("topnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
