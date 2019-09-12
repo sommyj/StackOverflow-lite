@@ -139,6 +139,8 @@ window.onload = () => {
       questionTags.innerHTML = question.tags;
       if (question.questionimage) {
         document.getElementById('questionImg').src = question.questionimage;
+      }else {
+        document.getElementById('questionImg').style = 'display: none';
       }
 
       // Question time format
@@ -186,16 +188,17 @@ window.onload = () => {
           acceptImg.height = '42';
         }
 
-        if (answer.answerimage) {
-          responseImg.src = answer.answerimage;
-        }
-
         // Answer time format
         dateSpan.innerHTML = time(answer.createdat);
         responseRow.innerHTML = answer.response;
 
         append(responseCol, responseRow);
-        append(responseCol, responseImg);
+
+        if (answer.answerimage) {
+          responseImg.src = answer.answerimage;
+          append(responseCol, responseImg);
+        }
+        // append(responseCol, responseImg);
         append(acceptRow, acceptImg);
         append(acceptCol, acceptRow);
         append(answerRow, acceptCol);
