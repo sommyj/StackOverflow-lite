@@ -10,7 +10,6 @@ process.env.NODE_ENV = 'test';
 chai.should();
 chai.use(chaiHttp);
 
-
 describe('/GET /*', () => {
   it('it should GET api message', (done) => {
     chai.request(app)

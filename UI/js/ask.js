@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 window.onload = () => {
-  const createNode = element => document.createElement(element);
+  const createNode = (element) => document.createElement(element);
 
   const append = (parent, el) => parent.appendChild(el);
 
@@ -57,18 +57,18 @@ window.onload = () => {
     const fetchData = {
       method: 'POST',
       body: formData,
-      headers: myHeaders
+      headers: myHeaders,
     };
 
     fetch(url, fetchData)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data2) => {
         if (data2.id) {
           window.location = 'index.html'; // refers user to the index page
         } else {
           document.getElementById('questionError').innerHTML = data2.message;
         }
-      }).catch(err => console.log(err));
+      }).catch((err) => console.log(err));
   };
 
   const questionForm = document.getElementById('questionForm');
@@ -77,12 +77,12 @@ window.onload = () => {
   }
 };
 
-
-  function myFunction() {
-    var x = document.getElementById("topnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
-    } else {
-      x.className = "topnav";
-    }
+// eslint-disable-next-line
+function myFunction() {
+  const x = document.getElementById('topnav');
+  if (x.className === 'topnav') {
+    x.className += ' responsive';
+  } else {
+    x.className = 'topnav';
   }
+}

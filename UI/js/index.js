@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 window.onload = () => {
-  const createNode = element => document.createElement(element);
+  const createNode = (element) => document.createElement(element);
 
   const append = (parent, el) => parent.appendChild(el);
 
@@ -50,7 +50,7 @@ window.onload = () => {
   const init = { method: 'GET', headers };
 
   fetch(url, init)
-    .then(resp => resp.json())
+    .then((resp) => resp.json())
     .then((data) => {
       console.log(data);
       if (data.auth === false) {
@@ -95,14 +95,15 @@ window.onload = () => {
         append(questionRow, tagsNode);
         append(questionContainer, questionRow);
       });
-    }).catch(error => console.log(error));
+    }).catch((error) => console.log(error));
 };
 
+// eslint-disable-next-line
 function myFunction() {
-  var x = document.getElementById("topnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+  const x = document.getElementById('topnav');
+  if (x.className === 'topnav') {
+    x.className += ' responsive';
   } else {
-    x.className = "topnav";
+    x.className = 'topnav';
   }
 }

@@ -3,9 +3,9 @@ import imageStorage from './filebaseStorage';
 const [deleteImageFromStorage] = [imageStorage.deleteImageFromStorage];
 
 // number validation
-const isNumber = n => !Number.isNaN(parseFloat(n));
+const isNumber = (n) => !Number.isNaN(parseFloat(n));
 
-const isFloat = n => Number(n) === n && n % 1 !== 0;
+const isFloat = (n) => Number(n) === n && n % 1 !== 0;
 
 const errorHandler = {
   createHandlerError(error, res, fileName) {
@@ -48,7 +48,7 @@ const errorHandler = {
         || req.params.questionId > 1000000000 || isFloat(parseFloat(req.params.questionId))) {
       return true;
     } return false;
-  }
+  },
 };
 
 export default errorHandler;

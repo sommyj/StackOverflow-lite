@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 window.onload = () => {
-  const createNode = element => document.createElement(element);
+  const createNode = (element) => document.createElement(element);
 
   const append = (parent, el) => parent.appendChild(el);
 
@@ -55,7 +55,7 @@ window.onload = () => {
   const request = new Request(url, init);
 
   fetch(request)
-    .then(resp => resp.json())
+    .then((resp) => resp.json())
     .then((data) => {
       console.log(data);
       if (data.auth === false) {
@@ -131,11 +131,12 @@ window.onload = () => {
     });
 };
 
+// eslint-disable-next-line
 function myFunction() {
-  var x = document.getElementById("topnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+  const x = document.getElementById('topnav');
+  if (x.className === 'topnav') {
+    x.className += ' responsive';
   } else {
-    x.className = "topnav";
+    x.className = 'topnav';
   }
 }

@@ -26,7 +26,7 @@ const [failedAuthHandlerError] = [errorHandler.failedAuthHandlerError];
 const [parametersHandlerError] = [errorHandler.parametersHandlerError];
 
 const upload = multer({
-  storage: multer.memoryStorage()
+  storage: multer.memoryStorage(),
 });
 
 const fileSizeLimit = 1024 * 1024 * 2;
@@ -90,7 +90,7 @@ const questionsController = {
             return createHandlerError(error, res, fileName);
           });
       }
-    }).catch(error => createHandlerError(error, res));
+    }).catch((error) => createHandlerError(error, res));
   },
   list(req, res) {
     let decodedID; // Identity gotten from jwt
@@ -130,7 +130,7 @@ const questionsController = {
       await Promise.all(promises);
 
       return res.status(200).send({ questions, auth });
-    }).catch(error => res.status(400).send(error));
+    }).catch((error) => res.status(400).send(error));
   },
   retrieve(req, res) {
     let decodedID; // Identity gotten from jwt
@@ -183,8 +183,8 @@ const questionsController = {
         }
         return res.status(200).send(question);
       })
-        .catch(error => res.status(400).send(error));
-    }).catch(error => res.status(400).send(error));
+        .catch((error) => res.status(400).send(error));
+    }).catch((error) => res.status(400).send(error));
   },
   destroy(req, res) {
     let decodedID;
@@ -217,7 +217,7 @@ const questionsController = {
         }
         return res.status(204).send();
       });
-    }).catch(error => res.status(400).send(error));
+    }).catch((error) => res.status(400).send(error));
   },
 };
 

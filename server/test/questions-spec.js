@@ -46,14 +46,14 @@ describe('Questions', () => {
         gender: 'male',
         country: 'Nigeria',
         phone: '566976498',
-        userImage: ''
+        userImage: '',
       }).then((user) => {
         Question.create({
           title: 'I wannna know',
           question: 'I wannna know your name',
           userId: user.rows[0].id,
           tags: 'java',
-          questionImage: '/something'
+          questionImage: '/something',
         }).then(() => {
           request
             .get('/v1/questions')
@@ -123,14 +123,14 @@ describe('Questions', () => {
         gender: 'male',
         country: 'Nigeria',
         phone: '566976498',
-        userImage: ''
+        userImage: '',
       }).then((user) => {
         Question.create({
           title: 'I wannna know',
           question: 'I wannna know your name',
           userId: user.rows[0].id,
           tags: 'java,javascript',
-          questionImage: '/something'
+          questionImage: '/something',
         }).then(() => {
           request
             .get('/v1/questions/-1')
@@ -154,14 +154,14 @@ describe('Questions', () => {
         gender: 'male',
         country: 'Nigeria',
         phone: '566976498',
-        userImage: ''
+        userImage: '',
       }).then((user) => {
         Question.create({
           title: 'I wannna know',
           question: 'I wannna know your name',
           userId: user.rows[0].id,
           tags: 'java,javascript',
-          questionImage: ''
+          questionImage: '',
         }).then((question) => {
           request
             .get(`/v1/questions/${question.rows[0].id}`)
@@ -570,14 +570,14 @@ describe('Questions', () => {
             gender: 'male',
             country: 'Nigeria',
             phone: '4466976498',
-            userImage: ''
+            userImage: '',
           }).then((user) => {
             Question.create({
               title: 'I wannna know',
               question: 'I wannna know your name',
               userId: user.rows[0].id,
               tags: 'java,javascript',
-              questionImage: 'hhhhjjh'
+              questionImage: 'hhhhjjh',
             }).then((question) => {
               request
                 .delete(`/v1/questions/${question.rows[0].id}`)

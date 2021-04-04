@@ -28,7 +28,7 @@ const Answer = {
     const queryStatement = {
       name: 'fetch-answer',
       text: 'SELECT * FROM answers WHERE id = $1',
-      values: [id]
+      values: [id],
     };
 
     // require our query executor into our model
@@ -41,7 +41,7 @@ const Answer = {
       name: 'fetch-answer',
       text: `SELECT * FROM answers WHERE ${key} = $1
       ORDER BY ${data.order[0]} ${data.order[1]}`,
-      values: [data.where[key]]
+      values: [data.where[key]],
     };
 
     // require our query executor into our model
@@ -62,7 +62,7 @@ const Answer = {
 
     // require our query executor into our model
     return query(queryStatement);
-  }
+  },
 };
 
 export default Answer;

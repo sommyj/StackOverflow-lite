@@ -19,9 +19,9 @@ admin.initializeApp({
   credential: admin.credential.cert({
     project_id: projectId,
     private_key: `-----BEGIN PRIVATE KEY-----\n${key}\n-----END PRIVATE KEY-----\n`,
-    client_email: `firebase-adminsdk-er0j4@${projectId}.iam.gserviceaccount.com`
+    client_email: `firebase-adminsdk-er0j4@${projectId}.iam.gserviceaccount.com`,
   }),
-  storageBucket: bucketName
+  storageBucket: bucketName,
 });
 
 const storage = admin.storage();
@@ -46,8 +46,8 @@ const imageStorage = {
 
       const blobStream = fileUpload.createWriteStream({
         metadata: {
-          contentType: file.mimetype
-        }
+          contentType: file.mimetype,
+        },
       });
 
       blobStream.on('error', (error) => {
@@ -86,10 +86,9 @@ const imageStorage = {
       .catch((err) => {
         console.error('ERROR:', err);
       });
-  }
+  },
 
 };
-
 
 /* eslint-enable no-console */
 export default imageStorage;

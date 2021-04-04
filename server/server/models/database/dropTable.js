@@ -15,9 +15,9 @@ client.connect((err) => {
  * Deletion of User, Question, Answers and Comments Table
  */
 client.query(
-  'DROP TABLE users, questions, answers, comments'
+  'DROP TABLE users, questions, answers, comments',
 )
   .then((result) => { if (result.command === 'DROP') console.log('Tables are dropped'); })
-  .catch(e => console.error(e.stack))
+  .catch((e) => console.error(e.stack))
   .then(() => client.end());
 /* eslint-enable no-console */

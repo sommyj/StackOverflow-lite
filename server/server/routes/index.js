@@ -17,7 +17,7 @@ const routes = (app) => {
   });
 
   app.get('/api', (req, res) => res.status(200).send({
-    message: 'Welcome to the User API!'
+    message: 'Welcome to the User API!',
   }));
 
   app.post('/auth/v1/signup', usersController.upload, usersController.create);

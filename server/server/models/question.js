@@ -17,7 +17,7 @@ const Question = {
     if (!data) {
       queryStatement = { // select all questions
         name: 'fetch-questions',
-        text: 'SELECT * FROM questions'
+        text: 'SELECT * FROM questions',
       };
     } else if (data.where && data.order) {
       const key = Object.keys(data.where)[0];
@@ -26,19 +26,19 @@ const Question = {
         name: 'fetch-questions',
         text: `SELECT * FROM questions WHERE ${key} = $1
         ORDER BY ${data.order[0]} ${data.order[1]}`,
-        values: [data.where[key]]
+        values: [data.where[key]],
       };
     } else if (data.order) {
       queryStatement = { // select all questions ordered by a field
         name: 'fetch-questions',
-        text: `SELECT * FROM questions ORDER BY ${data.order[0]} ${data.order[1]}`
+        text: `SELECT * FROM questions ORDER BY ${data.order[0]} ${data.order[1]}`,
       };
     } else if (data.where) {
       const key = Object.keys(data.where)[0];
       queryStatement = { // select all questions filter by the value of a key
         name: 'fetch-questions',
         text: `SELECT * FROM questions WHERE ${key} = $1`,
-        values: [data.where[key]]
+        values: [data.where[key]],
       };
     }
     // require our query executor into our model
@@ -49,7 +49,7 @@ const Question = {
     const queryStatement = {
       name: 'fetch-question',
       text: 'SELECT * FROM questions WHERE id = $1',
-      values: [id]
+      values: [id],
     };
 
     // require our query executor into our model
@@ -70,7 +70,7 @@ const Question = {
 
     // require our query executor into our model
     return query(queryStatement);
-  }
+  },
 };
 
 export default Question;

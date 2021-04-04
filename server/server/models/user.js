@@ -17,7 +17,7 @@ const User = {
     // select all users
     const queryStatement = {
       name: 'fetch-users',
-      text: 'SELECT * FROM users'
+      text: 'SELECT * FROM users',
     };
 
     // require our query executor into our model
@@ -29,7 +29,7 @@ const User = {
       // give the query a unique username and password
       name: 'fetch-user',
       text: `SELECT * FROM users WHERE ${key} = $1`,
-      values: [data.where[key]]
+      values: [data.where[key]],
     };
 
     // require our query executor into our model
@@ -50,7 +50,7 @@ const User = {
 
     // require our query executor into our model
     return query(queryStatement);
-  }
+  },
 };
 
 export default User;

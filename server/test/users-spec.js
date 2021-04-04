@@ -116,7 +116,6 @@ describe('Users', () => {
         });
     });
 
-
     it('it should not CREATE a user when image file type not jpg/png', (done) => {
       request
         .post('/auth/v1/signup')
@@ -174,7 +173,7 @@ describe('Users', () => {
         gender: 'male',
         country: 'Nigeria',
         phone: '4466976498',
-        userImage: ''
+        userImage: '',
       }).then(() => {
         request
           .post('/auth/v1/signup')
@@ -208,7 +207,7 @@ describe('Users', () => {
         gender: 'male',
         country: 'Nigeria',
         phone: '4466976498',
-        userImage: ''
+        userImage: '',
       }).then(() => {
         request
           .post('/auth/v1/signup')
@@ -242,7 +241,7 @@ describe('Users', () => {
         gender: 'male',
         country: 'Nigeria',
         phone: '669796498',
-        userImage: ''
+        userImage: '',
       }).then(() => {
         request
           .post('/auth/v1/signup')
@@ -276,7 +275,7 @@ describe('Users', () => {
         gender: 'male',
         country: 'Nigeria',
         phone: '566976498',
-        userImage: ''
+        userImage: '',
       }).then(() => {
         request
           .post('/auth/v1/login')

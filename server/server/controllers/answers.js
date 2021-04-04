@@ -23,7 +23,7 @@ const [noTokenHandlerError] = [errorHandler.noTokenHandlerError]; // no token pr
 const [failedAuthHandlerError] = [errorHandler.failedAuthHandlerError];
 
 const upload = multer({
-  storage: multer.memoryStorage()
+  storage: multer.memoryStorage(),
 });
 
 const fileSizeLimit = 1024 * 1024 * 2;
@@ -98,8 +98,8 @@ const answersController = {
             accepted: req.body.accepted || answer.accepted,
             vote: answer.vote,
             answerImage: answer.answerimage,
-          }).then(result3 => res.status(200).send(result3.rows[0]))
-            .catch(error => createHandlerError(error, res));
+          }).then((result3) => res.status(200).send(result3.rows[0]))
+            .catch((error) => createHandlerError(error, res));
         }
         // For updating an answer by the author of the answer
         if (decodedID === answer.userid) {
@@ -137,12 +137,12 @@ const answersController = {
               }
             }
             return res.status(200).send(result4.rows[0]);
-          }).catch(error => createHandlerError(error, res, fileName));
+          }).catch((error) => createHandlerError(error, res, fileName));
         }
         return res.status(403).send({ auth: false, message: 'User not allowed' });
-      }).catch(error => createHandlerError(error, res));
-    }).catch(error => createHandlerError(error, res));
-  }
+      }).catch((error) => createHandlerError(error, res));
+    }).catch((error) => createHandlerError(error, res));
+  },
 };
 
 export default answersController;

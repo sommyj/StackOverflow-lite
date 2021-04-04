@@ -3,12 +3,10 @@ window.onload = () => {
   const profileLink = document.getElementById('profileLink');
   profileLink.style.display = 'none';
 
-
   const postSignUpData = (event) => {
     event.preventDefault();
 
     const url = 'https://stackoverflow-lite-1.herokuapp.com/auth/v1/signup';
-
 
     // The data we are going to send in our request
     const data = {};
@@ -33,11 +31,11 @@ window.onload = () => {
     const fetchData = {
       method: 'POST',
       body: formData,
-      headers: new Headers()
+      headers: new Headers(),
     };
 
     fetch(url, fetchData)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data2) => {
         if (data2.auth) {
         // Save data to sessionStorage
@@ -47,15 +45,13 @@ window.onload = () => {
           document.getElementById('signupError').innerHTML = data2.message;
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
-
 
   const postSignInData = (event) => {
     event.preventDefault();
 
     const url = 'https://stackoverflow-lite-1.herokuapp.com/auth/v1/login';
-
 
     // The data we are going to send in our request
     const data = {};
@@ -68,19 +64,17 @@ window.onload = () => {
     const httpHeaders = { 'Content-Type': 'application/x-www-form-urlencoded' };
     const myHeaders = new Headers(httpHeaders);
 
-
-    const searchParams = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
-
+    const searchParams = Object.keys(data).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
 
     // The parameters we are gonna pass to the fetch function
     const fetchData = {
       method: 'POST',
       body: searchParams,
-      headers: myHeaders
+      headers: myHeaders,
     };
 
     fetch(url, fetchData)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data2) => {
         if (data2.auth) {
         // Save data to sessionStorage
@@ -90,7 +84,7 @@ window.onload = () => {
           document.getElementById('loginError').innerHTML = data2.message;
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   const signUpForm = document.getElementById('signUpForm');
@@ -102,7 +96,6 @@ window.onload = () => {
   if (signInForm) {
     signInForm.addEventListener('submit', postSignInData);
   }
-
 
   const passInput = document.getElementById('password');
   const passInput2 = document.getElementById('password2');
@@ -164,7 +157,6 @@ window.onload = () => {
     }
   };
 
-
   // When the user clicks outside of the second password field
   passInput2.onblur = () => {
     const pass = document.getElementById('password').value;
@@ -178,11 +170,12 @@ window.onload = () => {
   };
 };
 
+// eslint-disable-next-line
 function myFunction() {
-  var x = document.getElementById("topnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+  const x = document.getElementById('topnav');
+  if (x.className === 'topnav') {
+    x.className += ' responsive';
   } else {
-    x.className = "topnav";
+    x.className = 'topnav';
   }
 }

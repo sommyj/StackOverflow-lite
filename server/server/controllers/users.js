@@ -20,7 +20,7 @@ const [emailHandlerError] = [errorHandler.emailHandlerError]; // email handleErr
 const [phoneHandlerError] = [errorHandler.phoneHandlerError]; // phone handleError
 
 const upload = multer({
-  storage: multer.memoryStorage()
+  storage: multer.memoryStorage(),
 });
 
 const fileSizeLimit = 1024 * 1024 * 2;
@@ -29,7 +29,7 @@ const fileSizeLimit = 1024 * 1024 * 2;
 const tokenMethod = (userId) => {
   const token = jwt.sign(
     { id: userId }, app.get('superSecret'),
-    { expiresIn: 86400 }// expires in 24 hours
+    { expiresIn: 86400 }, // expires in 24 hours
   );
   return token;
 };
@@ -81,7 +81,7 @@ const usersController = {
           gender: req.body.gender,
           country: req.body.country,
           phone: req.body.phone,
-          userImage: fileName
+          userImage: fileName,
         };
 
         User.create(data) // pass data to our model
@@ -89,9 +89,9 @@ const usersController = {
             const user = result.rows[0];
             const token = tokenMethod(user.id); // Generate token
             if (token) return res.status(201).send({ user, auth: true, token });
-          }).catch(error => createHandlerError(error, res, fileName));
+          }).catch((error) => createHandlerError(error, res, fileName));
       }
-    }).catch(error => createHandlerError(error, res));
+    }).catch((error) => createHandlerError(error, res));
   },
   check(req, res) { // login with username and password
     // pass data to our model
@@ -106,7 +106,7 @@ const usersController = {
         const token = tokenMethod(user.id); // Generate token
         // Returning user detais
         if (token) return res.status(200).send({ user, auth: true, token });
-      }).catch(e => res.status(400).send(e));
+      }).catch((e) => res.status(400).send(e));
   },
 };
 

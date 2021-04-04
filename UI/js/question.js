@@ -2,7 +2,7 @@
 window.onload = () => {
   let accepted = false; // answer selected indicator value
 
-  const createNode = element => document.createElement(element);
+  const createNode = (element) => document.createElement(element);
 
   const append = (parent, el) => parent.appendChild(el);
 
@@ -80,11 +80,11 @@ window.onload = () => {
     const fetchData = { // The parameters we are gonna pass to the fetch function
       method: 'PUT',
       body: formDataAns,
-      headers: myHeaders
+      headers: myHeaders,
     };
 
     fetch(urlAns, fetchData) // fetch(requestAns)
-      .then(resp => resp.json())
+      .then((resp) => resp.json())
       .then((data) => {
         if (!data.message) {
           console.log(data);
@@ -93,7 +93,7 @@ window.onload = () => {
           window.location = 'question.html'; // refresh the question page
         }
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 
   // Date format structure
@@ -104,7 +104,6 @@ window.onload = () => {
     return `${months[date.getMonth()]} ${date.getDate()}
     ${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
   };
-
 
   // Question & Answer Section
   const questionTitle = document.getElementById('questionTitle');
@@ -123,7 +122,7 @@ window.onload = () => {
   const request = new Request(url, init);
 
   fetch(request)
-    .then(resp => resp.json())
+    .then((resp) => resp.json())
     .then((data) => {
       const question = data;
       const [answers] = [question.answers];
@@ -139,7 +138,7 @@ window.onload = () => {
       questionTags.innerHTML = question.tags;
       if (question.questionimage) {
         document.getElementById('questionImg').src = question.questionimage;
-      }else {
+      } else {
         document.getElementById('questionImg').style = 'display: none';
       }
 
@@ -208,14 +207,13 @@ window.onload = () => {
         append(answerRow, dateRow);
         append(answerContainer, answerRow);
       });
-    }).catch(error => console.log(error));
+    }).catch((error) => console.log(error));
 
   // Post answer section
   const postAnwserData = (event) => {
     event.preventDefault();
 
     const urlAns = `https://stackoverflow-lite-1.herokuapp.com/v1/questions/${questionId}/answers`;
-
 
     // The data we are going to send in our request
     const data = {};
@@ -232,18 +230,18 @@ window.onload = () => {
     const fetchData = {
       method: 'POST',
       body: formData,
-      headers: myHeaders
+      headers: myHeaders,
     };
 
     fetch(urlAns, fetchData)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data2) => {
         if (data2.id) {
           window.location = 'question.html'; // refresh the question page if successful
         } else {
           document.getElementById('answerError').innerHTML = data2.message;
         }
-      }).catch(err => console.log(err));
+      }).catch((err) => console.log(err));
   };
 
   const anwserForm = document.getElementById('anwserForm');
@@ -252,11 +250,12 @@ window.onload = () => {
   }
 };
 
+// eslint-disable-next-line
 function myFunction() {
-  var x = document.getElementById("topnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+  const x = document.getElementById('topnav');
+  if (x.className === 'topnav') {
+    x.className += ' responsive';
   } else {
-    x.className = "topnav";
+    x.className = 'topnav';
   }
 }
